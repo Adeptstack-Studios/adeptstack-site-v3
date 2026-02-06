@@ -1,23 +1,24 @@
-export default function Home() {
-  return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-12 bg-gray-50 text-gray-900">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-5xl font-bold mb-6 text-blue-600">
-            Adeptstack
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Moderne Softwarelösungen. Seriös. Schnell.
-          </p>
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
+import NewsSection from "@/components/NewsSection";
+import AppGrid from "@/components/AppGrid";
+import { getBlogPosts, getApps } from "@/libs/api";
 
-          <div className="flex gap-4 justify-center">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition">
-              App herunterladen
-            </button>
-            <button className="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-100 transition">
-              News lesen
-            </button>
-          </div>
-        </div>
-      </main>
+export default async function Home() {
+  const newsData = getBlogPosts();
+  const appsData = getApps();
+
+  const [news, apps] = await Promise.all([newsData, appsData]);
+  const latestNews = news.slice(0, 3);
+
+  return (
+      <div className="min-h-screen bg-slate-950 font-sans overflow-x-hidden">
+        <Header />
+        <Hero />
+        <NewsSection posts={latestNews} />
+        <AppGrid apps={apps} />
+        <Footer />
+      </div>
   );
 }
