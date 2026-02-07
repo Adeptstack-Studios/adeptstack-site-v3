@@ -64,12 +64,12 @@ async function fetchWithRetry(url: string, retries = 3) {
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
     const baseUrl = getBaseUrl();
-    return await fetchWithRetry(`${baseUrl}/api/posts`);
+    return await fetchWithRetry(`${baseUrl}/api/news/get`);
 }
 
 export async function getPostById(id: string): Promise<BlogPost | undefined> {
     const baseUrl = getBaseUrl();
-    const data = await fetchWithRetry(`${baseUrl}/api/posts/${id}`);
+    const data = await fetchWithRetry(`${baseUrl}/api/news/get/${id}`);
 
     return Array.isArray(data) && data.length === 0 ? undefined : data;
 }
