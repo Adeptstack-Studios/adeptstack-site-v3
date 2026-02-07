@@ -7,6 +7,17 @@ import { getBlogPosts } from "@/libs/api";
 export default async function BlogPage() {
     const posts = await getBlogPosts();
 
+    console.log(`[BlogPage] Gefundene Posts: ${posts?.length}`);
+
+    if (!posts || !Array.isArray(posts)) {
+        console.error("[BlogPage] API hat kein Array zurückgegeben!", posts);
+        return (
+            <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center">
+                <p>Fehler beim Laden der Blog-Einträge.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen bg-slate-950 text-white font-sans">
             <Header />
@@ -21,22 +32,26 @@ export default async function BlogPage() {
             </div>
 
             <main className="max-w-5xl mx-auto px-6 py-16">
-
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {posts.map((post) => (
-                        <NewsCard
-                            key={post.id}
-                            id={post.id}
-                            title={post.title}
-                            description={post.description}
-                            category={post.category}
-                            imageUrl={post.imageUrl}
-                        />
-                    ))}
+                    {posts.map((post, index) => {
+                        if (!post || !post.id) {
+                            console.warn(`[BlogPage] Post an Index ${index} ist fehlerhaft (Keine ID). Überspringe...`, post);
+                            return null;
+                        }
+
+                        return (
+                            <NewsCard
+                                key={post.id}
+                                id={post.id}
+                                title={post.title || "Ohne Titel"}
+                                description={post.description}
+                                category={post.category}
+                                imageUrl={post.imageUrl}
+                            />
+                        );
+                    })}
                 </div>
-
             </main>
-
             <Footer />
         </div>
     );
