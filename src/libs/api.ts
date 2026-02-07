@@ -31,7 +31,12 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const baseUrl = getBaseUrl();
     try {
         const res = await fetch(`${baseUrl}/api/news/get`, {
-            next: { revalidate: 60 }
+            next: { revalidate: 60 },
+            headers: {
+                'User-Agent': 'AdeptstackSite-Vercel/1.0',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
         });
 
         if (!res.ok) {
@@ -49,7 +54,12 @@ export async function getPostById(id: string): Promise<BlogPost | undefined> {
     const baseUrl = getBaseUrl();
     try {
         const res = await fetch(`${baseUrl}/api/news/get/${id}`, {
-            next: { revalidate: 60 }
+            next: { revalidate: 60 },
+            headers: {
+                'User-Agent': 'AdeptstackSite-Vercel/1.0',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
         });
         if (!res.ok) return undefined;
         return await res.json();
