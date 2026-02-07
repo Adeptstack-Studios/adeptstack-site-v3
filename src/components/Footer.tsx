@@ -13,7 +13,7 @@ export default function Footer() {
                         <span className="font-bold text-white">Adeptstack</span>
                     </div>
                     <p className="mb-4">Complexity made simple.</p>
-                    <p>© 2026 Adeptstack Inc.</p>
+                    <p>© 2026 Adeptstack</p>
                 </div>
 
                 <div className="flex flex-col items-center md:space-around">
@@ -30,8 +30,8 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-4 md:text-right">Rechtliches</h4>
                         <ul className="space-y-2 md:text-right">
-                            <li><Link href="#" className="hover:text-blue-400 transition">Impressum</Link></li>
-                            <li><Link href="#" className="hover:text-blue-400 transition">Datenschutz</Link></li>
+                            <li><Link href="#" className="hover:text-blue-400 transition">Imprint</Link></li>
+                            <li><Link href="#" className="hover:text-blue-400 transition">Privacy</Link></li>
                         </ul>
                     </div>
                 </div>
