@@ -57,6 +57,8 @@ async function fetchWithRetry(url: string, retries = 3) {
             await wait(1000);
         }
     }
+    console.log("[API] Alle Versuche gescheitert. Gebe leeres Array zurück.");
+    return [];
 }
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
