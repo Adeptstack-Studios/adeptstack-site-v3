@@ -19,57 +19,56 @@ export type BlogPost = {
 };
 
 const getBaseUrl = () => {
-    const url = process.env.BACKEND_URL;
-    if (!url) {
-        console.warn("WARNUNG: BACKEND_URL nicht gesetzt. Nutze localhost.");
-        return "http://localhost:8080";
-    }
-    return url;
+    return process.env.BACKEND_URL || "http://localhost:8080";
 };
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function fetchWithRetry(url: string, retries = 3) {
+    const headers = {
+        'User-Agent': 'Adeptstack-Frontend-Vercel/1.0',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
+
+    for (let i = 0; i < retries; i++) {
+        try {
+            const res = await fetch(url, {
+                next: { revalidate: 60 },
+                headers: headers
+            });
+
+            if (res.ok) {
+                return await res.json();
+            }
+
+            if (res.status === 403 || res.status === 429) {
+                console.warn(`[API] Blockiert (403/429). Versuch ${i + 1} von ${retries}. Warte 1500ms...`);
+                await wait(1500);
+                continue;
+            }
+
+            console.error(`[API ERROR] Status: ${res.status}`);
+            return [];
+
+        } catch (error) {
+            console.error(`[API NETWORK ERROR] Versuch ${i + 1} gescheitert:`, error);
+            if (i === retries - 1) return []; // Beim letzten Versuch aufgeben
+            await wait(1000);
+        }
+    }
+}
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
     const baseUrl = getBaseUrl();
-    try {
-        const res = await fetch(`${baseUrl}/api/news/get`, {
-            next: {
-                revalidate: 60,
-                tags: ['posts']
-            },
-            headers: {
-                'User-Agent': 'Adeptstack-Backend-Fetcher',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!res.ok) {
-            console.error(`API Error: ${res.status} ${res.statusText}`);
-            return [];
-        }
-        return await res.json();
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        return [];
-    }
+    return await fetchWithRetry(`${baseUrl}/api/posts`);
 }
 
 export async function getPostById(id: string): Promise<BlogPost | undefined> {
     const baseUrl = getBaseUrl();
-    try {
-        const res = await fetch(`${baseUrl}/api/news/get/${id}`, {
-            next: { revalidate: 60 },
-            headers: {
-                'User-Agent': 'Adeptstack-Backend-Fetcher',
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!res.ok) return undefined;
-        return await res.json();
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        return undefined;
-    }
+    const data = await fetchWithRetry(`${baseUrl}/api/posts/${id}`);
+
+    return Array.isArray(data) && data.length === 0 ? undefined : data;
 }
 
 export async function getApps(): Promise<AppItem[]> {
