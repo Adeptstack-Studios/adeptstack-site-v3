@@ -31,7 +31,10 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     const baseUrl = getBaseUrl();
     try {
         const res = await fetch(`${baseUrl}/api/news/get`, {
-            next: { revalidate: 60 },
+            next: {
+                revalidate: 60,
+                tags: ['posts']
+            },
             headers: {
                 'User-Agent': 'Adeptstack-Backend-Fetcher',
                 'Accept': 'application/json',
