@@ -26,7 +26,7 @@ const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function fetchWithRetry(url: string, retries = 3) {
     const headers = {
-        'User-Agent': 'Adeptstack-Frontend-Vercel/1.0',
+        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
