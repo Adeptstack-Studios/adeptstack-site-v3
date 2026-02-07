@@ -33,11 +33,9 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         const res = await fetch(`${baseUrl}/api/news/get`, {
             next: { revalidate: 60 },
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Referer': baseUrl,
+                'User-Agent': 'Adeptstack-Backend-Fetcher',
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'Content-Type': 'application/json'
             }
         });
 
@@ -58,11 +56,9 @@ export async function getPostById(id: string): Promise<BlogPost | undefined> {
         const res = await fetch(`${baseUrl}/api/news/get/${id}`, {
             next: { revalidate: 60 },
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Referer': baseUrl,
+                'User-Agent': 'Adeptstack-Backend-Fetcher',
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+                'Content-Type': 'application/json'
             }
         });
         if (!res.ok) return undefined;
