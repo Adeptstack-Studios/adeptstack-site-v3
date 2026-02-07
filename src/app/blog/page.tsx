@@ -1,6 +1,3 @@
-export const dynamic = 'force-static';
-export const revalidate = 600;
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsCard from "@/components/NewsCard";
