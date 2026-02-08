@@ -14,13 +14,13 @@ export default function Header() {
 
                 <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-300">
                     <Link href="/blog" className="hover:text-white transition">Blog</Link>
-                    <Link href="#apps" className="hover:text-white transition">Products</Link>
+                    <Link href="/products" className="hover:text-white transition">Products</Link>
                     <Link href="#" className="hover:text-white transition">Changelogs</Link>
                     <Link href="/about" className="hover:text-white transition">Vision</Link>
                 </nav>
 
-                <Link href="#download" className="px-4 py-2 bg-white text-slate-950 text-sm font-bold rounded-lg hover:bg-slate-200 transition">
-                    Get Started
+                <Link href="/products" className="px-4 py-2 bg-white text-slate-950 text-sm font-bold rounded-lg hover:bg-slate-200 transition">
+                    Explore
                 </Link>
             </div>
         </header>
