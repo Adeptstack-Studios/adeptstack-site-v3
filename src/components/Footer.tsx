@@ -30,8 +30,8 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-4 md:text-right">Rechtliches</h4>
                         <ul className="space-y-2 md:text-right">
-                            <li><Link href="#" className="hover:text-blue-400 transition">Imprint</Link></li>
-                            <li><Link href="#" className="hover:text-blue-400 transition">Privacy</Link></li>
+                            <li><Link href="/imprint" className="hover:text-blue-400 transition">Imprint</Link></li>
+                            <li><Link href="/privacy" className="hover:text-blue-400 transition">Privacy</Link></li>
                         </ul>
                     </div>
                 </div>

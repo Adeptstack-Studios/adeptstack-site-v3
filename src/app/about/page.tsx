@@ -68,7 +68,7 @@ export default function AboutPage() {
                         </h2>
                         <p className="text-slate-400 leading-relaxed mb-6">
                             Adeptstack is the product of true independence. Rather than serving investor interests, we have one goal: to build software that we want to use ourselves.
-                            Our experimental beginnings have grown into a professional-standard platform over the years. Our design has matured and our technology has been modernized,
+                            Our experimental beginnings have grown into a professional-standard workflow over the years. Our design has matured and our technology has been modernized,
                             but our driving force remains the same.
                         </p>
                     </div>
