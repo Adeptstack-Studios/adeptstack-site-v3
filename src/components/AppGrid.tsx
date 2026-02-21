@@ -1,5 +1,5 @@
 import AppCard from "./AppCard";
-import {App} from "@/app/Models/app";
+import {App} from "@/Models/app";
 
 type AppGridProps = {
     apps: App[];

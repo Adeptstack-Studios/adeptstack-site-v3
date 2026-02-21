@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NewsCard from "./NewsCard";
-import {News} from "@/app/Models/news";
+import {News} from "@/Models/news";
 
 type NewsSectionProps = {
     posts: News[];

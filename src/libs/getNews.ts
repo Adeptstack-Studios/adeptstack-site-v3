@@ -1,4 +1,4 @@
-import {News} from "@/app/Models/news";
+import {News} from "@/Models/news";
 import {fetchWithRetry, getBaseUrl} from "@/libs/utils";
 
 export async function getBlogPosts(): Promise<News[]> {

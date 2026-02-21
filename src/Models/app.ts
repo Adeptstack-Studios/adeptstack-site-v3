@@ -1,4 +1,4 @@
-import {Changelog} from "@/app/Models/changelog";
+import {Changelog} from "@/Models/changelog";
 
 export interface App {
     id?: number;

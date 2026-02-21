@@ -1,5 +1,5 @@
 import {fetchWithRetry, getBaseUrl} from "@/libs/utils";
-import {App} from "@/app/Models/app";
+import {App} from "@/Models/app";
 
 export async function getApps(): Promise<App[]> {
     const baseUrl = getBaseUrl();

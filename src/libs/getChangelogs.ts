@@ -1,4 +1,4 @@
-import {Changelog} from "@/app/Models/changelog";
+import {Changelog} from "@/Models/changelog";
 import {fetchWithRetry, getBaseUrl} from "@/libs/utils";
 
 export async function getChangelogs(): Promise<Changelog[]> {
