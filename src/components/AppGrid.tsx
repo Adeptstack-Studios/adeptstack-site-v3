@@ -14,7 +14,7 @@ export default function AppGrid({ apps }: AppGridProps) {
                     <p className="text-slate-400">Professional software. Simply designed.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[285px]">
                     {apps.map((app) => (
                         <AppCard
                             key={app.id}
@@ -22,6 +22,10 @@ export default function AppGrid({ apps }: AppGridProps) {
                             slogan={app.slogan}
                             icon={app.iconUrl}
                             highlight={app.highlighted}
+                            legacy={app.legacy}
+                            version={app.latestMainVersion?.version}
+                            channel={app.latestMainVersion?.channel}
+                            downloadUrl={app.latestMainVersion?.appUrl}
                         />
                     ))}
                 </div>
