@@ -1,9 +1,8 @@
-// src/components/AppGrid.tsx
 import AppCard from "./AppCard";
-import {AppItem} from "@/libs/getNews"; // Importieren!
+import {App} from "@/app/Models/app";
 
 type AppGridProps = {
-    apps: AppItem[];
+    apps: App[];
 };
 
 export default function AppGrid({ apps }: AppGridProps) {
@@ -21,9 +20,8 @@ export default function AppGrid({ apps }: AppGridProps) {
                             key={app.id}
                             name={app.name}
                             slogan={app.slogan}
-                            desc={app.desc}
-                            icon={app.icon}
-                            highlight={app.highlight}
+                            icon={app.iconUrl}
+                            highlight={app.highlighted}
                         />
                     ))}
                 </div>
