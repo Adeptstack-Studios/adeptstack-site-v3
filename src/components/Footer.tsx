@@ -20,9 +20,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-4">Products</h4>
                         <ul className="space-y-2">
-                            <li><Link href="#" className="hover:text-blue-400 transition">Notivity</Link></li>
-                            <li><Link href="#" className="hover:text-blue-400 transition">PC-Info</Link></li>
-                            <li><Link href="#" className="hover:text-blue-400 transition">Adeptstack-App</Link></li>
+                            <li><Link href="/products/notivity" className="hover:text-blue-400 transition">Notivity</Link></li>
+                            <li><Link href="/products/pc-info" className="hover:text-blue-400 transition">PC-Info</Link></li>
+                            <li><Link href="/products/adeptstack-app" className="hover:text-blue-400 transition">Adeptstack-App</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -42,9 +42,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold text-white mb-4 md:text-right">Social</h4>
                         <ul className="space-y-2 md:text-right">
-                            <li><Link href="/youtube" className="hover:text-blue-400 transition">Youtube</Link></li>
+                            <li><Link href="https://youtube.com/@Adeptstack" target={"_blank"} className="hover:text-blue-400 transition">Youtube</Link></li>
                             {/*<li><Link href="/instagram" className="hover:text-blue-400 transition">Instagram</Link></li>*/}
-                            <li><Link href="/discord" className="hover:text-blue-400 transition">Discord</Link></li>
+                            <li><Link href="https://discord.gg/PXRZm3XQDb" className="hover:text-blue-400 transition">Discord</Link></li>
                             <li><Link href="https://github.com/adeptstack-studios" className="hover:text-blue-400 transition">Github</Link></li>
                         </ul>
                     </div>

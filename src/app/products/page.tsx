@@ -33,13 +33,13 @@ export default async function ProductsPage() {
 
                 <div className="max-w-6xl mx-auto w-full relative z-10 mb-16 text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase mb-6">
-                        <Layers className="w-3 h-3" /> Unsere Tools
+                        <Layers className="w-3 h-3" /> Software & Platforms
                     </div>
                     <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-                        Software & Plattformen
+                        Our Products
                     </h1>
                     <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
-                        Entdecke unsere entwickelten Anwendungen. Von kleinen System-Tools bis hin zu umfangreichen Plattformen – designed für Performance und Usability.
+                        Discover the applications we have developed. From small system tools to comprehensive platforms – designed for performance and usability.
                     </p>
                 </div>
 
@@ -64,7 +64,7 @@ export default async function ProductsPage() {
                         </div>
                     ) : (
                         <div className="text-center py-20 bg-slate-900/30 border border-slate-800 border-dashed rounded-2xl">
-                            <p className="text-slate-400 text-lg">Keine Apps gefunden. Bitte prüfe die API-Verbindung.</p>
+                            <p className="text-slate-400 text-lg">No apps found.</p>
                         </div>
                     )}
                 </div>

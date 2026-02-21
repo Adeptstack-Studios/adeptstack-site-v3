@@ -55,7 +55,7 @@ export default async function BlogPostPage({params}: Props) {
                     <Link href="/blog"
                           className="inline-flex items-center text-slate-400 hover:text-white mb-8 transition group">
                         <span className="group-hover:-translate-x-1 transition-transform mr-2">←</span>
-                        Zurück zur Übersicht
+                        go back
                     </Link>
 
                     <div className="flex gap-4 items-center mb-6 text-sm">
@@ -78,7 +78,7 @@ export default async function BlogPostPage({params}: Props) {
                                className="object-cover opacity-80"/>
                     </div>
 
-                    <MarkdownRenderer content={post.content || "Kein Inhalt verfügbar."}/>
+                    <MarkdownRenderer content={post.content || "No content available."}/>
 
                 </article>
             </main>

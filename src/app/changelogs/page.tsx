@@ -48,7 +48,7 @@ export default async function ChangelogsPage({searchParams,}: {
                         Changelogs
                     </h1>
                     <p className="text-slate-400 text-lg leading-relaxed max-w-2xl">
-                        Bleib auf dem Laufenden oder stöbere in der Vergangenheit. Hier findest du alle Neuigkeiten, Bugfixes und Verbesserungen zu unseren Software-Produkten.
+                        Stay up to date or browse through the past. Here you will find all the latest news, bug fixes, and improvements to our software products.
                     </p>
                 </div>
 
@@ -64,7 +64,7 @@ export default async function ChangelogsPage({searchParams,}: {
                                     : "bg-slate-900 border border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-white"
                             }`}
                         >
-                            Alle Apps
+                            All Apps
                         </Link>
 
                         {apps.map((appItem) => {
@@ -96,7 +96,7 @@ export default async function ChangelogsPage({searchParams,}: {
                             filteredChangelogs.map((log) => {
                                 const formattedDate = log.publishedAt
                                     ? new Date(log.publishedAt).toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })
-                                    : "Unbekanntes Datum";
+                                    : "Unknown Date";
 
                                 return (
                                     <Link key={log.id} href={`/changelogs/${log.id}`} className="block group bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 hover:bg-slate-900 transition-all">
@@ -131,7 +131,7 @@ export default async function ChangelogsPage({searchParams,}: {
                                                 </p>
 
                                                 <div className="mt-4 flex items-center gap-2 text-blue-500 text-sm font-semibold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
-                                                    Vollständigen Log lesen <ArrowRight className="w-4 h-4" />
+                                                    Read more <ArrowRight className="w-4 h-4" />
                                                 </div>
                                             </div>
 
@@ -141,7 +141,7 @@ export default async function ChangelogsPage({searchParams,}: {
                             })
                         ) : (
                             <div className="text-center py-20 bg-slate-900/30 border border-slate-800 border-dashed rounded-2xl">
-                                <p className="text-slate-400 text-lg">Keine Einträge für diese App gefunden.</p>
+                                <p className="text-slate-400 text-lg">No entries found for this app.</p>
                             </div>
                         )}
                     </div>

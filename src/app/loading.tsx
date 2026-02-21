@@ -24,10 +24,10 @@ export default function GlobalLoading() {
 
                     <div className="text-center space-y-2">
                         <h2 className="text-xl font-bold text-white tracking-wide">
-                            Einen Moment...
+                            Just a Moment...
                         </h2>
                         <p className="text-slate-400 text-sm">
-                            Inhalte werden geladen
+                            Loading content
                         </p>
                     </div>
                 </div>

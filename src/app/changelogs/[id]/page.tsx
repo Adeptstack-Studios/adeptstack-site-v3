@@ -51,7 +51,7 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                 <article className="max-w-3xl mx-auto w-full relative z-10">
                     <Link href="/changelogs" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 font-medium text-sm group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        Zurück zur Übersicht
+                        go back
                     </Link>
 
                     <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -78,18 +78,18 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
 
                     {changelog.imageUrl && (
                         <div className="w-full h-auto mb-12 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
-                            <img src={changelog.imageUrl} alt={`Cover für ${changelog.title}`} className="w-full h-full object-cover"/>
+                            <img src={changelog.imageUrl} alt={`Cover for ${changelog.title}`} className="w-full h-full object-cover"/>
                         </div>
                     )}
 
                     <div className="prose prose-invert prose-slate prose-a:text-blue-400 hover:prose-a:text-blue-300 max-w-none bg-slate-900/30 border border-slate-800/50 rounded-2xl p-8 md:p-10 backdrop-blur-sm">
-                        <MarkdownRenderer content={changelog.content || "Kein Inhalt verfügbar."} />
+                        <MarkdownRenderer content={changelog.content || "No content available."} />
                     </div>
 
                     {changelog.appUrl && (
                         <div className="mt-12 text-center">
                             <a href={changelog.appUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg shadow-white/5">
-                                App öffnen / Download
+                                Download
                                 <ExternalLink className="w-4 h-4" />
                             </a>
                         </div>

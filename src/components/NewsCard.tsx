@@ -11,10 +11,10 @@ type NewsCardProps = {
 
 export default function NewsCard({
                                      id,
-                                     title = "Kein Titel",
-                                     description = "Keine Beschreibung",
+                                     title = "no title",
+                                     description = "no description",
                                      imageUrl = "/logo.svg",
-                                     category = "Allgemein"
+                                     category = "general"
                                  }: NewsCardProps) {
 
     const linkTarget = id ? `/blog/${id}` : "#";
@@ -50,7 +50,7 @@ export default function NewsCard({
                 <div className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-500 group-hover:gap-3 transition-all">
                     <Link href={linkTarget} className="inset-0 absolute z-30">
                     </Link>
-                    <span>Artikel lesen</span>
+                    <span>read more</span>
                     <span>→</span>
                 </div>
             </div>

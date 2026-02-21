@@ -62,8 +62,8 @@ export default async function ProductDetailPage({
                             <div>
                                 <h4 className="text-amber-400 font-bold text-sm mb-1">Legacy Software</h4>
                                 <p className="text-amber-400/80 text-sm leading-relaxed">
-                                    Diese Anwendung wird nicht mehr aktiv weiterentwickelt und erhält nur noch
-                                    sicherheitsrelevante oder eingeschränkte Updates.
+                                    This application is no longer actively developed and only receives
+                                    security-related or limited updates.
                                 </p>
                             </div>
                         </div>
@@ -136,7 +136,7 @@ export default async function ProductDetailPage({
                                 ) : (
                                     <button disabled
                                             className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-800 text-slate-500 font-bold rounded-xl cursor-not-allowed">
-                                        <Download className="w-5 h-5"/> Nicht verfügbar
+                                        <Download className="w-5 h-5"/> Not available
                                     </button>
                                 )}
 

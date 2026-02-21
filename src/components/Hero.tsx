@@ -41,14 +41,16 @@ export default function Hero() {
                     </h1>
 
                     <p className="text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
-                        Software muss nicht kompliziert sein, um mächtig zu sein.
-                        Wir geben dir die Werkzeuge für morgen.
+                        Software doesn&#39;t have to be complicated to be powerful.
+                        We give you the tools for tomorrow.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-5">
-                        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 hover:-translate-y-1">
-                            Apps entdecken
-                        </button>
+                        <a href={"/products"}>
+                            <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 hover:-translate-y-1">
+                                Discover apps
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div className="hidden lg:block"></div>

@@ -21,7 +21,7 @@ export default function GlobalError({
     reset: () => void;
 }) {
     useEffect(() => {
-        console.error("Ein kritischer Fehler ist aufgetreten:", error);
+        console.error("A critical error has occurred:", error);
     }, [error]);
 
     return (
@@ -42,11 +42,11 @@ export default function GlobalError({
                             </div>
 
                             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-                                Verbindung fehlgeschlagen.
+                                Connection failed.
                             </h1>
 
                             <p className="text-slate-400 text-lg leading-relaxed max-w-lg mb-10">
-                                Unsere Systeme können aktuell nicht erreicht werden. Möglicherweise wird gerade ein Update durchgeführt oder das Backend ist offline.
+                                Our systems are currently unavailable. An update may be in progress, or the backend may be offline.
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
@@ -55,7 +55,7 @@ export default function GlobalError({
                                     className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg shadow-white/5 w-full sm:w-auto"
                                 >
                                     <RefreshCcw className="w-4 h-4" />
-                                    Erneut versuchen
+                                    Try again
                                 </button>
 
                                 <Link
@@ -63,7 +63,7 @@ export default function GlobalError({
                                     className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-700 transition-colors border border-slate-700 w-full sm:w-auto"
                                 >
                                     <Home className="w-4 h-4" />
-                                    Zur Startseite
+                                    Homepage
                                 </Link>
                             </div>
                         </div>
