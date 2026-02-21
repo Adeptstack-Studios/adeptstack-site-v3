@@ -30,7 +30,7 @@ export default function Hero() {
             <div className="relative z-20 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2">
                 <div className="text-left">
                     <div className="inline-block mb-6 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-900/10 backdrop-blur-md text-sm font-medium text-blue-300">
-                        🚀 Version 3.0 ist da
+                        👀 soon™
                     </div>
 
                     <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-8 leading-[1.1] text-white">
@@ -42,13 +42,13 @@ export default function Hero() {
 
                     <p className="text-xl text-slate-400 mb-10 max-w-lg leading-relaxed">
                         Software doesn&#39;t have to be complicated to be powerful.
-                        We give you the tools for tomorrow.
+                        We offer tools that are easy to use and powerful.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-5">
                         <a href={"/products"}>
                             <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 hover:-translate-y-1">
-                                Discover apps
+                                Discover
                             </button>
                         </a>
                     </div>
