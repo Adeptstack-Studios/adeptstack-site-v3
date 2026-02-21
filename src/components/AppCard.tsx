@@ -46,7 +46,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
 
                 <div className="flex flex-col gap-2 items-end">
                     {legacy && (
-                        <span className="px-3 py-1 rounded-md bg-slate-800/80 text-slate-400 text-xs font-bold uppercase tracking-wider border border-slate-700 backdrop-blur-sm">
+                        <span title="Diese App erhält nur noch eingeschränkte Updates." className="cursor-help px-3 py-1 rounded-md bg-slate-800/80 text-slate-400 text-xs font-bold uppercase tracking-wider border border-slate-700 backdrop-blur-sm">
                             Legacy
                         </span>
                     )}

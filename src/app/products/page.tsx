@@ -1,20 +1,66 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AppCard from "@/components/AppCard";
+import { Layers } from "lucide-react";
+import { getApps } from "@/libs/getApps";
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+    const rawApps = await getApps();
+
+    const sortedApps = [...rawApps].sort((a, b) => {
+        if (a.highlighted && !b.highlighted) return -1;
+        if (!a.highlighted && b.highlighted) return 1;
+
+        if (a.legacy && !b.legacy) return 1;
+        if (!a.legacy && b.legacy) return -1;
+
+        return 0;
+    });
+
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-200 font-sans">
+        <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
-            <main className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
-                <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">
-                    Software & Tools
-                </h1>
-                <p className="text-slate-400 text-lg max-w-2xl mb-8">
-                    Wir arbeiten gerade an der Anbindung unserer Datenbank.
-                    Bald findest du hier alle Adeptstack-Apps (PC-Info, Notivity uvm.) zum direkten Download.
-                </p>
-                <div className="inline-block px-4 py-2 border border-slate-800 rounded-lg bg-slate-900/50 text-slate-500 font-mono text-sm">
-                    Status: Backend Integration in progress... ⚙️
+
+            <main className="flex-grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+                <div className="max-w-6xl mx-auto w-full relative z-10 mb-16 text-center">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase mb-6">
+                        <Layers className="w-3 h-3" /> Unsere Tools
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+                        Software & Plattformen
+                    </h1>
+                    <p className="text-slate-400 text-lg leading-relaxed max-w-2xl mx-auto">
+                        Entdecke unsere entwickelten Anwendungen. Von kleinen System-Tools bis hin zu umfangreichen Plattformen – designed für Performance und Usability.
+                    </p>
+                </div>
+
+                <div className="max-w-6xl mx-auto w-full relative z-10">
+                    {sortedApps.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {sortedApps.map((app) => (
+                                <AppCard
+                                    key={app.id}
+                                    name={app.name}
+                                    slogan={app.slogan}
+                                    slug={app.slug}
+                                    icon={app.iconUrl}
+                                    highlight={app.highlighted}
+                                    legacy={app.legacy}
+
+                                    version={app.latestMainVersion?.version}
+                                    channel={app.latestMainVersion?.channel}
+                                    downloadUrl={app.latestMainVersion?.appUrl}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-20 bg-slate-900/30 border border-slate-800 border-dashed rounded-2xl">
+                            <p className="text-slate-400 text-lg">Keine Apps gefunden. Bitte prüfe die API-Verbindung.</p>
+                        </div>
+                    )}
                 </div>
             </main>
             <Footer />
