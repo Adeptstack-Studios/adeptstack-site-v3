@@ -12,10 +12,8 @@ export default function ImprintPage() {
     return (
         <div className="min-h-screen bg-slate-950 text-slate-300 font-sans selection:bg-blue-500/30">
             <Header />
-
             <main className="pt-32 pb-20 px-6 md:px-12 max-w-4xl mx-auto">
 
-                {/* Header */}
                 <div className="mb-12 border-b border-slate-800 pb-8">
                     <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                         Impressum
@@ -25,32 +23,45 @@ export default function ImprintPage() {
                     </p>
                 </div>
 
-                {/* Scope Notice (Dein englischer Satz) */}
                 <div className="bg-slate-900/50 border border-blue-500/20 rounded-lg p-4 mb-10 text-sm text-blue-300 flex items-center gap-3">
                     <span className="text-xl">ℹ️</span>
                     <p>This policy applies to any software and web pages of <strong>Adeptstack</strong>.</p>
                 </div>
 
                 <div className="space-y-12">
-
-                    {/* KONTAKT & ANGABEN */}
                     <section className="bg-slate-900/30 p-8 rounded-2xl border border-slate-800/50">
-                        <h2 className="text-xl font-bold text-white mb-4">Angaben gemäß § 5 TMG</h2>
-                        <div className="space-y-2 text-slate-300">
-                            <p className="font-semibold text-white">Adeptstack</p>
-                            <p>Vertreten durch: <span className="text-white">ProgrammerLP</span></p>
+                        <h2 className="text-xl font-bold text-white mb-6">Angaben gemäß § 5 TMG</h2>
 
-                            {/* PLATZHALTER FÜR ANSCHRIFT (Rechtlich empfohlen!) */}
-                            {/* <p>Musterstraße 1<br />12345 Musterstadt</p> */}
-                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
 
-                        <div className="mt-6 pt-6 border-t border-slate-800">
-                            <h3 className="text-lg font-bold text-white mb-2">Kontakt</h3>
-                            <p>E-Mail: <a href="mailto:info@adeptstack.net" className="text-blue-400 hover:text-blue-300 transition-colors">info@adeptstack.net</a></p>
+                            <div className="space-y-2">
+                                <p className="font-semibold text-white">Adeptstack</p>
+                                <p>[Dein Vorname] [Dein Nachname]</p>
+                                <p>[Deine Straße] [Hausnummer]</p>
+                                <p>[PLZ] [Dein Wohnort]</p>
+                            </div>
+
+                            <div className="space-y-2">
+                                <h3 className="font-semibold text-white mb-1">Kontakt</h3>
+                                <p>E-Mail: <a href="mailto:info@adeptstack.net" className="text-blue-400 hover:text-blue-300 transition-colors">info@adeptstack.net</a></p>
+
+                                <div className="mt-4 pt-4 border-t border-slate-800/50">
+                                    <h3 className="font-semibold text-white mb-1">Umsatzsteuer-ID</h3>
+                                    <p className="text-sm">Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>
+                                        <span className="text-white">DE [Deine USt-IdNr.]</span></p>
+                                </div>
+                            </div>
+
                         </div>
                     </section>
 
-                    {/* HAFTUNG FÜR INHALTE */}
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-4">Verbraucher&shy;streit&shy;beilegung</h2>
+                        <p className="leading-relaxed">
+                            Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
+                        </p>
+                    </section>
+
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">Haftung für Inhalte</h2>
                         <p className="leading-relaxed mb-4">
@@ -69,7 +80,6 @@ export default function ImprintPage() {
                         </p>
                     </section>
 
-                    {/* HAFTUNG FÜR LINKS */}
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">Haftung für Links</h2>
                         <p className="leading-relaxed mb-4">
@@ -85,7 +95,6 @@ export default function ImprintPage() {
                         </p>
                     </section>
 
-                    {/* URHEBERRECHT */}
                     <section>
                         <h2 className="text-2xl font-bold text-white mb-4">Urheberrecht</h2>
                         <p className="leading-relaxed mb-4">
@@ -103,14 +112,11 @@ export default function ImprintPage() {
                             Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.
                         </p>
                     </section>
-
                 </div>
 
-                {/* Quellenangabe klein und grau */}
                 <div className="mt-20 pt-8 border-t border-slate-900 text-center text-xs text-slate-600">
                     <p>Website Impressum erstellt durch Impressum von der Kanzlei Hasselbach</p>
                 </div>
-
             </main>
 
             <Footer />
