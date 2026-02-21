@@ -168,7 +168,7 @@ export default async function ProductDetailPage({
                                 <div
                                     className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
                                     <img src={app.image1Url} alt={`Screenshot 1 von ${app.name}`}
-                                         className="w-full h-full object-cover"/>
+                                         className="w-full h-full"/>
                                 </div>
                             )}
                             {app.feature1Desc && (
@@ -188,7 +188,7 @@ export default async function ProductDetailPage({
                                 <div
                                     className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
                                     <img src={app.image2Url} alt={`Screenshot 2 von ${app.name}`}
-                                         className="w-full h-full object-cover"/>
+                                         className="w-full h-full"/>
                                 </div>
                             )}
                             {app.feature2Desc && (
@@ -208,7 +208,7 @@ export default async function ProductDetailPage({
                                 <div
                                     className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
                                     <img src={app.image3Url} alt={`Screenshot 3 von ${app.name}`}
-                                         className="w-full h-full object-cover"/>
+                                         className="w-full h-full"/>
                                 </div>
                             )}
                             {app.feature3Desc && (
