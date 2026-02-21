@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Home, Github, SearchX } from "lucide-react";
+import { Home, SearchX } from "lucide-react";
 
 export default function NotFound() {
     return (

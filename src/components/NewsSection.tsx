@@ -1,10 +1,10 @@
 // src/components/NewsSection.tsx
 import Link from "next/link";
 import NewsCard from "./NewsCard";
-import { BlogPost } from "@/libs/api"; // Typ importieren
+import { News } from "@/libs/getNews"; // Typ importieren
 
 type NewsSectionProps = {
-    posts: BlogPost[]; // Hier nutzen wir jetzt deinen Typen
+    posts: News[]; // Hier nutzen wir jetzt deinen Typen
 };
 
 export default function NewsSection({ posts }: NewsSectionProps) {

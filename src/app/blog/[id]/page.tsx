@@ -1,9 +1,8 @@
-// src/app/blog/[id]/page.tsx
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
-import { getPostById } from "@/libs/api";
+import { getPostById } from "@/libs/getNews";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,9 +18,8 @@ export default async function BlogPostPage({ params }: Props) {
         notFound();
     }
 
-    // Datum schön formatieren (z.B. 27.01.2026)
     const formattedDate = post.publishedAt
-        ? new Date(post.publishedAt).toLocaleDateString("de-DE", { day: '2-digit', month: 'long', year: 'numeric' })
+        ? new Date(post.publishedAt).toLocaleDateString("en-EN", { day: '2-digit', month: 'long', year: 'numeric' })
         : "";
 
     return (
@@ -49,13 +47,7 @@ export default async function BlogPostPage({ params }: Props) {
                     </h1>
 
                     <div className="relative w-full h-[400px] mb-12 rounded-2xl overflow-hidden border border-white/10 bg-slate-900">
-                        {/* Fallback Bild, falls imageUrl fehlt */}
-                        <Image
-                            src={post.imageUrl || "/logo.svg"}
-                            alt={post.title || "Blog Post"}
-                            fill
-                            className="object-cover opacity-80"
-                        />
+                        <Image src={post.imageUrl || "/logo.svg"} alt={post.title || "Blog Post"} fill className="object-cover opacity-80"/>
                     </div>
 
                     <MarkdownRenderer content={post.content || "Kein Inhalt verfügbar."} />

@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsCard from "@/components/NewsCard";
-import { getBlogPosts } from "@/libs/api";
+import { getBlogPosts } from "@/libs/getNews";
 
 export default async function BlogPage() {
     const posts = await getBlogPosts();

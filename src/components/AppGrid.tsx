@@ -1,6 +1,6 @@
 // src/components/AppGrid.tsx
 import AppCard from "./AppCard";
-import {AppItem} from "@/libs/api"; // Importieren!
+import {AppItem} from "@/libs/getNews"; // Importieren!
 
 type AppGridProps = {
     apps: AppItem[];

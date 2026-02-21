@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import NewsSection from "@/components/NewsSection";
 import AppGrid from "@/components/AppGrid";
-import { getBlogPosts, getApps } from "@/libs/api";
+import {getBlogPosts} from "@/libs/getNews";
+import {getApps} from "@/libs/getApps";
 
 export default async function Home() {
   const newsData = getBlogPosts();
