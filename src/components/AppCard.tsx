@@ -1,8 +1,10 @@
 import React from 'react';
+import Link from "next/link";
 
 type AppCardProps = {
     name?: string;
     slogan?: string;
+    slug?: string;
     icon?: string;
     highlight?: boolean;
     legacy?: boolean;
@@ -11,16 +13,8 @@ type AppCardProps = {
     channel?: string;
 };
 
-function AppCard({
-                     name,
-                     slogan,
-                     icon,
-                     highlight = false,
-                     legacy = false,
-                     downloadUrl,
-                     version,
-                     channel
-                 }: AppCardProps) {
+function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, downloadUrl, version, channel
+}: AppCardProps) {
     return (
         <div
             className={`
@@ -117,9 +111,11 @@ function AppCard({
                         </button>
                     )}
 
-                        <button className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm hover:text-white hover:bg-white/5 transition-colors">
-                            Details
-                        </button>
+                        <a href={"/products/"+slug}>
+                            <button className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm hover:text-white hover:bg-white/5 transition-colors">
+                                Details
+                            </button>
+                        </a>
                 </div>
             </div>
         </div>

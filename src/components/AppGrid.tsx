@@ -20,6 +20,7 @@ export default function AppGrid({ apps }: AppGridProps) {
                             key={app.id}
                             name={app.name}
                             slogan={app.slogan}
+                            slug={app.slug}
                             icon={app.iconUrl}
                             highlight={app.highlighted}
                             legacy={app.legacy}
