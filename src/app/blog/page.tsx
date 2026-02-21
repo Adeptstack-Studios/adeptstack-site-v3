@@ -27,7 +27,7 @@ export default async function BlogPage() {
         <div className="min-h-screen bg-slate-950 text-white font-sans">
             <Header />
 
-            <div className="pt-32 pb-12 px-6 bg-gradient-to-b from-slate-900 to-slate-950 border-b border-white/5">
+            <div className="pt-32 pb-12 px-6 bg-linear-to-b from-slate-900 to-slate-950 border-b border-white/5">
                 <div className="max-w-5xl mx-auto text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">Unser Blog</h1>
                     <p className="text-slate-400 max-w-2xl mx-auto">

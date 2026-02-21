@@ -15,11 +15,11 @@ export default function NotFound() {
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
 
-            <main className="flex-grow flex items-center justify-center p-4 relative overflow-hidden">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <main className="grow flex items-center justify-center p-4 relative overflow-hidden">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
                 <div className="relative z-10 max-w-2xl w-full">
                     <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-12 backdrop-blur-sm relative overflow-hidden text-center shadow-2xl">
-                        <SearchX className="absolute right-[-20px] bottom-[-40px] w-64 h-64 text-slate-800/20 pointer-events-none rotate-12" />
+                        <SearchX className="absolute -right-5 -bottom-10 w-64 h-64 text-slate-800/20 pointer-events-none rotate-12" />
 
                         <div className="relative z-10 flex flex-col items-center">
 
