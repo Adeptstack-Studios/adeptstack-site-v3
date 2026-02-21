@@ -1,11 +1,10 @@
-// src/app/about/page.tsx
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Über Adeptstack | Vision & Geschichte",
-    description: "Unsere Mission und der Weg vom Hobby-Coder zur Software-Marke.",
+    title: "About Adeptstack | Vision & History",
+    description: "Our mission and history",
 };
 
 export default function AboutPage() {
@@ -14,16 +13,12 @@ export default function AboutPage() {
             <Header />
 
             <main className="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto">
-
-                {/* =========================================
-            TEIL 1: MISSION & VISION
-           ========================================= */}
                 <section className="mb-32">
                     <div className="text-center mb-16">
                         <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-emerald-400 uppercase bg-emerald-500/10 rounded-full">
                             Our Mission
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400 mb-6 py-2">
+                        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-linear-to-r from-emerald-400 to-cyan-400 mb-6 py-2">
                             Complexity made simple!
                         </h1>
                         <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
@@ -32,7 +27,6 @@ export default function AboutPage() {
                         </p>
                     </div>
 
-                    {/* Core Values Grid */}
                     <div className="grid md:grid-cols-3 gap-8">
                         <ValueCard
                             title="Simplicity"
@@ -51,13 +45,8 @@ export default function AboutPage() {
                         />
                     </div>
                 </section>
+                <div className="w-full h-px bg-linear-to-r from-transparent via-slate-800 to-transparent my-32"></div>
 
-                {/* Visueller Trenner */}
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent my-32"></div>
-
-                {/* =========================================
-            TEIL 2: OUR STORY (Der Zeitstrahl)
-           ========================================= */}
                 <section className="grid md:grid-cols-2 gap-16 items-start mb-32">
                     <div className="sticky top-32">
                         <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-blue-400 uppercase bg-blue-500/10 rounded-full">
@@ -73,23 +62,19 @@ export default function AboutPage() {
                         </p>
                     </div>
 
-                    {/* Timeline Visual */}
                     <div className="relative border-l-2 border-slate-800 ml-3 space-y-16 pl-8 py-2">
-
-                        {/* Phase 1: ProgrammerLP (Hier entstanden die Apps) */}
                         <div className="relative group">
-                            <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-slate-500 transition-colors"></span>
+                            <span className="absolute -left-10.25 top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-slate-500 transition-colors"></span>
                             <h3 className="text-xl font-bold text-white">The “ProgrammerLP” era</h3>
                             <span className="text-sm text-slate-500 mb-2 block">The Origin 2021</span>
                             <p className="text-slate-400 text-sm leading-relaxed">
-                                It all began as a hobby project under the alias "ProgrammerLP." It was an intense period of learning and experimentation during which most of today's products were developed,
+                                It all began as a hobby project under the alias &#34;ProgrammerLP.&#34; It was an intense period of learning and experimentation during which most of today&#39;s products were developed,
                                 from <strong>PC-Info</strong> to the first development versions of <strong>Notivity</strong>.
                             </p>
                         </div>
 
-                        {/* Phase 2: Adeptstack Rename */}
                         <div className="relative group">
-                            <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-blue-500 group-hover:scale-110 transition-transform"></span>
+                            <span className="absolute -left-10.25 top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-blue-500 group-hover:scale-110 transition-transform"></span>
                             <h3 className="text-xl font-bold text-white">The Creation of Adeptstack</h3>
                             <span className="text-sm text-blue-400 mb-2 block">June 2023</span>
                             <p className="text-slate-400 text-sm leading-relaxed">
@@ -98,9 +83,8 @@ export default function AboutPage() {
                             </p>
                         </div>
 
-                        {/* Phase 3: Rebranding (Jetzt) */}
                         <div className="relative group">
-                            <span className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-emerald-500 animate-pulse"></span>
+                            <span className="absolute -left-10.25 top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-emerald-500 animate-pulse"></span>
                             <h3 className="text-xl font-bold text-white">Rebranding & Refinement</h3>
                             <span className="text-sm text-emerald-400 mb-2 block">Early 2026</span>
                             <p className="text-slate-400 text-sm leading-relaxed">
@@ -110,10 +94,6 @@ export default function AboutPage() {
 
                     </div>
                 </section>
-
-                {/* =========================================
-            TEIL 3: TECH STACK
-           ========================================= */}
                 <section className="bg-slate-900/30 border border-slate-800/50 rounded-3xl p-8 md:p-12 text-center">
                     <h2 className="text-2xl font-bold text-white mb-4">Our tech stack</h2>
                     <p className="text-slate-400 max-w-2xl mx-auto mb-8 text-sm">
@@ -135,8 +115,6 @@ export default function AboutPage() {
         </div>
     );
 }
-
-// --- Hilfskomponenten ---
 
 function ValueCard({ title, text, icon }: { title: string; text: string; icon: string }) {
     return (

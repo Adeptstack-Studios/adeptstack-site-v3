@@ -3,6 +3,12 @@ import Footer from "@/components/Footer";
 import AppCard from "@/components/AppCard";
 import { Layers } from "lucide-react";
 import { getApps } from "@/libs/getApps";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Products | Adeptstack",
+    description: "All Adeptstack Products",
+};
 
 export default async function ProductsPage() {
     const rawApps = await getApps();
@@ -21,9 +27,9 @@ export default async function ProductsPage() {
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
 
-            <main className="flex-grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+            <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
 
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
                 <div className="max-w-6xl mx-auto w-full relative z-10 mb-16 text-center">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase mb-6">

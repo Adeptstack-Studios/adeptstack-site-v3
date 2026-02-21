@@ -1,11 +1,12 @@
+// noinspection HtmlUnknownAnchorTarget
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Datenschutzerklärung | Adeptstack",
-    description: "Informationen zur Verarbeitung personenbezogener Daten bei Nutzung unserer Website und Apps.",
-    robots: "noindex",
+    title: "Privacy | Adeptstack",
+    description: "Information on the processing of personal data when using our website and apps.",
 };
 
 export default function PrivacyPage() {
@@ -93,6 +94,13 @@ export default function PrivacyPage() {
                             </div>
                         </div>
 
+                        <div className="mt-6 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
+                            <strong className="text-white block mb-1">Datenübermittlung in Drittstaaten (USA)</strong>
+                            Sowohl Vercel als auch Cloudflare verarbeiten Daten zum Teil auf Servern in den USA.
+                            Beide Unternehmen sind nach dem EU-US Data Privacy Framework (DPF) zertifiziert,
+                            wodurch ein der DSGVO angemessenes Datenschutzniveau gewährleistet wird.
+                        </div>
+
                         <p className="mt-6 text-xs text-slate-500">
                             Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Berechtigtes Interesse an Sicherheit, Stabilität und Performance).
                         </p>
@@ -116,7 +124,7 @@ export default function PrivacyPage() {
                                 </p>
                                 <ul className="list-disc list-inside text-slate-400 text-sm mb-4">
                                     <li>Dass die App im aktuellen Monat geöffnet wurde (Ja/Nein).</li>
-                                    <li>Den Namen der genutzten App (z.B. "Notivity").</li>
+                                    <li>Den Namen der genutzten App (z.B. &#34;Notivity&#34;).</li>
                                 </ul>
                                 <p className="text-sm leading-relaxed">
                                     <strong>Wir erstellen keine Nutzerprofile.</strong> Diese Daten dienen rein statistischen Zwecken,
@@ -143,6 +151,17 @@ export default function PrivacyPage() {
                             Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten
                             (Name, Anfrage, E-Mail) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert.
                             Wir geben diese Daten nicht ohne Ihre Einwilligung weiter.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">6</span>
+                            Cookies & Tracking
+                        </h2>
+                        <p className="text-sm leading-relaxed mb-4">
+                            <strong>Wir hassen nervige Cookie-Banner genauso wie Sie.</strong> Deshalb verzichten wir auf dieser Website komplett auf Analyse- oder Tracking-Cookies (wie z.B. Google Analytics) sowie auf Werbe-Tracker.
+                            Sollten temporäre Cookies oder lokaler Speicher (Local Storage) zum Einsatz kommen, dienen diese ausschließlich der technischen Bereitstellung der Seite (z.B. Cloudflare Bot-Schutz oder das Speichern von UI-Einstellungen wie dem Dark-Mode).
                         </p>
                     </section>
 
@@ -177,7 +196,7 @@ export default function PrivacyPage() {
 
 
                 <div id="english-version" className="my-24 border-t border-slate-800 relative mt-12">
-                  <span className="absolute top-[-12px] left-1/2 -translate-x-1/2 bg-slate-950 px-4 text-slate-500 text-sm tracking-widest uppercase">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-slate-950 px-4 text-slate-500 text-sm tracking-widest uppercase">
                     English Version
                   </span>
                 </div>
@@ -251,6 +270,13 @@ export default function PrivacyPage() {
                             </div>
                         </div>
 
+                        <div className="mt-6 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
+                            <strong className="text-white block mb-1">Data Transfer to Third Countries (USA)</strong>
+                            Both Vercel and Cloudflare process data partially on servers in the US.
+                            Both companies are certified under the EU-US Data Privacy Framework (DPF),
+                            ensuring a level of data protection compliant with the GDPR.
+                        </div>
+
                         <p className="mt-6 text-xs text-slate-500">
                             Legal basis: Art. 6 (1) lit. f GDPR (Legitimate interest in security, stability, and performance).
                         </p>
@@ -274,7 +300,7 @@ export default function PrivacyPage() {
                                 </p>
                                 <ul className="list-disc list-inside text-slate-400 text-sm mb-4">
                                     <li>That the app was opened in the current month (Yes/No).</li>
-                                    <li>The name of the app used (e.g., "Notivity").</li>
+                                    <li>The name of the app used (e.g., &#34;Notivity&#34;).</li>
                                 </ul>
                                 <p className="text-sm leading-relaxed">
                                     <strong>We do not create user profiles.</strong> These data are strictly for statistical purposes
@@ -301,6 +327,17 @@ export default function PrivacyPage() {
                             If you contact us via email, your inquiry, including all personal data provided
                             (name, request, email), will be stored by us for the purpose of processing your request.
                             We do not pass on this data without your consent.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">6</span>
+                            Cookies & Tracking
+                        </h3>
+                        <p className="text-sm leading-relaxed mb-4">
+                            <strong>We dislike annoying cookie banners just as much as you do.</strong> Therefore, we completely refrain from using analytics or tracking cookies (such as Google Analytics) and advertising trackers on this website.
+                            If temporary cookies or local storage are used, they serve strictly technical purposes to keep the site functioning securely (e.g., Cloudflare bot protection or saving UI preferences like dark mode).
                         </p>
                     </section>
 

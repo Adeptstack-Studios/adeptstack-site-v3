@@ -4,6 +4,12 @@ import Link from "next/link";
 import { Calendar, Tag, ArrowRight, Layers, Activity } from "lucide-react";
 import {getApps} from "@/libs/getApps";
 import {getChangelogs} from "@/libs/getChangelogs";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "Changelogs | Adeptstack",
+    description: "Archive of all changelogs.",
+};
 
 export default async function ChangelogsPage({searchParams,}: {
     searchParams: Promise<{ app?: string }>;
@@ -31,8 +37,8 @@ export default async function ChangelogsPage({searchParams,}: {
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
-            <main className="flex-grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
                 <div className="max-w-4xl mx-auto w-full relative z-10 mb-12">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase mb-6">
@@ -96,7 +102,7 @@ export default async function ChangelogsPage({searchParams,}: {
                                     <Link key={log.id} href={`/changelogs/${log.id}`} className="block group bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 hover:border-blue-500/50 hover:bg-slate-900 transition-all">
                                         <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
 
-                                            <div className="flex-shrink-0 w-48 space-y-3">
+                                            <div className="shrink-0 w-48 space-y-3">
                                                 <div className="flex items-center gap-2 text-slate-400 text-sm font-mono">
                                                     <Calendar className="w-4 h-4" />
                                                     {formattedDate}
@@ -107,7 +113,7 @@ export default async function ChangelogsPage({searchParams,}: {
                                                 </div>
                                             </div>
 
-                                            <div className="flex-grow">
+                                            <div className="grow">
                                                 <div className="flex items-center gap-3 mb-3">
                                                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700 font-mono">
                                                     {log.version || "v1.0.0"}

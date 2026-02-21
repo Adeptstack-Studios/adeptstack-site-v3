@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -5,6 +6,30 @@ import { ArrowLeft, Calendar, Layers, Tag, ExternalLink, Activity } from "lucide
 import { notFound } from "next/navigation";
 import {getChangelogById} from "@/libs/getChangelogs";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import type { Metadata} from "next";
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ id: string }> }
+): Promise<Metadata> {
+    const resolvedParams = await params;
+    const changelog = await getChangelogById(resolvedParams.id);
+
+    if (!changelog) {
+        return { title: "404 Not Found | Adeptstack" };
+    }
+
+    const ogImageUrl = changelog.imageUrl || "";
+
+    return {
+        title: `${changelog.title} ${changelog.version ? `(${changelog.version})` : ''} | Adeptstack`,
+        description: changelog.description || `Changelog for ${changelog.app}.`,
+        openGraph: {
+            title: `${changelog.app} Update: ${changelog.title}`,
+            description: changelog.description,
+            images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+        },
+    };
+}
 
 export default async function ChangelogDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const resolvedParams = await params;
@@ -21,8 +46,8 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
-            <main className="flex-grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
                 <article className="max-w-3xl mx-auto w-full relative z-10">
                     <Link href="/changelogs" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 font-medium text-sm group">
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

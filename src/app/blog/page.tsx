@@ -2,6 +2,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsCard from "@/components/NewsCard";
 import { getBlogPosts } from "@/libs/getNews";
+import type {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "News | Adeptstack",
+    description: "Keep up-to-date.",
+};
 
 export default async function BlogPage() {
     const posts = await getBlogPosts();

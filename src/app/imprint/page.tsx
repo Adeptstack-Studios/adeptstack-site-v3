@@ -3,9 +3,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Impressum | Adeptstack",
-    description: "Rechtliche Angaben und Impressum gemäß § 5 TMG.",
-    robots: "noindex",
+    title: "Imprint | Adeptstack",
+    description: "Legal information and imprint in accordance with § 5 TMG.",
 };
 
 export default function ImprintPage() {
