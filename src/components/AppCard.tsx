@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
-import Link from "next/link";
 
 type AppCardProps = {
     name?: string;
@@ -22,7 +22,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 ${legacy
                 ? 'bg-slate-900/30 border-slate-800/50 opacity-90'
                 : highlight
-                    ? 'bg-gradient-to-br from-slate-900 via-blue-950/20 to-slate-900 border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:border-blue-400/50 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)]'
+                    ? 'bg-linear-to-br from-slate-900 via-blue-950/20 to-slate-900 border-blue-500/30 shadow-[0_0_30px_rgba(59,130,246,0.1)] hover:border-blue-400/50 hover:shadow-[0_0_40px_rgba(59,130,246,0.2)]'
                     : 'bg-slate-900/50 border-white/5 hover:bg-slate-800/80 hover:border-white/10'
             }
                 border
@@ -30,7 +30,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
         >
             {highlight && (
                 <>
-                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+                    <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] bg-size-[16px_16px] pointer-events-none"></div>
                     <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] group-hover:bg-blue-600/20 transition duration-1000 pointer-events-none"></div>
                 </>
             )}
@@ -58,7 +58,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 </div>
             </div>
 
-            <div className="relative z-10 flex-grow">
+            <div className="relative z-10 grow">
                 <h3 className={`font-bold mb-1.5 text-white ${highlight ? 'text-2xl' : 'text-xl'}`}>
                     {name}
                 </h3>

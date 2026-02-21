@@ -34,7 +34,7 @@ export async function fetchWithRetry(url: string, retries = 3) {
 
         } catch (error) {
             console.error(`[API NETWORK ERROR] Versuch ${i + 1} gescheitert:`, error);
-            if (i === retries - 1) return [];
+            if (i === retries - 1) throw error;
             await wait(1000);
         }
     }
