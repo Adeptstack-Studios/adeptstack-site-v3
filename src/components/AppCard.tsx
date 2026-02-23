@@ -13,8 +13,7 @@ type AppCardProps = {
     channel?: string;
 };
 
-function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, downloadUrl, version, channel
-}: AppCardProps) {
+function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, downloadUrl, version, channel}: AppCardProps) {
     return (
         <div
             className={`
@@ -28,6 +27,8 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 border
             `}
         >
+            <a href={`/products/${slug}`} className="absolute inset-0 z-0"></a>
+
             {highlight && (
                 <>
                     <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] bg-size-[16px_16px] pointer-events-none"></div>
@@ -35,18 +36,18 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 </>
             )}
 
-            <div className="flex justify-between items-start mb-5 relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner overflow-hidden p-2 group-hover:scale-105 transition-transform duration-500">
+            <div className="flex justify-between items-start mb-5 relative z-10 pointer-events-none">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner overflow-hidden p-2 group-hover:scale-105 transition-transform duration-500 pointer-events-auto">
                     {icon ? (
-                        <img src={icon} alt={`Icon für ${name}`} className="w-full h-full object-contain" />
+                        <img src={icon} alt={`Icon for ${name}`} className="w-full h-full object-contain" />
                     ) : (
                         <div className="w-full h-full bg-slate-800 rounded-xl" />
                     )}
                 </div>
 
-                <div className="flex flex-col gap-2 items-end">
+                <div className="flex flex-col gap-2 items-end pointer-events-auto">
                     {legacy && (
-                        <span title="Diese App erhält nur noch eingeschränkte Updates." className="cursor-help px-3 py-1 rounded-md bg-slate-800/80 text-slate-400 text-xs font-bold uppercase tracking-wider border border-slate-700 backdrop-blur-sm">
+                        <span title="This app receives limited updates." className="cursor-help px-3 py-1 rounded-md bg-slate-800/80 text-slate-400 text-xs font-bold uppercase tracking-wider border border-slate-700 backdrop-blur-sm">
                             Legacy
                         </span>
                     )}
@@ -58,7 +59,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 </div>
             </div>
 
-            <div className="relative z-10 grow">
+            <div className="relative z-10 grow pointer-events-none">
                 <h3 className={`font-bold mb-1.5 text-white ${highlight ? 'text-2xl' : 'text-xl'}`}>
                     {name}
                 </h3>
@@ -82,13 +83,13 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                 )}
             </div>
 
-            <div className="mt-6 relative z-10">
+            <div className="mt-6 relative z-20">
                 <div className="flex flex-wrap items-center gap-3">
                     {downloadUrl ? (
                         <a
                             href={downloadUrl}
                             className={`
-                                px-5 py-2.5 rounded-xl font-bold text-sm transition-all text-center
+                                relative z-20 px-5 py-2.5 rounded-xl font-bold text-sm transition-all text-center
                                 ${legacy
                                 ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                                 : 'bg-white text-slate-950 hover:bg-blue-50 shadow-lg shadow-white/5 hover:scale-105 active:scale-95'
@@ -99,11 +100,12 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                         </a>
                     ) : (
                         <button
+                            disabled
                             className={`
-                                px-5 py-2.5 rounded-xl font-bold text-sm transition-all
+                                relative z-20 px-5 py-2.5 rounded-xl font-bold text-sm transition-all cursor-not-allowed
                                 ${legacy
-                                ? 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-                                : 'bg-white text-slate-950 hover:bg-blue-50 shadow-lg shadow-white/5 hover:scale-105 active:scale-95'
+                                ? 'bg-slate-800 text-slate-300'
+                                : 'bg-slate-800 text-slate-500'
                             }
                             `}
                         >
@@ -111,11 +113,9 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                         </button>
                     )}
 
-                        <a href={"/products/"+slug}>
-                            <button className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm hover:text-white hover:bg-white/5 transition-colors">
-                                Details
-                            </button>
-                        </a>
+                    <div className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm group-hover:text-white group-hover:bg-white/5 transition-colors pointer-events-none">
+                        Details
+                    </div>
                 </div>
             </div>
         </div>
