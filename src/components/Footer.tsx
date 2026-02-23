@@ -1,0 +1,55 @@
+import Link from "next/link";
+import Image from "next/image";
+
+export default function Footer() {
+    return (
+        <footer className="py-12 px-6 border-t border-white/5 bg-slate-950 text-sm text-slate-500">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center md:text-left">
+                <div className="flex flex-col items-center md:space-around">
+                    <div className="flex items-center gap-2 mb-4 opacity-80">
+                        <div className="w-6 h-6 relative">
+                            <Image src="/logo.svg" alt="Logo" fill className="object-contain" />
+                        </div>
+                        <span className="font-bold text-white">Adeptstack</span>
+                    </div>
+                    <p className="mb-4">Complexity made simple.</p>
+                    <p>© 2026 Adeptstack</p>
+                </div>
+
+                <div className="flex flex-col items-center md:space-around">
+                    <div>
+                        <h4 className="font-bold text-white mb-4">Products</h4>
+                        <ul className="space-y-2">
+                            <li><Link href="/products/notivity" className="hover:text-blue-400 transition">Notivity</Link></li>
+                            <li><Link href="/products/pc-info" className="hover:text-blue-400 transition">PC-Info</Link></li>
+                            <li><Link href="/products/adeptstack-app" className="hover:text-blue-400 transition">Adeptstack-App</Link></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="flex flex-col items-center md:space-around">
+                    <div>
+                        <h4 className="font-bold text-white mb-4 md:text-right">Legal</h4>
+                        <ul className="space-y-2 md:text-right">
+                            <li><Link href="/imprint" className="hover:text-blue-400 transition">Imprint</Link></li>
+                            <li><Link href="/privacy" className="hover:text-blue-400 transition">Privacy</Link></li>
+                            <li><Link href="/terms" className="hover:text-blue-400 transition">Terms of Use</Link></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="flex flex-col items-center md:space-around">
+                    <div>
+                        <h4 className="font-bold text-white mb-4 md:text-right">Social</h4>
+                        <ul className="space-y-2 md:text-right">
+                            <li><Link href="https://youtube.com/@Adeptstack" target={"_blank"} className="hover:text-blue-400 transition">Youtube</Link></li>
+                            {/*<li><Link href="/instagram" className="hover:text-blue-400 transition">Instagram</Link></li>*/}
+                            <li><Link href="https://discord.gg/PXRZm3XQDb" className="hover:text-blue-400 transition">Discord</Link></li>
+                            <li><Link href="https://github.com/adeptstack-studios" className="hover:text-blue-400 transition">Github</Link></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
+}
