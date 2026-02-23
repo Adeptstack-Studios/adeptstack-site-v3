@@ -44,7 +44,7 @@ export default function Header() {
         <header className="fixed top-0 w-full z-50 bg-slate-950/50 backdrop-blur-xl border-b border-white/5">
             <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="relative w-8 h-8">
+                    <div className="relative w-10 h-10">
                         <Image src="/logo.svg" alt="Logo" fill className="object-contain" />
                     </div>
                     <span className="font-bold text-lg tracking-tight text-white">Adeptstack</span>
@@ -60,7 +60,7 @@ export default function Header() {
 
                 <div className="flex items-center gap-4">
                     <Link href="/products" className="hidden sm:block px-4 py-2 bg-white text-slate-950 text-sm font-bold rounded-lg hover:bg-slate-200 transition">
-                        Explore
+                        Discover
                     </Link>
 
                     <button
@@ -101,7 +101,7 @@ export default function Header() {
                                 onClick={() => setIsOpen(false)}
                                 className="block w-full px-4 py-4 bg-white text-slate-950 text-center font-bold rounded-xl text-lg shadow-lg shadow-white/5"
                             >
-                                Explore
+                                Discover
                             </Link>
                         </motion.div>
                     </motion.div>
