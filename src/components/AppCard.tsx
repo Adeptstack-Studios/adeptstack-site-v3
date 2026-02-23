@@ -113,9 +113,11 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                         </button>
                     )}
 
-                    <div className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm group-hover:text-white group-hover:bg-white/5 transition-colors pointer-events-none">
-                        Details
-                    </div>
+                    <a href={`/products/${slug}`}>
+                        <div className="px-4 py-2.5 rounded-xl text-slate-300 font-medium text-sm group-hover:text-white group-hover:bg-white/5 transition-colors pointer-events-none">
+                            Details
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
