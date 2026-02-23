@@ -45,7 +45,7 @@ export default function PrivacyPage() {
                             <p className="mb-4">
                                 Verantwortlich für die Datenverarbeitung auf dieser Website und in den Apps ist:
                             </p>
-                            <p className="text-white font-medium">Adeptstack / ProgrammerLP</p>
+                            <p className="text-white font-medium">Adeptstack / Luke Polczynski</p>
                             <p className="text-slate-400 text-sm mt-2">
                                 (Vollständige Kontakt- und Adressdaten entnehmen Sie bitte dem <a href="/imprint" className="text-blue-400 hover:underline">Impressum</a>).
                             </p>
@@ -221,7 +221,7 @@ export default function PrivacyPage() {
                             <p className="mb-4">
                                 The party responsible for data processing on this website and in the apps is:
                             </p>
-                            <p className="text-white font-medium">Adeptstack / ProgrammerLP</p>
+                            <p className="text-white font-medium">Adeptstack / Luke Polczynski</p>
                             <p className="text-slate-400 text-sm mt-2">
                                 (Please refer to the <a href="/imprint" className="text-blue-400 hover:underline">Imprint / Legal Notice</a> for full contact and address details).
                             </p>

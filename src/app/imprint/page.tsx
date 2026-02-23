@@ -34,21 +34,26 @@ export default function ImprintPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
 
                             <div className="space-y-2">
-                                <p className="font-semibold text-white">Adeptstack</p>
-                                <p>[Dein Vorname] [Dein Nachname]</p>
-                                <p>[Deine Straße] [Hausnummer]</p>
-                                <p>[PLZ] [Dein Wohnort]</p>
+                                <span className="font-semibold text-white">Adeptstack</span>
+                                <br/>
+                                <span>Luke Polczynski - Adeptstack</span>
+                                <br/>
+                                <span>c/o Autorenglück #95297</span>
+                                <br/>
+                                <span>Albert-Einstein-Str. 47</span>
+                                <br/>
+                                <span>02977 Hoyerswerda</span>
                             </div>
 
                             <div className="space-y-2">
                                 <h3 className="font-semibold text-white mb-1">Kontakt</h3>
                                 <p>E-Mail: <a href="mailto:info@adeptstack.net" className="text-blue-400 hover:text-blue-300 transition-colors">info@adeptstack.net</a></p>
 
-                                <div className="mt-4 pt-4 border-t border-slate-800/50">
-                                    <h3 className="font-semibold text-white mb-1">Umsatzsteuer-ID</h3>
-                                    <p className="text-sm">Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>
-                                        <span className="text-white">DE [Deine USt-IdNr.]</span></p>
-                                </div>
+                                {/*<div className="mt-4 pt-4 border-t border-slate-800/50">*/}
+                                {/*    <h3 className="font-semibold text-white mb-1">Umsatzsteuer-ID</h3>*/}
+                                {/*    <p className="text-sm">Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>*/}
+                                {/*        <span className="text-white">DE [Deine USt-IdNr.]</span></p>*/}
+                                {/*</div>*/}
                             </div>
 
                         </div>
