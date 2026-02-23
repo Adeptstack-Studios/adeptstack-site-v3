@@ -57,7 +57,7 @@ export default async function ProductDetailPage({
                 <div className="flex justify-center">
                     {app.legacy && (
                         <div
-                            className="flex items-start gap-3 p-4 mb-8 rounded-xl bg-amber-500/10 border mt-0.5 border-amber-500/20 max-w-4xl mx-auto md:mx-0 text-left">
+                            className="flex items-start gap-3 p-4 mb-8 rounded-xl bg-amber-500/10 border mt-0.5 border-amber-500/20 max-w-4xl mx-auto md:mx-0 text-left mr-5 ml-5">
                             <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-3"/>
                             <div>
                                 <h4 className="text-amber-400 font-bold text-sm mb-1">Legacy Software</h4>
@@ -71,6 +71,7 @@ export default async function ProductDetailPage({
                 </div>
 
                 <section className="relative px-6 md:px-12 max-w-5xl mx-auto mb-20">
+                    {!app.legacy && (<div className="mt-10"></div>)}
 
                     <div
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-125 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>

@@ -27,7 +27,7 @@ export default function PrivacyPage() {
 
                 <div className="mb-12 border-b border-slate-800 pb-8">
                     <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                        Datenschutzerklärung
+                        Datenschutz&shy;erklärung
                     </h1>
                     <p className="text-slate-400 text-sm">
                         Gültig für Website und Software von Adeptstack. <br/>
