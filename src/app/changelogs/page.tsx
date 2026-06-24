@@ -28,11 +28,15 @@ export default async function ChangelogsPage({searchParams,}: {
         ? changelogs
         : changelogs.filter((log) => {
             if (selectedApp) {
-                return log.app?.toLowerCase() === selectedApp.name?.toLowerCase() ||
-                    log.app?.toLowerCase() === selectedApp.slug?.toLowerCase();
+                return log.appId === selectedApp.id;
             }
-            return log.app?.toLowerCase() === activeAppFilter.toLowerCase();
+            return false;
         });
+
+    const changelogsWithAppName = filteredChangelogs.map(log => {
+        const app = apps.find(a => a.id === log.appId);
+        return { ...log, appName: app?.name || "Unknown App" };
+    });
 
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
@@ -92,8 +96,8 @@ export default async function ChangelogsPage({searchParams,}: {
                     </div>
 
                     <div className="space-y-6">
-                        {filteredChangelogs.length > 0 ? (
-                            filteredChangelogs.map((log) => {
+                        {changelogsWithAppName.length > 0 ? (
+                            changelogsWithAppName.map((log) => {
                                 const formattedDate = log.publishedAt
                                     ? new Date(log.publishedAt).toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })
                                     : "Unknown Date";
@@ -109,7 +113,7 @@ export default async function ChangelogsPage({searchParams,}: {
                                                 </div>
                                                 <div className="flex items-center gap-2 text-slate-300 text-sm font-medium">
                                                     <Layers className="w-4 h-4 text-blue-500" />
-                                                    {log.app}
+                                                    {log.appName}
                                                 </div>
                                             </div>
 

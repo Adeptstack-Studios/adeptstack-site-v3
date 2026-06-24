@@ -10,7 +10,7 @@ export interface Changelog {
     steamUrl?: string;
     content: string;
     channel: string;
-    app: string;
+    appId: number;
     version: string;
     publishedAt: string;
 }

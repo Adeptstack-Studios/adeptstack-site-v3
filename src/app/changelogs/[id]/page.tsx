@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Layers, Tag, ExternalLink, Activity, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import {getChangelogById} from "@/libs/getChangelogs";
+import {getAppById} from "@/libs/getApps";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import type { Metadata} from "next";
 
@@ -18,13 +19,16 @@ export async function generateMetadata(
         return { title: "404 Not Found | Adeptstack" };
     }
 
+    const app = await getAppById(changelog.appId.toString());
+    const appName = app?.name || "Unknown App";
+
     const ogImageUrl = changelog.imageUrl || "";
 
     return {
         title: `${changelog.title} ${changelog.version ? `(${changelog.version})` : ''} | Adeptstack`,
-        description: changelog.description || `Changelog for ${changelog.app}.`,
+        description: changelog.description || `Changelog for ${appName}.`,
         openGraph: {
-            title: `${changelog.app} Update: ${changelog.title}`,
+            title: `${appName} Update: ${changelog.title}`,
             description: changelog.description,
             images: ogImageUrl ? [{ url: ogImageUrl }] : [],
         },
@@ -38,6 +42,9 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
     if (!changelog) {
         notFound();
     }
+
+    const app = await getAppById(changelog.appId.toString());
+    const appName = app?.name || "Unknown App";
 
     const formattedDate = new Date(changelog.publishedAt).toLocaleDateString('en-EN', {
         day: '2-digit', month: 'long', year: 'numeric'
@@ -56,7 +63,7 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
 
                     <div className="flex flex-wrap items-center gap-3 mb-6">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase">
-                          <Layers className="w-3.5 h-3.5" /> {changelog.app}
+                          <Layers className="w-3.5 h-3.5" /> {appName}
                         </span>
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-bold font-mono">
                           <Tag className="w-3 h-3" /> {changelog.version}
