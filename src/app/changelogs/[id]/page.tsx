@@ -2,7 +2,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Layers, Tag, ExternalLink, Activity } from "lucide-react";
+import { ArrowLeft, Calendar, Layers, Tag, ExternalLink, Activity, Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import {getChangelogById} from "@/libs/getChangelogs";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
@@ -86,12 +86,43 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                         <MarkdownRenderer content={changelog.content || "No content available."} />
                     </div>
 
-                    {changelog.appUrl && (
-                        <div className="mt-12 text-center">
-                            <a href={changelog.appUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg shadow-white/5">
-                                Download
-                                <ExternalLink className="w-4 h-4" />
-                            </a>
+                    {(changelog.appUrl || changelog.microsoftStoreUrl || changelog.playStoreUrl || changelog.appStoreUrl || changelog.steamUrl) && (
+                        <div className="mt-12 flex flex-wrap justify-center gap-4">
+                            {changelog.appUrl && (
+                                <a href={changelog.appUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg shadow-white/5">
+                                    <Download className="w-4 h-4"/>
+                                    Download
+                                </a>
+                            )}
+                            {changelog.microsoftStoreUrl && (
+                                <a href={changelog.microsoftStoreUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <ExternalLink className="w-4 h-4"/>
+                                    Microsoft Store
+                                </a>
+                            )}
+                            {changelog.appStoreUrl && (
+                                <a href={changelog.appStoreUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <ExternalLink className="w-4 h-4"/>
+                                    App Store
+                                </a>
+                            )}
+                            {changelog.playStoreUrl && (
+                                <a href={changelog.playStoreUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <ExternalLink className="w-4 h-4"/>
+                                    Play Store
+                                </a>
+                            )}
+                            {changelog.steamUrl && (
+                                <a href={changelog.steamUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <ExternalLink className="w-4 h-4"/>
+                                    Steam
+                                </a>
+                            )}
                         </div>
                     )}
                 </article>

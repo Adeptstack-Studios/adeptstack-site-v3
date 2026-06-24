@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import {notFound} from "next/navigation";
-import {Download, History, Layers, Activity, AlertTriangle} from "lucide-react";
+import {Download, History, Layers, Activity, AlertTriangle, ExternalLink} from "lucide-react";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getApps} from "@/libs/getApps";
 import {Metadata} from "next";
@@ -127,13 +127,49 @@ export default async function ProductDetailPage({
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-8">
-                                {latestVersion?.appUrl ? (
-                                    <a
-                                        href={latestVersion.appUrl}
-                                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95"
-                                    >
-                                        <Download className="w-5 h-5"/> Download
-                                    </a>
+                                {(latestVersion?.appUrl || latestVersion?.microsoftStoreUrl || latestVersion?.playStoreUrl || latestVersion?.appStoreUrl || latestVersion?.steamUrl) ? (
+                                    <>
+                                        {latestVersion.appUrl && (
+                                            <a
+                                                href={latestVersion.appUrl}
+                                                className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95"
+                                            >
+                                                <Download className="w-5 h-5"/> Download
+                                            </a>
+                                        )}
+                                        {latestVersion.microsoftStoreUrl && (
+                                            <a
+                                                href={latestVersion.microsoftStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Microsoft Store
+                                            </a>
+                                        )}
+                                        {latestVersion.appStoreUrl && (
+                                            <a
+                                                href={latestVersion.appStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> App Store
+                                            </a>
+                                        )}
+                                        {latestVersion.playStoreUrl && (
+                                            <a
+                                                href={latestVersion.playStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Play Store
+                                            </a>
+                                        )}
+                                        {latestVersion.steamUrl && (
+                                            <a
+                                                href={latestVersion.steamUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Steam
+                                            </a>
+                                        )}
+                                    </>
                                 ) : (
                                     <button disabled
                                             className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-800 text-slate-500 font-bold rounded-xl cursor-not-allowed">
@@ -143,7 +179,7 @@ export default async function ProductDetailPage({
 
                                 <Link
                                     href={`/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`}
-                                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 border border-slate-700 text-slate-300 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-all"
+                                    className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 border border-slate-700 text-slate-300 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-all hover:scale-105 active:scale-95"
                                 >
                                     <History className="w-5 h-5"/> Changelogs
                                 </Link>
