@@ -24,6 +24,7 @@ export default function NewsSection({ posts }: NewsSectionProps) {
                             description={item.description}
                             category={item.category}
                             imageUrl={item.imageUrl}
+                            date={item.publishedAt? new Date(item.publishedAt).toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : "Unknown Date"}
                         />
                     ))}
                 </div>

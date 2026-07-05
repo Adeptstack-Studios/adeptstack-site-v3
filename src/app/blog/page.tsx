@@ -4,7 +4,8 @@ import NewsCard from "@/components/NewsCard";
 import { getBlogPosts } from "@/libs/getNews";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Tag, Search, ArrowRight } from "lucide-react";
+// WICHTIG: Layers und Calendar hier hinzufügen!
+import { Tag, Search, ArrowRight, Layers, Calendar } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "News | Adeptstack",
@@ -48,15 +49,19 @@ export default async function BlogPage({ searchParams }: {
     const featuredPost = filteredPosts[0];
     const remainingPosts = filteredPosts.slice(1);
 
+    // Datum für den Hero-Post formatieren
+    const featuredFormattedDate = featuredPost?.publishedAt
+        ? new Date(featuredPost.publishedAt).toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        : "Unknown Date";
+
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
             <Header />
 
-            {/* VISUAL ACCENTS & HEADER - Padding vom äußeren div entfernt */}
+            {/* VISUAL ACCENTS & HEADER */}
             <div className="pt-32 pb-8 relative overflow-hidden shrink-0 border-b border-slate-800/50 bg-linear-to-b from-slate-900/50 to-slate-950">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-                {/* Padding (px-6 md:px-12) exakt hier eingefügt, damit es synchron zur <main> ist */}
                 <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative z-10 flex flex-col items-start text-left">
 
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase mb-6">
@@ -123,32 +128,41 @@ export default async function BlogPage({ searchParams }: {
                     <div className="mb-12">
                         <Link
                             href={`/blog/${featuredPost.id}`}
-                            className="group flex flex-col md:flex-row gap-6 md:gap-8 bg-slate-900/40 border border-slate-800 rounded-2xl p-4 hover:border-blue-500/50 hover:bg-slate-900/60 transition-all items-center"
+                            className="group flex flex-col md:flex-row gap-6 md:gap-8 bg-slate-900/40 border border-slate-800 rounded-2xl p-4 hover:border-blue-500/50 hover:bg-slate-900/60 transition-all items-center shadow-lg"
                         >
+                            {/* Bild ohne Hover-Zoom und ohne Badge */}
                             <div className="w-full md:w-1/2 aspect-video relative overflow-hidden rounded-xl bg-slate-800 shrink-0">
                                 <img
                                     src={featuredPost.imageUrl || "/placeholder.jpg"}
                                     alt={featuredPost.title || "Featured"}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    className="w-full h-full object-cover"
                                 />
-                                {featuredPost.category && (
-                                    <div className="absolute top-4 left-4 px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-lg">
-                                        {featuredPost.category}
-                                    </div>
-                                )}
                             </div>
 
                             <div className="flex flex-col py-4 md:pr-6 grow w-full">
-                                <div className="inline-flex items-center gap-2 text-blue-400 text-xs font-bold tracking-wide uppercase mb-3">
-                                    Latest Highlight
+
+                                {/* Meta-Infos: Highlight-Tag, Kategorie & Datum */}
+                                <div className="flex flex-wrap items-center gap-4 mb-4">
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 border border-blue-500/20 text-blue-400 uppercase tracking-wide">
+                                        Latest Highlight
+                                    </span>
+                                    <div className="flex items-center gap-1.5 text-slate-300 text-xs font-medium">
+                                        <Layers className="w-3.5 h-3.5 text-blue-500" />
+                                        <span className="uppercase">{featuredPost.category || "General"}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 text-slate-400 text-xs font-mono">
+                                        <Calendar className="w-3.5 h-3.5" />
+                                        {featuredFormattedDate}
+                                    </div>
                                 </div>
+
                                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors line-clamp-2">
                                     {featuredPost.title || "without title"}
                                 </h2>
                                 <p className="text-slate-400 text-base leading-relaxed mb-6 line-clamp-3">
                                     {featuredPost.description}
                                 </p>
-                                <div className="mt-auto inline-flex items-center gap-2 text-blue-500 text-sm font-semibold opacity-90 group-hover:opacity-100 transition-all">
+                                <div className="mt-auto inline-flex items-center gap-2 text-blue-500 text-sm font-semibold opacity-80 group-hover:opacity-100 transition-all">
                                     Read Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </div>
                             </div>
@@ -168,6 +182,7 @@ export default async function BlogPage({ searchParams }: {
                                     description={post.description}
                                     category={post.category}
                                     imageUrl={post.imageUrl}
+                                    date={post.publishedAt? new Date(post.publishedAt).toLocaleDateString('en-EN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : "Unknown Date"}
                                 />
                             );
                         })}

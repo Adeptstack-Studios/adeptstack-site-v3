@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Calendar, Layers, ArrowRight } from "lucide-react";
 
 type NewsCardProps = {
     id?: number;
@@ -7,6 +8,7 @@ type NewsCardProps = {
     description?: string;
     imageUrl?: string;
     category?: string;
+    date?: string;
 };
 
 export default function NewsCard({
@@ -14,46 +16,51 @@ export default function NewsCard({
                                      title = "no title",
                                      description = "no description",
                                      imageUrl = "/logo.svg",
-                                     category = "general"
+                                     category = "general",
+                                     date = "Unknown Date"
                                  }: NewsCardProps) {
-
     const linkTarget = id ? `/blog/${id}` : "#";
 
     return (
-        <article className="group relative bg-slate-900/80 backdrop-blur-md border border-white/10 rounded-2xl hover:bg-slate-800 transition duration-500 hover:-translate-y-2 cursor-pointer overflow-hidden flex flex-col h-full shadow-2xl">
-
-            <div className="relative h-48 w-full overflow-hidden bg-slate-800">
-
-                <div className="absolute inset-0 bg-linear-to-t from-slate-900 via-transparent to-transparent z-10 opacity-60"></div>
-
-                <span className="absolute top-4 left-4 z-20 px-3 py-1 rounded-md text-[10px] font-bold tracking-wider bg-black/50 backdrop-blur-md border border-white/20 text-white shadow-sm">
-          {category}
-        </span>
-
+        <Link
+            href={linkTarget}
+            className="flex flex-col h-full group bg-slate-900/50 border border-slate-800 rounded-xl overflow-hidden hover:border-blue-500/50 hover:bg-slate-900 transition-all shadow-lg"
+        >
+            <div className="w-full h-40 relative overflow-hidden bg-slate-800 shrink-0">
                 <Image
                     src={imageUrl}
                     alt={title}
                     fill
-                    className="object-cover group-hover:scale-105 transition duration-700"
+                    className="object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
             </div>
 
-            <div className="p-6 flex flex-col grow">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 text-white transition leading-tight">
+            <div className="p-5 flex flex-col grow">
+
+                <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-1.5 text-slate-300 text-xs font-medium">
+                        <Layers className="w-3.5 h-3.5 text-blue-500" />
+                        <span className="truncate max-w-[140px] uppercase">{category}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-slate-400 text-xs font-mono shrink-0">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {date}
+                    </div>
+                </div>
+
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">
                     {title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 line-clamp-3">
+                <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-4 grow">
                     {description}
                 </p>
 
-                <div className="mt-auto flex items-center gap-2 text-sm font-medium text-blue-500 group-hover:gap-3 transition-all">
-                    <Link href={linkTarget} className="inset-0 absolute z-30">
-                    </Link>
-                    <span>read more</span>
-                    <span>→</span>
+                <div className="mt-auto pt-4 border-t border-slate-800/50 flex items-center gap-1.5 text-blue-500 text-sm font-semibold opacity-80 group-hover:opacity-100 transition-all">
+                    Read more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
+
             </div>
-        </article>
+        </Link>
     );
 }
