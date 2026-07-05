@@ -18,20 +18,28 @@ export default function AppGrid({ apps }: AppGridProps) {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[285px]">
+                {/* Hier ist der Zauber: Flexbox statt Grid, damit auch 2, 4 oder 5 Items mittig zentriert werden */}
+                <div className="flex flex-wrap justify-center gap-6">
                     {apps.map((app) => (
-                        <AppCard
+                        <div
                             key={app.id}
-                            name={app.name}
-                            slogan={app.slogan}
-                            slug={app.slug}
-                            icon={app.iconUrl}
-                            highlight={app.highlighted}
-                            legacy={app.legacy}
-                            version={app.latestMainVersion?.version}
-                            channel={app.latestMainVersion?.channel}
-                            downloadUrl={app.latestMainVersion?.appUrl}
-                        />
+                            // w-full (Mobile), 2 pro Zeile (Tablet), max 3 pro Zeile (Desktop)
+                            className="w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] h-[285px] flex"
+                        >
+                            <div className="w-full h-full">
+                                <AppCard
+                                    name={app.name}
+                                    slogan={app.slogan}
+                                    slug={app.slug}
+                                    icon={app.iconUrl}
+                                    highlight={app.highlighted}
+                                    legacy={app.legacy}
+                                    version={app.latestMainVersion?.version}
+                                    channel={app.latestMainVersion?.channel}
+                                    downloadUrl={app.latestMainVersion?.appUrl}
+                                />
+                            </div>
+                        </div>
                     ))}
                 </div>
 
