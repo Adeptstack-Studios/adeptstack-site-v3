@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
-import { ArrowLeft, Calendar, Layers, Tag, ExternalLink, Activity, Download } from "lucide-react";
+import { Calendar, Layers, Tag, ExternalLink, Activity, Download } from "lucide-react";
 import { notFound } from "next/navigation";
-import {getChangelogById} from "@/libs/getChangelogs";
-import {getAppById} from "@/libs/getApps";
+import { getChangelogById } from "@/libs/getChangelogs";
+import { getAppById } from "@/libs/getApps";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
-import type { Metadata} from "next";
+import type { Metadata } from "next";
+import BackButton from "@/components/BackButton"; // <-- Hier importieren wir den neuen Button
 
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> }
@@ -56,10 +56,8 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
             <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
                 <article className="max-w-3xl mx-auto w-full relative z-10">
-                    <Link href="/changelogs" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 font-medium text-sm group">
-                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        go back
-                    </Link>
+
+                    <BackButton />
 
                     <div className="flex flex-wrap items-center gap-3 mb-6">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase">

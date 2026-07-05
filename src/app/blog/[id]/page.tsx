@@ -3,9 +3,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { getPostById } from "@/libs/getNews";
-import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
+import BackButton from "@/components/BackButton"; // <-- Der neue Button!
+import { Calendar, Layers } from "lucide-react"; // Icons für den einheitlichen Look
 
 export async function generateMetadata({
                                            params,
@@ -53,45 +54,50 @@ export default async function BlogPostPage({ params }: Props) {
         : "";
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white font-sans">
+        <div className="min-h-screen bg-slate-950 flex flex-col text-white font-sans selection:bg-blue-500/30">
             <Header />
-            <main className="pt-32 pb-20">
-                <article className="max-w-4xl mx-auto px-6">
-                    <Link
-                        href="/blog"
-                        className="inline-flex items-center text-slate-400 hover:text-white mb-8 transition group"
-                    >
-                        <span className="group-hover:-translate-x-1 transition-transform mr-2">
-                            ←
-                        </span>
-                        go back
-                    </Link>
+            {/* relative und overflow-hidden hinzugefügt für den Glow-Effekt */}
+            <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
+                {/* Blauer Glow-Effekt im Hintergrund (wie bei Changelogs) */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-                    <div className="flex gap-4 items-center mb-6 text-sm">
+                <article className="max-w-3xl mx-auto w-full relative z-10">
+
+                    {/* Der neue Client-Side Back Button */}
+                    <BackButton />
+
+                    {/* Meta-Infos im neuen, einheitlichen Design */}
+                    <div className="flex flex-wrap items-center gap-3 mb-6">
                         {post.category && (
-                            <span className="px-3 py-1 rounded bg-blue-900/30 text-blue-400 border border-blue-800 font-bold tracking-wider">
-                                {post.category}
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase">
+                                <Layers className="w-3.5 h-3.5" /> {post.category}
                             </span>
                         )}
-                        <span className="text-slate-500">{formattedDate}</span>
+                        {formattedDate && (
+                            <span className="flex items-center gap-1.5 text-slate-400 text-sm ml-auto">
+                                <Calendar className="w-4 h-4" /> {formattedDate}
+                            </span>
+                        )}
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-8 leading-tight tracking-tight">
                         {post.title}
                     </h1>
 
-                    <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden border border-white/10 bg-slate-900">
+                    <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
                         <Image
                             src={post.imageUrl || "/logo.svg"}
                             alt={post.title || "Blog Post"}
                             fill
-                            className="object-cover opacity-80"
+                            className="object-cover"
                         />
                     </div>
 
-                    <div className="prose prose-invert prose-slate max-w-none prose-headings:text-white">
+                    {/* Einheitlicher Markdown-Container */}
+                    <div className="prose prose-invert prose-slate prose-a:text-blue-400 hover:prose-a:text-blue-300 max-w-none bg-slate-900/30 border border-slate-800/50 rounded-2xl p-8 md:p-10 backdrop-blur-sm">
                         <MarkdownRenderer content={post.content || "No content available."} />
                     </div>
+
                 </article>
             </main>
             <Footer />
