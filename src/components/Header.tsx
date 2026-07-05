@@ -13,7 +13,7 @@ export default function Header() {
         { name: "Blog", href: "/blog" },
         { name: "Products", href: "/products" },
         { name: "Changelogs", href: "/changelogs" },
-        { name: "Vision", href: "/about" },
+        { name: "About", href: "/about" },
     ];
 
     const menuVariants = {
