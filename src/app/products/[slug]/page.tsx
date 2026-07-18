@@ -294,6 +294,85 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                         </div>
                     )}
                 </section>
+
+                {/* --- PRE-FOOTER CTA SECTION --- */}
+                <section className="px-6 md:px-12 max-w-3xl mx-auto mt-24 mb-6 text-center">
+                    {/* Wir fügen 'group' hinzu, damit der Hover-Effekt auf die inneren Glows wirkt */}
+                    <div className="relative group rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-slate-700/80 p-8 md:p-10 overflow-hidden shadow-2xl transition-all duration-700">
+
+                        {/* 1. Das feine Dot-Grid im Hintergrund */}
+                        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
+
+                        {/* 2. Top-Left Blue Glow */}
+                        <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-blue-500/20 transition-all duration-1000"></div>
+
+                        {/* 3. Bottom-Right Indigo Glow */}
+                        <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-indigo-600/10 rounded-full blur-[90px] pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-1000"></div>
+
+                        <div className="relative z-10">
+                            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                                Ready for {app.name}?
+                            </h2>
+                            <p className="text-slate-400 mb-8 max-w-lg mx-auto text-sm md:text-base">
+                                Download the latest version now and experience all features yourself.
+                            </p>
+
+                            <div className="flex flex-wrap items-center justify-center gap-4">
+                                {(latestVersion?.appUrl || latestVersion?.microsoftStoreUrl || latestVersion?.playStoreUrl || latestVersion?.appStoreUrl || latestVersion?.steamUrl) ? (
+                                    <>
+                                        {latestVersion.appUrl && (
+                                            <a
+                                                href={latestVersion.appUrl}
+                                                className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95"
+                                            >
+                                                <Download className="w-5 h-5"/> Download
+                                            </a>
+                                        )}
+                                        {latestVersion.microsoftStoreUrl && (
+                                            <a
+                                                href={latestVersion.microsoftStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Microsoft Store
+                                            </a>
+                                        )}
+                                        {latestVersion.appStoreUrl && (
+                                            <a
+                                                href={latestVersion.appStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> App Store
+                                            </a>
+                                        )}
+                                        {latestVersion.playStoreUrl && (
+                                            <a
+                                                href={latestVersion.playStoreUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Play Store
+                                            </a>
+                                        )}
+                                        {latestVersion.steamUrl && (
+                                            <a
+                                                href={latestVersion.steamUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <ExternalLink className="w-5 h-5"/> Steam
+                                            </a>
+                                        )}
+                                    </>
+                                ) : (
+                                    <Link
+                                        href={`/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`}
+                                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-800 border border-slate-700 text-slate-300 font-semibold rounded-xl hover:bg-slate-700 hover:text-white transition-all hover:scale-105 active:scale-95"
+                                    >
+                                        <History className="w-5 h-5"/> View Changelogs
+                                    </Link>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
             <Footer/>
         </div>
