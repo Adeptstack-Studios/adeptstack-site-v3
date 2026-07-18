@@ -1,5 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+import {
+    FaWindows,
+    FaApple,
+    FaAndroid,
+    FaLinux,
+    FaSteam,
+    FaGlobe
+} from 'react-icons/fa';
 
 type AppCardProps = {
     name?: string;
@@ -8,12 +16,40 @@ type AppCardProps = {
     icon?: string;
     highlight?: boolean;
     legacy?: boolean;
+    platforms?: string;
     downloadUrl?: string;
     version?: string;
     channel?: string;
 };
 
-function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, downloadUrl, version, channel}: AppCardProps) {
+const PlatformIcon = ({ platform }: { platform: string }) => {
+    const size = 14;
+
+    switch (platform) {
+        case 'windows':
+            return <FaWindows size={size} />;
+        case 'android':
+            return <FaAndroid size={size} />;
+        case 'mac':
+        case 'ios':
+            return <FaApple size={size} />;
+        case 'linux':
+            return <FaLinux size={size} />;
+        case 'steam':
+            return <FaSteam size={size} />;
+        case 'web':
+            return <FaGlobe size={size} />;
+        default:
+            return <FaGlobe size={size} />;
+    }
+};
+
+function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, platforms, downloadUrl, version, channel}: AppCardProps) {
+
+    const parsedPlatforms = platforms
+        ? platforms.split(/[,;]/).map(p => p.trim().toLowerCase()).filter(Boolean)
+        : [];
+
     return (
         <div
             className={`
@@ -67,7 +103,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                     {slogan}
                 </p>
 
-                {(version || channel) && (
+                {(version || channel || parsedPlatforms.length > 0) && (
                     <div className="flex flex-wrap items-center gap-2.5 mt-4">
                         {version && (
                             <span className="px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-slate-300 text-xs font-mono">
@@ -78,6 +114,20 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, d
                             <span className="px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                                 {channel}
                             </span>
+                        )}
+
+                        {parsedPlatforms.length > 0 && (
+                            <div className="flex flex-wrap items-center gap-1.5 ml-auto pointer-events-auto z-20">
+                                {parsedPlatforms.map(platform => (
+                                    <div
+                                        key={platform}
+                                        title={platform.charAt(0).toUpperCase() + platform.slice(1)}
+                                        className="flex items-center justify-center p-1.5 rounded-md border border-slate-700/50 bg-slate-800/50 text-slate-400 hover:text-white hover:border-slate-600 transition-colors cursor-help"
+                                    >
+                                        <PlatformIcon platform={platform} />
+                                    </div>
+                                ))}
+                            </div>
                         )}
                     </div>
                 )}

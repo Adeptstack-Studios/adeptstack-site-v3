@@ -34,6 +34,8 @@ export default function AppGrid({ apps }: AppGridProps) {
                                     icon={app.iconUrl}
                                     highlight={app.highlighted}
                                     legacy={app.legacy}
+                                    platforms={app.platforms}
+
                                     version={app.latestMainVersion?.version}
                                     channel={app.latestMainVersion?.channel}
                                     downloadUrl={app.latestMainVersion?.appUrl}

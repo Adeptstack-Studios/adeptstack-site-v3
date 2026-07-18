@@ -4,9 +4,25 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import {notFound} from "next/navigation";
 import {Download, History, Layers, Activity, AlertTriangle, ExternalLink} from "lucide-react";
+import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe } from 'react-icons/fa';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getApps} from "@/libs/getApps";
 import {Metadata} from "next";
+
+const PlatformIcon = ({ platform }: { platform: string }) => {
+    const size = 16;
+
+    switch (platform) {
+        case 'windows': return <FaWindows size={size} />;
+        case 'android': return <FaAndroid size={size} />;
+        case 'mac':
+        case 'ios': return <FaApple size={size} />;
+        case 'linux': return <FaLinux size={size} />;
+        case 'steam': return <FaSteam size={size} />;
+        case 'web': return <FaGlobe size={size} />;
+        default: return <FaGlobe size={size} />;
+    }
+};
 
 export async function generateMetadata(
     { params }: { params: Promise<{ slug: string }> }
@@ -32,11 +48,7 @@ export async function generateMetadata(
     };
 }
 
-export default async function ProductDetailPage({
-                                                    params
-                                                }: {
-    params: Promise<{ slug: string }>
-}) {
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
 
     const allApps = await getApps();
@@ -47,6 +59,10 @@ export default async function ProductDetailPage({
     }
 
     const latestVersion = app.latestMainVersion;
+
+    const parsedPlatforms = app.platforms
+        ? app.platforms.split(/[,;]/).map(p => p.trim().toLowerCase()).filter(Boolean)
+        : [];
 
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans selection:bg-blue-500/30">
@@ -126,7 +142,26 @@ export default async function ProductDetailPage({
                                 {app.slogan}
                             </p>
 
-                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mt-8">
+                            {/* --- PLATFORM-BADGES --- */}
+                            {parsedPlatforms.length > 0 && (
+                                <div className="flex flex-wrap items-center justify-center md:justify-start gap-2.5 mb-8">
+                                    {parsedPlatforms.map(platform => (
+                                        <div
+                                            key={platform}
+                                            title={platform.charAt(0).toUpperCase() + platform.slice(1)}
+                                            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/50 text-slate-400 hover:text-white hover:border-slate-700 hover:bg-slate-800 transition-all cursor-help"
+                                        >
+                                            <PlatformIcon platform={platform} />
+                                            <span className="text-xs font-bold uppercase tracking-wider">
+                                                {platform}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* --- DOWNLOAD BUTTONS --- */}
+                            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
                                 {(latestVersion?.appUrl || latestVersion?.microsoftStoreUrl || latestVersion?.playStoreUrl || latestVersion?.appStoreUrl || latestVersion?.steamUrl) ? (
                                     <>
                                         {latestVersion.appUrl && (

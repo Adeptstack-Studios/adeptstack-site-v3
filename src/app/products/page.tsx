@@ -55,6 +55,7 @@ export default async function ProductsPage() {
                                     icon={app.iconUrl}
                                     highlight={app.highlighted}
                                     legacy={app.legacy}
+                                    platforms={app.platforms}
 
                                     version={app.latestMainVersion?.version}
                                     channel={app.latestMainVersion?.channel}
