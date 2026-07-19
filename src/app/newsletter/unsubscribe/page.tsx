@@ -18,7 +18,7 @@ function UnsubscribeContent() {
             return;
         }
 
-        const backendUrl = getBaseUrl() + `/api/newsletter/unsubscribe?token=${token}`
+        const backendUrl = getBaseUrl() + `/api/newsletter/unsubscribe?token=${token}`;
         // Wir fragen das Backend an (Passe deine dynamische API-URL entsprechend an)
         fetch(backendUrl)
             .then(async (res) => {

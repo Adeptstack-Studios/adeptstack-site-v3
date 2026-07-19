@@ -1,5 +1,5 @@
 export const getBaseUrl = () => {
-    return process.env.BACKEND_URL || "http://localhost:8080";
+    return process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
 };
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
