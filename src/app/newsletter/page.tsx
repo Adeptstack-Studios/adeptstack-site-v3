@@ -15,7 +15,6 @@ export default function NewsletterSubscribePage() {
 
         try {
             const url = getBaseUrl() + "/api/newsletter/subscribe";
-            console.log("URL:", url);
 
             const res = await fetch(url, {
                 method: "POST",
