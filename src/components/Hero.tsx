@@ -47,8 +47,14 @@ export default function Hero() {
 
                     <div className="flex flex-col sm:flex-row gap-5">
                         <a href={"/products"}>
-                            <button className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 hover:-translate-y-1">
+                            <button className="px-8 py-4 border-2 border-blue-600 bg-blue-600 hover:border-blue-500 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 ">
                                 Discover
+                            </button>
+                        </a>
+
+                        <a href={"/newsletter"}>
+                            <button className="px-8 py-4 border-2 border-blue-600 hover:border-blue-500 hover:bg-blue-500 text-white rounded-xl font-bold text-lg transition shadow-lg shadow-blue-900/20 ">
+                                Newsletter
                             </button>
                         </a>
                     </div>
