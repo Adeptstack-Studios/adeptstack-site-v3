@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
+import {getBaseUrl} from "@/libs/utils";
 
 function UnsubscribeContent() {
     const searchParams = useSearchParams();
@@ -17,8 +18,9 @@ function UnsubscribeContent() {
             return;
         }
 
+        const backendUrl = getBaseUrl() + `/api/newsletter/unsubscribe?token=${token}`
         // Wir fragen das Backend an (Passe deine dynamische API-URL entsprechend an)
-        fetch(`https://api.adeptstack.net/api/newsletter/unsubscribe?token=${token}`)
+        fetch(backendUrl)
             .then(async (res) => {
                 if (res.ok) {
                     const data = await res.json();

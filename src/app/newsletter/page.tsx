@@ -14,7 +14,9 @@ export default function NewsletterSubscribePage() {
         const email = formData.get("email");
 
         try {
-            const res = await fetch(getBaseUrl() + "/api/newsletter/subscribe", {
+            const url = getBaseUrl() + "/api/newsletter/subscribe";
+
+            const res = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),

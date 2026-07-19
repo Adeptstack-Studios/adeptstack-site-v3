@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
+import {getBaseUrl} from "@/libs/utils";
 
 function VerifyContent() {
     const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ function VerifyContent() {
         }
 
         // Dynamische Backend-URL aus den Umgebungsvariablen (z.B. in deiner .env.local definiert)
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://api.adeptstack.net";
+        const backendUrl = getBaseUrl();
 
         fetch(`${backendUrl}/api/newsletter/verify?token=${token}`)
             .then(async (res) => {
