@@ -9,6 +9,7 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getApps} from "@/libs/getApps";
 import {Metadata} from "next";
 import BackButton from "@/components/BackButton";
+import ZoomableImage from "@/components/ZoomableImage";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -71,12 +72,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
             <main className="grow pt-24 pb-20 overflow-hidden">
 
-                <BackButton fallbackUrl={"/products"} />
-
                 <div className="flex justify-center">
                     {app.legacy && (
                         <div
-                            className="flex items-start gap-3 p-4 mb-8 rounded-xl bg-amber-500/10 border mt-0.5 border-amber-500/20 max-w-4xl mx-auto md:mx-0 text-left mr-5 ml-5">
+                            className="flex items-start gap-3 p-4 mb-3 rounded-xl bg-amber-500/10 border mt-0 border-amber-500/20 max-w-4xl mx-auto md:mx-0 text-left mr-5 ml-5">
                             <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-3"/>
                             <div>
                                 <h4 className="text-amber-400 font-bold text-sm mb-1">Legacy Software</h4>
@@ -89,8 +88,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     )}
                 </div>
 
+                <div className="max-w-5xl mx-auto px-6 md:px-12 mt-3 w-full">
+                    <BackButton fallbackUrl={"/products"} />
+                </div>
+
                 <section className="relative px-6 md:px-12 max-w-5xl mx-auto mb-20">
-                    {!app.legacy && (<div className="mt-10"></div>)}
+                    {!app.legacy && (<div className="mt-0"></div>)}
 
                     <div
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-125 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
@@ -235,21 +238,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     </section>
                 )}
 
-                <section className="px-6 md:px-12 max-w-5xl mx-auto space-y-24">
+                {/* max-w-6xl für breitere Layouts und space-y-32 für mehr Abstand */}
+                <section className="px-6 md:px-12 max-w-6xl mx-auto space-y-32">
 
                     {(app.image1Url || app.feature1Desc) && (
                         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
                             {app.image1Url && (
-                                <div
-                                    className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <img src={app.image1Url} alt={`Screenshot 1 von ${app.name}`}
-                                         className="w-full h-full"/>
+                                <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
+                                    <ZoomableImage src={app.image1Url} alt={`Screenshot 1 von ${app.name}`} />
                                 </div>
                             )}
                             {app.feature1Desc && (
                                 <div className="w-full md:w-1/2 space-y-4">
-                                    <div
-                                        className="prose prose-invert prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-2xl prose-h2:mt-0">
+                                    {/* prose-lg und prose-headings:text-3xl für größeren Text */}
+                                    <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
                                         <MarkdownRenderer content={app.feature1Desc}/>
                                     </div>
                                 </div>
@@ -260,16 +262,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     {(app.image2Url || app.feature2Desc) && (
                         <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
                             {app.image2Url && (
-                                <div
-                                    className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <img src={app.image2Url} alt={`Screenshot 2 von ${app.name}`}
-                                         className="w-full h-full"/>
+                                <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
+                                    <ZoomableImage src={app.image2Url} alt={`Screenshot 2 von ${app.name}`} />
                                 </div>
                             )}
                             {app.feature2Desc && (
                                 <div className="w-full md:w-1/2 space-y-4">
-                                    <div
-                                        className="prose prose-invert prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-2xl prose-h2:mt-0">
+                                    <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
                                         <MarkdownRenderer content={app.feature2Desc}/>
                                     </div>
                                 </div>
@@ -280,16 +279,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     {(app.image3Url || app.feature3Desc) && (
                         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
                             {app.image3Url && (
-                                <div
-                                    className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <img src={app.image3Url} alt={`Screenshot 3 von ${app.name}`}
-                                         className="w-full h-full"/>
+                                <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
+                                    <ZoomableImage src={app.image3Url} alt={`Screenshot 3 von ${app.name}`} />
                                 </div>
                             )}
                             {app.feature3Desc && (
                                 <div className="w-full md:w-1/2 space-y-4">
-                                    <div
-                                        className="prose prose-invert prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-2xl prose-h2:mt-0">
+                                    <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
                                         <MarkdownRenderer content={app.feature3Desc}/>
                                     </div>
                                 </div>
