@@ -8,6 +8,7 @@ import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe } from 'react-
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getApps} from "@/libs/getApps";
 import {Metadata} from "next";
+import BackButton from "@/components/BackButton";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -69,6 +70,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <Header/>
 
             <main className="grow pt-24 pb-20 overflow-hidden">
+
+                <BackButton fallbackUrl={"/products"} />
 
                 <div className="flex justify-center">
                     {app.legacy && (
@@ -297,16 +300,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                 {/* --- PRE-FOOTER CTA SECTION --- */}
                 <section className="px-6 md:px-12 max-w-3xl mx-auto mt-24 mb-6 text-center">
-                    {/* Wir fügen 'group' hinzu, damit der Hover-Effekt auf die inneren Glows wirkt */}
                     <div className="relative group rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-slate-700/80 p-8 md:p-10 overflow-hidden shadow-2xl transition-all duration-700">
 
-                        {/* 1. Das feine Dot-Grid im Hintergrund */}
                         <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
 
-                        {/* 2. Top-Left Blue Glow */}
                         <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-blue-500/20 transition-all duration-1000"></div>
 
-                        {/* 3. Bottom-Right Indigo Glow */}
                         <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-indigo-600/10 rounded-full blur-[90px] pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-1000"></div>
 
                         <div className="relative z-10">

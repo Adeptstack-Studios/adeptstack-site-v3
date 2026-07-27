@@ -42,7 +42,6 @@ export default function Header() {
 
     return (
         <header className="fixed top-0 w-full z-50 bg-slate-950/50 backdrop-blur-xl border-b border-white/5">
-            {/* 1. HIER: 'relative' hinzugefügt, damit die absolute Navigation weiß, woran sie sich orientieren muss */}
             <div className="relative max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
                 <Link href="/" className="flex items-center gap-3">
@@ -52,7 +51,6 @@ export default function Header() {
                     <span className="font-bold text-lg tracking-tight text-white">Adeptstack</span>
                 </Link>
 
-                {/* 2. HIER: 'absolute left-1/2 -translate-x-1/2' hinzugefügt */}
                 <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-300 absolute left-1/2 -translate-x-1/2">
                     {navLinks.map((link) => (
                         <Link key={link.href} href={link.href} className="hover:text-white transition">

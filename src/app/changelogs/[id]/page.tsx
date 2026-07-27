@@ -57,7 +57,7 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
                 <article className="max-w-3xl mx-auto w-full relative z-10">
 
-                    <BackButton />
+                    <BackButton fallbackUrl={"/changelogs"} />
 
                     <div className="flex flex-wrap items-center gap-3 mb-6">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase">

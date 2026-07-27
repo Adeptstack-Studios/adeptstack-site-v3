@@ -56,17 +56,13 @@ export default async function BlogPostPage({ params }: Props) {
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col text-white font-sans selection:bg-blue-500/30">
             <Header />
-            {/* relative und overflow-hidden hinzugefügt für den Glow-Effekt */}
             <main className="grow pt-32 pb-20 px-6 md:px-12 relative overflow-hidden">
-                {/* Blauer Glow-Effekt im Hintergrund (wie bei Changelogs) */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
 
                 <article className="max-w-3xl mx-auto w-full relative z-10">
 
-                    {/* Der neue Client-Side Back Button */}
-                    <BackButton />
+                    <BackButton fallbackUrl={"/blog"} />
 
-                    {/* Meta-Infos im neuen, einheitlichen Design */}
                     <div className="flex flex-wrap items-center gap-3 mb-6">
                         {post.category && (
                             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold tracking-wide uppercase">
