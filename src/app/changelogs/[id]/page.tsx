@@ -1,13 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Calendar, Layers, Tag, ExternalLink, Activity, Download } from "lucide-react";
+import { Calendar, Layers, Tag, Activity, Download } from "lucide-react";
+import { SiCurseforge, SiModrinth } from "react-icons/si";
+import { FaMicrosoft, FaAppStoreIos, FaGooglePlay, FaSteam } from "react-icons/fa";
 import { notFound } from "next/navigation";
 import { getChangelogById } from "@/libs/getChangelogs";
 import { getAppById } from "@/libs/getApps";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import type { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Hier importieren wir den neuen Button
+import { hasDownloadLink } from "@/libs/utils";
 
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> }
@@ -91,7 +94,7 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                         <MarkdownRenderer content={changelog.content || "No content available."} />
                     </div>
 
-                    {(changelog.appUrl || changelog.microsoftStoreUrl || changelog.playStoreUrl || changelog.appStoreUrl || changelog.steamUrl) && (
+                    {hasDownloadLink(changelog) && (
                         <div className="mt-12 flex flex-wrap justify-center gap-4">
                             {changelog.appUrl && (
                                 <a href={changelog.appUrl} target="_blank" rel="noopener noreferrer"
@@ -103,29 +106,43 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                             {changelog.microsoftStoreUrl && (
                                 <a href={changelog.microsoftStoreUrl} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
-                                    <ExternalLink className="w-4 h-4"/>
+                                    <FaMicrosoft className="w-4 h-4"/>
                                     Microsoft Store
                                 </a>
                             )}
                             {changelog.appStoreUrl && (
                                 <a href={changelog.appStoreUrl} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
-                                    <ExternalLink className="w-4 h-4"/>
+                                    <FaAppStoreIos className="w-4 h-4"/>
                                     App Store
                                 </a>
                             )}
                             {changelog.playStoreUrl && (
                                 <a href={changelog.playStoreUrl} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
-                                    <ExternalLink className="w-4 h-4"/>
+                                    <FaGooglePlay className="w-4 h-4"/>
                                     Play Store
                                 </a>
                             )}
                             {changelog.steamUrl && (
                                 <a href={changelog.steamUrl} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
-                                    <ExternalLink className="w-4 h-4"/>
+                                    <FaSteam className="w-4 h-4"/>
                                     Steam
+                                </a>
+                            )}
+                            {changelog.modrinthUrl && (
+                                <a href={changelog.modrinthUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <SiModrinth className="w-4 h-4"/>
+                                    Modrinth
+                                </a>
+                            )}
+                            {changelog.curseforgeUrl && (
+                                <a href={changelog.curseforgeUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
+                                    <SiCurseforge className="w-4 h-4"/>
+                                    CurseForge
                                 </a>
                             )}
                         </div>
