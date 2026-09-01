@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { getPostById } from "@/libs/getNews";
 import Image from "next/image";
+import { safeImageSrc } from "@/libs/utils";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Der neue Button!
 import { Calendar, Layers } from "lucide-react"; // Icons für den einheitlichen Look
@@ -82,7 +83,7 @@ export default async function BlogPostPage({ params }: Props) {
 
                     <div className="relative w-full aspect-video mb-12 rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
                         <Image
-                            src={post.imageUrl || "/logo.svg"}
+                            src={safeImageSrc(post.imageUrl)}
                             alt={post.title || "Blog Post"}
                             fill
                             className="object-cover"
