@@ -8,6 +8,8 @@ import {
     FaSteam,
     FaGlobe
 } from 'react-icons/fa';
+import { SiCurseforge, SiModrinth } from 'react-icons/si';
+import { Download } from 'lucide-react';
 
 type AppCardProps = {
     name?: string;
@@ -20,6 +22,8 @@ type AppCardProps = {
     downloadUrl?: string;
     version?: string;
     channel?: string;
+    downloads?: number;
+    downloadsFormatted?: string;
 };
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
@@ -39,12 +43,16 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
             return <FaSteam size={size} />;
         case 'web':
             return <FaGlobe size={size} />;
+        case 'curseforge':
+            return <SiCurseforge size={size} />;
+        case 'modrinth':
+            return <SiModrinth size={size} />;
         default:
             return <FaGlobe size={size} />;
     }
 };
 
-function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, platforms, downloadUrl, version, channel}: AppCardProps) {
+function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, platforms, downloadUrl, version, channel, downloads, downloadsFormatted}: AppCardProps) {
 
     const parsedPlatforms = platforms
         ? platforms.split(/[,;]/).map(p => p.trim().toLowerCase()).filter(Boolean)
@@ -103,7 +111,7 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, p
                     {slogan}
                 </p>
 
-                {(version || channel || parsedPlatforms.length > 0) && (
+                {(version || channel || downloadsFormatted || parsedPlatforms.length > 0) && (
                     <div className="flex flex-wrap items-center gap-2.5 mt-4">
                         {version && (
                             <span className="px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-slate-300 text-xs font-mono">
@@ -113,6 +121,14 @@ function AppCard({name, slogan, slug, icon, highlight = false, legacy = false, p
                         {channel && (
                             <span className="px-2.5 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider">
                                 {channel}
+                            </span>
+                        )}
+                        {downloadsFormatted && (
+                            <span
+                                title={downloads !== undefined ? `${downloads.toLocaleString('en-US')} downloads` : undefined}
+                                className="pointer-events-auto flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-white/10 bg-white/5 text-slate-300 text-xs font-medium cursor-help"
+                            >
+                                <Download className="w-3 h-3" /> {downloadsFormatted}
                             </span>
                         )}
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Layers, ArrowRight } from "lucide-react";
+import { safeImageSrc } from "@/libs/utils";
 
 type NewsCardProps = {
     id?: number;
@@ -28,7 +29,7 @@ export default function NewsCard({
         >
             <div className="w-full h-40 relative overflow-hidden bg-slate-800 shrink-0">
                 <Image
-                    src={imageUrl}
+                    src={safeImageSrc(imageUrl)}
                     alt={title}
                     fill
                     className="object-cover"

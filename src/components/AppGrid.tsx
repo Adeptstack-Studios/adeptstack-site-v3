@@ -2,6 +2,7 @@ import AppCard from "./AppCard";
 import { App } from "@/Models/app";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { primaryDownloadUrl } from "@/libs/utils";
 
 type AppGridProps = {
     apps: App[];
@@ -38,7 +39,9 @@ export default function AppGrid({ apps }: AppGridProps) {
 
                                     version={app.latestMainVersion?.version}
                                     channel={app.latestMainVersion?.channel}
-                                    downloadUrl={app.latestMainVersion?.appUrl}
+                                    downloadUrl={primaryDownloadUrl(app.latestMainVersion)}
+                                    downloads={app.downloads}
+                                    downloadsFormatted={app.downloadsFormatted}
                                 />
                             </div>
                         </div>
