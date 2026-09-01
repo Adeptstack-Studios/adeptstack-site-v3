@@ -17,6 +17,10 @@ export interface App {
     feature1Desc?: string;
     feature2Desc?: string;
     feature3Desc?: string;
+    modrinthId?: string;
+    curseforgeId?: string;
+    downloads?: number;
+    downloadsFormatted?: string;
     publishedAt?: string;
     latestMainVersion?: Changelog;
 }

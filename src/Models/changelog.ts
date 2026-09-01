@@ -8,6 +8,8 @@ export interface Changelog {
     playStoreUrl?: string;
     appStoreUrl?: string;
     steamUrl?: string;
+    curseforgeUrl?: string;
+    modrinthUrl?: string;
     content: string;
     channel: string;
     appId: number;
