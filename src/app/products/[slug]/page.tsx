@@ -3,13 +3,15 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import {notFound} from "next/navigation";
-import {Download, History, Layers, Activity, AlertTriangle, ExternalLink} from "lucide-react";
-import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe } from 'react-icons/fa';
+import {Download, History, Layers, Activity, AlertTriangle} from "lucide-react";
+import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe, FaMicrosoft, FaAppStoreIos, FaGooglePlay } from 'react-icons/fa';
+import { SiCurseforge, SiModrinth } from 'react-icons/si';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getApps} from "@/libs/getApps";
 import {Metadata} from "next";
 import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
+import { hasDownloadLink } from "@/libs/utils";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -22,6 +24,8 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
         case 'linux': return <FaLinux size={size} />;
         case 'steam': return <FaSteam size={size} />;
         case 'web': return <FaGlobe size={size} />;
+        case 'curseforge': return <SiCurseforge size={size} />;
+        case 'modrinth': return <SiModrinth size={size} />;
         default: return <FaGlobe size={size} />;
     }
 };
@@ -139,6 +143,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         <Activity className="w-3 h-3"/> {latestVersion.channel}
                                       </span>
                                 )}
+                                {app.downloadsFormatted && (
+                                    <span
+                                        title={app.downloads !== undefined ? `${app.downloads.toLocaleString('en-US')} downloads` : undefined}
+                                        className="px-3 py-1 rounded-md border border-white/10 bg-white/5 text-slate-300 text-xs font-medium flex items-center gap-1.5 cursor-help">
+                                        <Download className="w-3 h-3"/> {app.downloadsFormatted} downloads
+                                      </span>
+                                )}
                             </div>
 
                             <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">
@@ -168,7 +179,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                             {/* --- DOWNLOAD BUTTONS --- */}
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-                                {(latestVersion?.appUrl || latestVersion?.microsoftStoreUrl || latestVersion?.playStoreUrl || latestVersion?.appStoreUrl || latestVersion?.steamUrl) ? (
+                                {hasDownloadLink(latestVersion) ? (
                                     <>
                                         {latestVersion.appUrl && (
                                             <a
@@ -183,7 +194,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.microsoftStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Microsoft Store
+                                                <FaMicrosoft className="w-5 h-5"/> Microsoft Store
                                             </a>
                                         )}
                                         {latestVersion.appStoreUrl && (
@@ -191,7 +202,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.appStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> App Store
+                                                <FaAppStoreIos className="w-5 h-5"/> App Store
                                             </a>
                                         )}
                                         {latestVersion.playStoreUrl && (
@@ -199,7 +210,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.playStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Play Store
+                                                <FaGooglePlay className="w-5 h-5"/> Play Store
                                             </a>
                                         )}
                                         {latestVersion.steamUrl && (
@@ -207,7 +218,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.steamUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Steam
+                                                <FaSteam className="w-5 h-5"/> Steam
+                                            </a>
+                                        )}
+                                        {latestVersion.modrinthUrl && (
+                                            <a
+                                                href={latestVersion.modrinthUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <SiModrinth className="w-5 h-5"/> Modrinth
+                                            </a>
+                                        )}
+                                        {latestVersion.curseforgeUrl && (
+                                            <a
+                                                href={latestVersion.curseforgeUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <SiCurseforge className="w-5 h-5"/> CurseForge
                                             </a>
                                         )}
                                     </>
@@ -313,7 +340,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center gap-4">
-                                {(latestVersion?.appUrl || latestVersion?.microsoftStoreUrl || latestVersion?.playStoreUrl || latestVersion?.appStoreUrl || latestVersion?.steamUrl) ? (
+                                {hasDownloadLink(latestVersion) ? (
                                     <>
                                         {latestVersion.appUrl && (
                                             <a
@@ -328,7 +355,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.microsoftStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Microsoft Store
+                                                <FaMicrosoft className="w-5 h-5"/> Microsoft Store
                                             </a>
                                         )}
                                         {latestVersion.appStoreUrl && (
@@ -336,7 +363,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.appStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> App Store
+                                                <FaAppStoreIos className="w-5 h-5"/> App Store
                                             </a>
                                         )}
                                         {latestVersion.playStoreUrl && (
@@ -344,7 +371,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.playStoreUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Play Store
+                                                <FaGooglePlay className="w-5 h-5"/> Play Store
                                             </a>
                                         )}
                                         {latestVersion.steamUrl && (
@@ -352,7 +379,23 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                                 href={latestVersion.steamUrl}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
-                                                <ExternalLink className="w-5 h-5"/> Steam
+                                                <FaSteam className="w-5 h-5"/> Steam
+                                            </a>
+                                        )}
+                                        {latestVersion.modrinthUrl && (
+                                            <a
+                                                href={latestVersion.modrinthUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <SiModrinth className="w-5 h-5"/> Modrinth
+                                            </a>
+                                        )}
+                                        {latestVersion.curseforgeUrl && (
+                                            <a
+                                                href={latestVersion.curseforgeUrl}
+                                                className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
+                                            >
+                                                <SiCurseforge className="w-5 h-5"/> CurseForge
                                             </a>
                                         )}
                                     </>

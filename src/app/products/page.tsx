@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import AppCard from "@/components/AppCard";
 import { Layers } from "lucide-react";
 import { getApps } from "@/libs/getApps";
+import { primaryDownloadUrl } from "@/libs/utils";
 import type {Metadata} from "next";
 
 export const metadata: Metadata = {
@@ -59,7 +60,9 @@ export default async function ProductsPage() {
 
                                     version={app.latestMainVersion?.version}
                                     channel={app.latestMainVersion?.channel}
-                                    downloadUrl={app.latestMainVersion?.appUrl}
+                                    downloadUrl={primaryDownloadUrl(app.latestMainVersion)}
+                                    downloads={app.downloads}
+                                    downloadsFormatted={app.downloadsFormatted}
                                 />
                             ))}
                         </div>
