@@ -59,8 +59,8 @@ export default function Footer() {
                         <h4 className="font-bold text-white mb-4 md:text-right">Social</h4>
                         <ul className="space-y-2 md:text-right">
                             <li><Link href="https://youtube.com/@Adeptstack" target={"_blank"} className="hover:text-blue-400 transition">YouTube</Link></li>
-                            <li><Link href="https://discord.gg/PXRZm3XQDb" className="hover:text-blue-400 transition">Discord</Link></li>
-                            <li><Link href="https://github.com/adeptstack-studios" className="hover:text-blue-400 transition">GitHub</Link></li>
+                            <li><Link href="https://discord.gg/DkcprwueFj" className="hover:text-blue-400 transition">Discord</Link></li>
+                            <li><Link href="https://ko-fi.com/adeptstack_programmerlp" className="hover:text-blue-400 transition">Ko-fi</Link></li>
                         </ul>
                     </div>
                 </div>
