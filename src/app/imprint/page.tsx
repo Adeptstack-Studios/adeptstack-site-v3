@@ -18,7 +18,7 @@ export default function ImprintPage() {
                         Impressum
                     </h1>
                     <p className="text-slate-400 text-sm">
-                        Legal Notice / Angaben gemäß § 5 TMG
+                        Legal Notice / Angaben gemäß § 5 DDG
                     </p>
                 </div>
 
