@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Imprint | Adeptstack",
-    description: "Legal information and imprint in accordance with § 5 TMG.",
+    description: "Legal information and imprint in accordance with § 5 DDG.",
 };
 
 export default function ImprintPage() {
@@ -29,7 +29,7 @@ export default function ImprintPage() {
 
                 <div className="space-y-12">
                     <section className="bg-slate-900/30 p-8 rounded-2xl border border-slate-800/50">
-                        <h2 className="text-xl font-bold text-white mb-6">Angaben gemäß § 5 TMG</h2>
+                        <h2 className="text-xl font-bold text-white mb-6">Angaben gemäß § 5 DDG</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
 
@@ -71,11 +71,11 @@ export default function ImprintPage() {
                         <p className="leading-relaxed mb-4">
                             Die Inhalte unserer Seiten und Apps wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
                             Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
-                            Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach
+                            Als Diensteanbieter sind wir gemäß § 7 Abs.1 DDG für eigene Inhalte auf diesen Seiten nach
                             den allgemeinen Gesetzen verantwortlich.
                         </p>
                         <p className="leading-relaxed">
-                            Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder
+                            Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder
                             gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
                             rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
                             Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung
