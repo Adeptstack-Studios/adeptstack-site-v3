@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { getPostById } from "@/libs/getNews";
 import Image from "next/image";
-import { safeImageSrc } from "@/libs/utils";
+import { safeImageSrc, buildOgImage } from "@/libs/utils";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Der neue Button!
 import { Calendar, Layers } from "lucide-react"; // Icons für den einheitlichen Look
@@ -21,15 +21,24 @@ export async function generateMetadata({
         return { title: "404 Not Found | Adeptstack" };
     }
 
-    const ogImageUrl = post.imageUrl || "/logo.svg";
+    const og = buildOgImage(post.imageUrl);
 
     return {
         title: `${post.title} | Adeptstack Blog`,
         description: post.description || "",
+        // both /blog/<slug> and /blog/<id> serve this post, so name the slug as the real one
+        alternates: post.slug ? { canonical: `/blog/${post.slug}` } : undefined,
         openGraph: {
+            type: "article",
             title: post.title,
             description: post.description || "",
-            images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+            images: og.images,
+        },
+        twitter: {
+            card: og.card,
+            title: post.title,
+            description: post.description || "",
+            images: og.images.map(image => image.url),
         },
     };
 }
