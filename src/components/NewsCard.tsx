@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Layers, ArrowRight } from "lucide-react";
+import { blogHref } from "@/libs/utils";
 import { safeImageSrc } from "@/libs/utils";
 
 type NewsCardProps = {
     id?: number;
+    slug?: string;
     title?: string;
     description?: string;
     imageUrl?: string;
@@ -14,13 +16,14 @@ type NewsCardProps = {
 
 export default function NewsCard({
                                      id,
+                                     slug,
                                      title = "no title",
                                      description = "no description",
                                      imageUrl = "/logo.svg",
                                      category = "general",
                                      date = "Unknown Date"
                                  }: NewsCardProps) {
-    const linkTarget = id ? `/blog/${id}` : "#";
+    const linkTarget = blogHref({ slug, id });
 
     return (
         <Link

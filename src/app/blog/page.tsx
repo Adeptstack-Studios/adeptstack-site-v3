@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsCard from "@/components/NewsCard";
 import { getBlogPosts } from "@/libs/getNews";
+import { blogHref } from "@/libs/utils";
 import type { Metadata } from "next";
 import Link from "next/link";
 // WICHTIG: Layers und Calendar hier hinzufügen!
@@ -127,7 +128,7 @@ export default async function BlogPage({ searchParams }: {
                 {featuredPost && (
                     <div className="mb-12">
                         <Link
-                            href={`/blog/${featuredPost.id}`}
+                            href={blogHref(featuredPost)}
                             className="group flex flex-col md:flex-row gap-6 md:gap-8 bg-slate-900/40 border border-slate-800 rounded-2xl p-4 hover:border-blue-500/50 hover:bg-slate-900/60 transition-all items-center shadow-lg"
                         >
                             {/* Bild ohne Hover-Zoom und ohne Badge */}
@@ -178,6 +179,7 @@ export default async function BlogPage({ searchParams }: {
                                 <NewsCard
                                     key={post.id}
                                     id={post.id}
+                                    slug={post.slug}
                                     title={post.title || "without title"}
                                     description={post.description}
                                     category={post.category}
@@ -193,7 +195,7 @@ export default async function BlogPage({ searchParams }: {
                     <div className="text-center py-20 bg-slate-900/30 border border-slate-800 border-dashed rounded-2xl">
                         <p className="text-slate-400 text-lg mb-2">No posts found.</p>
                         {searchQuery && (
-                            <p className="text-slate-500 text-sm">Try adjusting your search query "{searchQuery}".</p>
+                            <p className="text-slate-500 text-sm">Try adjusting your search query &#34;{searchQuery}&#34;.</p>
                         )}
                     </div>
                 )}
