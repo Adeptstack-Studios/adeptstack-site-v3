@@ -19,6 +19,7 @@ export interface App {
     feature3Desc?: string;
     modrinthId?: string;
     curseforgeId?: string;
+    visibility?: 'PUBLIC' | 'UNLISTED' | 'PRIVATE';
     downloads?: number;
     downloadsFormatted?: string;
     publishedAt?: string;

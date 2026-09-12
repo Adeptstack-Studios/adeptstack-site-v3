@@ -10,9 +10,11 @@ export interface Changelog {
     steamUrl?: string;
     curseforgeUrl?: string;
     modrinthUrl?: string;
+    saasUrl?: string;
     content: string;
     channel: string;
     appId: number;
     version: string;
     publishedAt: string;
+    visibility?: 'PUBLIC' | 'UNLISTED' | 'PRIVATE';
 }
