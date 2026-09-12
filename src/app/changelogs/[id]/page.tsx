@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Calendar, Layers, Tag, Activity, Download } from "lucide-react";
+import { Calendar, Layers, Tag, Activity, Download, Globe } from "lucide-react";
 import { SiCurseforge, SiModrinth } from "react-icons/si";
 import { FaMicrosoft, FaAppStoreIos, FaGooglePlay, FaSteam } from "react-icons/fa";
 import { notFound } from "next/navigation";
@@ -10,7 +10,7 @@ import { getAppById } from "@/libs/getApps";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import type { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Hier importieren wir den neuen Button
-import { hasDownloadLink } from "@/libs/utils";
+import { hasDownloadLink, buildOgImage } from "@/libs/utils";
 
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> }
@@ -25,15 +25,22 @@ export async function generateMetadata(
     const app = await getAppById(changelog.appId.toString());
     const appName = app?.name || "Unknown App";
 
-    const ogImageUrl = changelog.imageUrl || "";
+    const og = buildOgImage(changelog.imageUrl);
 
     return {
         title: `${changelog.title} ${changelog.version ? `(${changelog.version})` : ''} | Adeptstack`,
         description: changelog.description || `Changelog for ${appName}.`,
         openGraph: {
+            type: "article",
             title: `${appName} Update: ${changelog.title}`,
             description: changelog.description,
-            images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+            images: og.images,
+        },
+        twitter: {
+            card: og.card,
+            title: `${appName} Update: ${changelog.title}`,
+            description: changelog.description,
+            images: og.images.map(image => image.url),
         },
     };
 }
@@ -143,6 +150,13 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <SiCurseforge className="w-4 h-4"/>
                                     CurseForge
+                                </a>
+                            )}
+                            {changelog.saasUrl && (
+                                <a href={changelog.saasUrl} target="_blank" rel="noopener noreferrer"
+                                   className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20">
+                                    <Globe className="w-4 h-4"/>
+                                    Visit
                                 </a>
                             )}
                         </div>

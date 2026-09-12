@@ -3,15 +3,15 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import {notFound} from "next/navigation";
-import {Download, History, Layers, Activity, AlertTriangle} from "lucide-react";
+import {Download, History, Layers, Activity, AlertTriangle, Globe} from "lucide-react";
 import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe, FaMicrosoft, FaAppStoreIos, FaGooglePlay } from 'react-icons/fa';
 import { SiCurseforge, SiModrinth } from 'react-icons/si';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
-import {getApps} from "@/libs/getApps";
+import {getAppBySlug} from "@/libs/getApps";
 import {Metadata} from "next";
 import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
-import { hasDownloadLink } from "@/libs/utils";
+import { hasDownloadLink, buildOgImage } from "@/libs/utils";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -34,22 +34,29 @@ export async function generateMetadata(
     { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
     const resolvedParams = await params;
-    const allApps = await getApps();
-    const app = allApps.find(a => a.slug?.toLowerCase() === resolvedParams.slug.toLowerCase());
+    const app = await getAppBySlug(resolvedParams.slug);
 
     if (!app) {
         return { title: "404 Not Found | Adeptstack" };
     }
 
-    const ogImageUrl = app.iconUrl || app.image1Url || "";
+    // the app icon as the small thumbnail card; the screenshot only when there is no icon
+    const og = app.iconUrl ? buildOgImage(app.iconUrl, "square") : buildOgImage(app.image1Url);
 
     return {
         title: `${app.name} | Adeptstack`,
         description: app.slogan || `Download ${app.name} now.`,
         openGraph: {
+            type: "website",
             title: `${app.name} - ${app.slogan}`,
             description: app.slogan,
-            images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+            images: og.images,
+        },
+        twitter: {
+            card: og.card,
+            title: `${app.name} - ${app.slogan}`,
+            description: app.slogan,
+            images: og.images.map(image => image.url),
         },
     };
 }
@@ -57,8 +64,7 @@ export async function generateMetadata(
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
 
-    const allApps = await getApps();
-    const app = allApps.find(a => a.slug?.toLowerCase() === resolvedParams.slug.toLowerCase());
+    const app = await getAppBySlug(resolvedParams.slug);
 
     if (!app) {
         notFound();
@@ -245,6 +251,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     </button>
                                 )}
 
+                                {latestVersion?.saasUrl && (
+                                    <a
+                                        href={latestVersion.saasUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20 hover:scale-105 active:scale-95"
+                                    >
+                                        <Globe className="w-5 h-5"/> Visit
+                                    </a>
+                                )}
+
                                 <Link
                                     href={`/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`}
                                     className="inline-flex items-center gap-2 px-6 py-3.5 bg-slate-900 border border-slate-700 text-slate-300 font-semibold rounded-xl hover:bg-slate-800 hover:text-white transition-all hover:scale-105 active:scale-95"
@@ -406,6 +423,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     >
                                         <History className="w-5 h-5"/> View Changelogs
                                     </Link>
+                                )}
+
+                                {latestVersion?.saasUrl && (
+                                    <a
+                                        href={latestVersion.saasUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20 hover:scale-105 active:scale-95"
+                                    >
+                                        <Globe className="w-5 h-5"/> Visit
+                                    </a>
                                 )}
                             </div>
                         </div>
