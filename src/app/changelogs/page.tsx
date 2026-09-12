@@ -20,7 +20,7 @@ export default async function ChangelogsPage({searchParams,}: {
     const activeAppFilter = params?.app || "all";
     const searchQuery = params?.q || "";
 
-    const [changelogs, apps] = await Promise.all([getChangelogs(), getApps()]);
+    const [changelogs, apps] = await Promise.all([getChangelogs(), getApps(true)]);
 
     const selectedApp = apps.find(a =>
         a.slug?.toLowerCase() === activeAppFilter.toLowerCase() ||
