@@ -7,7 +7,8 @@ import {getBlogPosts} from "@/libs/getNews";
 import {getApps} from "@/libs/getApps";
 
 export default async function Home() {
-  const newsData = getBlogPosts();
+  // only the three newest are shown, no need to load every post
+  const newsData = getBlogPosts(3);
   const appsData = getApps();
 
   const [news, apps] = await Promise.all([newsData, appsData]);
