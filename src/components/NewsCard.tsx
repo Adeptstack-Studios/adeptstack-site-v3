@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Layers, ArrowRight } from "lucide-react";
+import { Calendar, Layers, ArrowRight, Clock } from "lucide-react";
 import { blogHref } from "@/libs/utils";
 import { safeImageSrc } from "@/libs/utils";
 
@@ -12,6 +12,7 @@ type NewsCardProps = {
     imageUrl?: string;
     category?: string;
     date?: string;
+    readingTimeMinutes?: number;
 };
 
 export default function NewsCard({
@@ -21,7 +22,8 @@ export default function NewsCard({
                                      description = "no description",
                                      imageUrl = "/logo.svg",
                                      category = "general",
-                                     date = "Unknown Date"
+                                     date = "Unknown Date",
+                                     readingTimeMinutes,
                                  }: NewsCardProps) {
     const linkTarget = blogHref({ slug, id });
 
@@ -60,8 +62,15 @@ export default function NewsCard({
                     {description}
                 </p>
 
-                <div className="mt-auto pt-4 border-t border-slate-800/50 flex items-center gap-1.5 text-blue-500 text-sm font-semibold opacity-80 group-hover:opacity-100 transition-all">
-                    Read more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="mt-auto pt-4 border-t border-slate-800/50 flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-blue-500 text-sm font-semibold opacity-80 group-hover:opacity-100 transition-all">
+                        Read more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                    {readingTimeMinutes !== undefined && (
+                        <span className="flex items-center gap-1.5 text-slate-400 text-xs font-medium shrink-0">
+                            <Clock className="w-3.5 h-3.5" /> {readingTimeMinutes} min read
+                        </span>
+                    )}
                 </div>
 
             </div>

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { safeImageSrc, buildOgImage } from "@/libs/utils";
 import { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Der neue Button!
-import { Calendar, Layers } from "lucide-react"; // Icons für den einheitlichen Look
+import { Calendar, Clock, Layers } from "lucide-react"; // Icons für den einheitlichen Look
 
 export async function generateMetadata({
                                            params,
@@ -79,11 +79,18 @@ export default async function BlogPostPage({ params }: Props) {
                                 <Layers className="w-3.5 h-3.5" /> {post.category}
                             </span>
                         )}
-                        {formattedDate && (
-                            <span className="flex items-center gap-1.5 text-slate-400 text-sm ml-auto">
-                                <Calendar className="w-4 h-4" /> {formattedDate}
-                            </span>
-                        )}
+                        <div className="flex items-center gap-4 ml-auto text-slate-400 text-sm">
+                            {post.readingTimeMinutes !== undefined && (
+                                <span className="flex items-center gap-1.5">
+                                    <Clock className="w-4 h-4" /> {post.readingTimeMinutes} min read
+                                </span>
+                            )}
+                            {formattedDate && (
+                                <span className="flex items-center gap-1.5">
+                                    <Calendar className="w-4 h-4" /> {formattedDate}
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl font-bold mb-8 leading-tight tracking-tight">
