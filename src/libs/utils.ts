@@ -1,4 +1,5 @@
 import { Changelog } from "@/Models/changelog";
+import type { Page } from "@/libs/listing";
 
 export const getBaseUrl = () => {
     return process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
@@ -6,7 +7,8 @@ export const getBaseUrl = () => {
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export async function fetchWithRetry(url: string, retries = 3) {
+/** Resolves to the successful response, or null once every attempt failed. */
+async function fetchResponseWithRetry(url: string, retries = 3): Promise<Response | null> {
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'application/json',
@@ -23,7 +25,7 @@ export async function fetchWithRetry(url: string, retries = 3) {
             });
 
             if (res.ok) {
-                return await res.json();
+                return res;
             }
 
             if (res.status === 403 || res.status === 429) {
@@ -33,7 +35,7 @@ export async function fetchWithRetry(url: string, retries = 3) {
             }
 
             console.error(`[API ERROR] Status: ${res.status}`);
-            return [];
+            return null;
 
         } catch (error) {
             console.error(`[API NETWORK ERROR] Versuch ${i + 1} gescheitert:`, error);
@@ -42,7 +44,30 @@ export async function fetchWithRetry(url: string, retries = 3) {
         }
     }
     console.log("[API] Alle Versuche gescheitert. Gebe leeres Array zurück.");
-    return [];
+    return null;
+}
+
+export async function fetchWithRetry(url: string, retries = 3) {
+    const res = await fetchResponseWithRetry(url, retries);
+    return res ? await res.json() : [];
+}
+
+/**
+ * Fetches one page of a listing. The backend sends the number of all matches in
+ * X-Total-Count. A backend without paging support ignores page and size and returns
+ * everything without that header; then the page is cut out here instead.
+ */
+export async function fetchPageWithRetry<T>(url: string, page: number, size: number): Promise<Page<T>> {
+    const res = await fetchResponseWithRetry(url);
+    if (!res) return { items: [], total: 0 };
+
+    const data = await res.json();
+    const items: T[] = Array.isArray(data) ? data : [];
+    const header = res.headers.get("X-Total-Count");
+    const total = header === null ? NaN : Number(header);
+
+    if (Number.isFinite(total)) return { items, total };
+    return { items: items.slice((page - 1) * size, page * size), total: items.length };
 }
 
 /**
