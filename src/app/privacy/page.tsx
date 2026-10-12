@@ -3,11 +3,52 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
     title: "Privacy | Adeptstack",
     description: "Information on the processing of personal data when using our website and apps.",
 };
+
+/** A numbered section; German headings are h2, the English ones h3 below the English title. */
+function Section({ number, title, english = false, children }: {
+    number: number; title: string; english?: boolean; children: ReactNode;
+}) {
+    const Heading = english ? "h3" : "h2";
+    return (
+        <section>
+            <Heading className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">{number}</span>
+                {title}
+            </Heading>
+            {children}
+        </section>
+    );
+}
+
+function Sub({ english = false, children }: { english?: boolean; children: ReactNode }) {
+    const Heading = english ? "h4" : "h3";
+    return <Heading className="text-lg font-bold text-white mb-2">{children}</Heading>;
+}
+
+function Box({ children }: { children: ReactNode }) {
+    return <div className="bg-slate-900/30 p-6 rounded-xl border border-slate-800/50">{children}</div>;
+}
+
+function Basis({ children }: { children: ReactNode }) {
+    return <p className="mt-4 text-xs text-slate-500">{children}</p>;
+}
+
+function Right({ title, children }: { title: string; children: ReactNode }) {
+    return (
+        <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
+            <strong className="text-white block mb-1">{title}</strong>
+            {children}
+        </div>
+    );
+}
+
+const list = "list-disc list-inside text-slate-400 text-sm ml-2 space-y-1";
 
 export default function PrivacyPage() {
     return (
@@ -31,17 +72,13 @@ export default function PrivacyPage() {
                     </h1>
                     <p className="text-slate-400 text-sm">
                         Gültig für Website und Software von Adeptstack. <br/>
-                        Stand: Februar 2026
+                        Stand: Oktober 2026
                     </p>
                 </div>
 
                 <div className="space-y-16">
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">1</span>
-                            Verantwortliche Stelle
-                        </h2>
-                        <div className="bg-slate-900/30 p-6 rounded-xl border border-slate-800/50">
+                    <Section number={1} title="Verantwortliche Stelle">
+                        <Box>
                             <p className="mb-4">
                                 Verantwortlich für die Datenverarbeitung auf dieser Website und in den Apps ist:
                             </p>
@@ -52,18 +89,13 @@ export default function PrivacyPage() {
                             <p className="mt-4">
                                 E-Mail: <a href="mailto:info@adeptstack.net" className="text-blue-400 hover:underline">info@adeptstack.net</a>
                             </p>
-                        </div>
-                    </section>
+                        </Box>
+                    </Section>
 
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">2</span>
-                            Hosting & Infrastruktur
-                        </h2>
-
+                    <Section number={2} title="Hosting & Infrastruktur">
                         <div className="space-y-8">
                             <div>
-                                <h3 className="text-lg font-bold text-white mb-2">Vercel (Frontend Hosting)</h3>
+                                <Sub>Vercel (Frontend Hosting)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
                                     Wir hosten das Frontend unserer Website bei <strong>Vercel Inc.</strong> (USA).
                                     Vercel erfasst Logfiles (IP-Adressen, Browserdaten), um die technische Auslieferung und Sicherheit der Seite zu gewährleisten.
@@ -71,21 +103,22 @@ export default function PrivacyPage() {
                             </div>
 
                             <div>
-                                <h3 className="text-lg font-bold text-white mb-2">Cloudflare (Sicherheit & CDN)</h3>
+                                <Sub>Cloudflare (Sicherheit & CDN für die Website)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
-                                    Der Datenverkehr läuft über das Netzwerk von <strong>Cloudflare Inc.</strong> (USA).
+                                    Die Aufrufe unserer Website (adeptstack.net) laufen über das Netzwerk von <strong>Cloudflare Inc.</strong> (USA).
                                     Cloudflare fungiert als Sicherheits-Firewall (WAF) gegen Angriffe und optimiert die Ladezeiten.
                                     Hierbei werden Verbindungsdaten analysiert, um schädliche Bots abzuwehren.
+                                    Unser API-Server (api.adeptstack.net) wird nicht über Cloudflare geleitet.
                                 </p>
                             </div>
 
                             <div>
-                                <h3 className="text-lg font-bold text-white mb-2">Eigener Backend-Server (APIs)</h3>
+                                <Sub>Eigener Backend-Server (APIs)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
                                     Unsere Apps und dynamischen Web-Inhalte kommunizieren mit unserem eigenen API-Server.
                                     Aus Sicherheitsgründen (z.B. zur Abwehr von Brute-Force-Angriffen) speichern wir Server-Logfiles.
                                 </p>
-                                <ul className="list-disc list-inside text-slate-400 text-sm ml-2 space-y-1">
+                                <ul className={list}>
                                     <li>IP-Adresse (wird nach kurzer Zeit automatisiert gelöscht/anonymisiert)</li>
                                     <li>Zeitpunkt des Zugriffs</li>
                                     <li>Angefragter Pfad (URL)</li>
@@ -96,102 +129,143 @@ export default function PrivacyPage() {
 
                         <div className="mt-6 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
                             <strong className="text-white block mb-1">Datenübermittlung in Drittstaaten (USA)</strong>
-                            Sowohl Vercel als auch Cloudflare verarbeiten Daten zum Teil auf Servern in den USA.
-                            Beide Unternehmen sind nach dem EU-US Data Privacy Framework (DPF) zertifiziert,
+                            Vercel, Cloudflare und die weiteren in dieser Erklärung genannten US-Anbieter verarbeiten Daten zum Teil auf Servern in den USA.
+                            Sie sind nach dem EU-US Data Privacy Framework (DPF) zertifiziert,
                             wodurch ein der DSGVO angemessenes Datenschutzniveau gewährleistet wird.
                         </div>
 
-                        <p className="mt-6 text-xs text-slate-500">
+                        <Basis>
                             Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (Berechtigtes Interesse an Sicherheit, Stabilität und Performance).
-                        </p>
-                    </section>
+                        </Basis>
+                    </Section>
 
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">3</span>
-                            Datenerfassung in unseren Apps
-                        </h2>
+                    <Section number={3} title="Reichweitenmessung ohne Cookies">
+                        <Box>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Um zu verstehen, welche Inhalte gelesen und welche Programme heruntergeladen werden, zählen wir
+                                Seitenaufrufe, Downloads und Klicks auf Store-Links. Dabei setzen wir <strong>keine Cookies</strong>,
+                                speichern nichts in Ihrem Browser und erstellen <strong>keine Nutzerprofile</strong>.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-2 font-medium text-slate-200">
+                                Bei einem Aufruf verarbeiten wir kurzzeitig:
+                            </p>
+                            <ul className={list + " mb-4"}>
+                                <li>die aufgerufene Seite und das Datum</li>
+                                <li>die verweisende Seite (Referrer), gespeichert wird nur deren Name bzw. Domain, z.B. „Google“</li>
+                                <li>Betriebssystem, Browser und Gerätetyp, abgeleitet aus dem User-Agent</li>
+                                <li>die bevorzugte Sprache Ihres Browsers</li>
+                            </ul>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Gespeichert werden ausschließlich zusammengefasste Tageszählungen, zum Beispiel
+                                „Windows: 412 Besucher am 3. Oktober“. Jedes Merkmal wird für sich gezählt und nicht mit anderen verknüpft,
+                                sodass die Zahlen keiner Person zugeordnet werden können.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Um Mehrfachzählungen und Manipulation zu erkennen, bilden wir aus IP-Adresse, User-Agent und einem täglich
+                                wechselnden Zufallswert einen nicht umkehrbaren Prüfwert (Hash). Die IP-Adresse selbst speichern wir dafür nicht.
+                                Der Zufallswert existiert nur im Arbeitsspeicher und wird jeden Tag um Mitternacht verworfen, danach ist keine
+                                Zuordnung mehr möglich.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Download- und Store-Buttons führen dazu kurz über unseren Server, der den Klick zählt und Sie sofort
+                                zur Datei bzw. zum Store weiterleitet.
+                            </p>
+                            <p className="text-sm leading-relaxed">
+                                Sendet Ihr Browser das Signal „Do Not Track“ oder „Global Privacy Control“, zählen wir Ihre Seitenaufrufe nicht.
+                            </p>
+                            <Basis>
+                                Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem bedarfsgerechten Angebot).
+                                Sie können dieser Verarbeitung jederzeit widersprechen (Art. 21 DSGVO).
+                            </Basis>
+                        </Box>
+                    </Section>
 
+                    <Section number={4} title="Datenerfassung in unseren Apps">
                         <div className="space-y-6">
-                            <div className="bg-slate-900/30 p-6 rounded-xl border border-slate-800/50">
-                                <h3 className="text-lg font-bold text-white mb-3">Nutzungsstatistiken (Aktive Nutzer)</h3>
+                            <Box>
+                                <Sub>Push-Benachrichtigungen (Adeptstack App)</Sub>
                                 <p className="text-sm leading-relaxed mb-4">
-                                    Um zu verstehen, wie stark unsere Software genutzt wird, erfassen wir eine minimale Statistik.
-                                    Wenn Sie eine unserer Apps nutzen, sendet diese ein kurzes Signal an unseren Server.
+                                    Die Adeptstack App für Android und iOS kann Sie über neue Versionen und Beiträge informieren.
+                                    Dafür nutzen wir <strong>OneSignal</strong> (OneSignal, Inc., USA). Die App fragt beim Start nach Ihrer Erlaubnis
+                                    für Benachrichtigungen; ohne diese Erlaubnis werden keine Pushes gesendet.
                                 </p>
                                 <p className="text-sm leading-relaxed mb-2 font-medium text-slate-200">
-                                    Was wir speichern:
+                                    Verarbeitet werden dabei:
                                 </p>
-                                <ul className="list-disc list-inside text-slate-400 text-sm mb-4">
-                                    <li>Dass die App im aktuellen Monat geöffnet wurde (Ja/Nein).</li>
-                                    <li>Den Namen der genutzten App (z.B. &#34;Notivity&#34;).</li>
+                                <ul className={list + " mb-4"}>
+                                    <li>ein Push-Token und eine Abonnement-ID Ihres Geräts</li>
+                                    <li>technische Angaben wie Gerätemodell, Betriebssystem- und App-Version, Sprache und Zeitzone</li>
+                                    <li>die IP-Adresse (zur ungefähren Bestimmung des Landes)</li>
+                                    <li>ob Benachrichtigungen zugestellt und geöffnet wurden</li>
+                                    <li>Ihre Einstellung, ob Sie Benachrichtigungen zu neuen Versionen erhalten möchten</li>
                                 </ul>
                                 <p className="text-sm leading-relaxed">
-                                    <strong>Wir erstellen keine Nutzerprofile.</strong> Diese Daten dienen rein statistischen Zwecken,
-                                    um die Weiterentwicklung der beliebtesten Tools zu priorisieren.
+                                    Wir verwenden kein Nutzerkonto, keine E-Mail-Adresse oder Telefonnummer und keinen Standort.
+                                    OneSignal ist nach dem EU-US Data Privacy Framework zertifiziert.
                                 </p>
-                            </div>
+                                <Basis>
+                                    Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über den Erlaubnis-Dialog Ihres Geräts).
+                                    Sie können die Einwilligung jederzeit in den Einstellungen Ihres Geräts oder der App widerrufen.
+                                </Basis>
+                            </Box>
+
+                            <Box>
+                                <Sub>Prüfung der Internetverbindung</Sub>
+                                <p className="text-sm leading-relaxed">
+                                    Die Adeptstack App prüft, ob eine Internetverbindung besteht, indem sie eine leere Adresse von Google
+                                    (clients3.google.com) abruft. Dabei erhält <strong>Google LLC</strong> (USA) technisch bedingt Ihre IP-Adresse
+                                    und den User-Agent. Weitere Daten werden nicht übertragen. Google ist nach dem EU-US Data Privacy Framework zertifiziert.
+                                </p>
+                                <Basis>
+                                    Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer funktionierenden App).
+                                </Basis>
+                            </Box>
 
                             <div>
-                                <h3 className="text-lg font-bold text-white mb-2">Lokale Datenverarbeitung</h3>
+                                <Sub>Lokale Datenverarbeitung</Sub>
                                 <p className="text-sm leading-relaxed">
                                     Soweit nicht anders angegeben, arbeiten unsere Desktop-Apps (wie PC-Info) primär lokal auf Ihrem Gerät.
                                     Persönliche Daten verlassen Ihren Computer nicht, es sei denn, Sie nutzen explizit Online-Funktionen (z.B. Cloud-Sync).
                                 </p>
                             </div>
                         </div>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">4</span>
-                            Kontakt
-                        </h2>
+                    <Section number={5} title="Kontakt">
                         <p className="text-sm leading-relaxed mb-4">
                             Wenn Sie uns per E-Mail kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten
                             (Name, Anfrage, E-Mail) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert.
                             Wir geben diese Daten nicht ohne Ihre Einwilligung weiter.
                         </p>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">6</span>
-                            Cookies & Tracking
-                        </h2>
+                    <Section number={6} title="Cookies & Tracking">
                         <p className="text-sm leading-relaxed mb-4">
                             <strong>Wir hassen nervige Cookie-Banner genauso wie Sie.</strong> Deshalb verzichten wir auf dieser Website komplett auf Analyse- oder Tracking-Cookies (wie z.B. Google Analytics) sowie auf Werbe-Tracker.
+                            Unsere eigene Reichweitenmessung kommt ohne Cookies aus, siehe Abschnitt 3.
                             Sollten temporäre Cookies oder lokaler Speicher (Local Storage) zum Einsatz kommen, dienen diese ausschließlich der technischen Bereitstellung der Seite (z.B. Cloudflare Bot-Schutz oder das Speichern von UI-Einstellungen wie dem Dark-Mode).
                         </p>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">5</span>
-                            Ihre Rechte (DSGVO)
-                        </h2>
+                    <Section number={7} title="Ihre Rechte (DSGVO)">
                         <div className="grid md:grid-cols-2 gap-4 text-sm">
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Auskunft</strong>
-                                Sie können jederzeit erfahren, welche Daten wir über Sie gespeichert haben.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Löschung</strong>
-                                Sie können verlangen, dass wir Ihre Daten löschen, sofern keine Aufbewahrungspflicht besteht.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Widerruf</strong>
-                                Erteilte Einwilligungen können Sie jederzeit für die Zukunft widerrufen.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Beschwerde</strong>
-                                Sie haben das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren.
-                            </div>
+                            <Right title="Auskunft (Art. 15)">Sie können jederzeit erfahren, welche Daten wir über Sie gespeichert haben.</Right>
+                            <Right title="Berichtigung (Art. 16)">Sie können verlangen, dass wir unrichtige Daten berichtigen.</Right>
+                            <Right title="Löschung (Art. 17)">Sie können verlangen, dass wir Ihre Daten löschen, sofern keine Aufbewahrungspflicht besteht.</Right>
+                            <Right title="Einschränkung (Art. 18)">Sie können verlangen, dass wir die Verarbeitung Ihrer Daten einschränken.</Right>
+                            <Right title="Datenübertragbarkeit (Art. 20)">Sie können Ihre Daten in einem gängigen, maschinenlesbaren Format erhalten.</Right>
+                            <Right title="Widerruf (Art. 7 Abs. 3)">Erteilte Einwilligungen können Sie jederzeit für die Zukunft widerrufen.</Right>
+                            <Right title="Beschwerde (Art. 77)">Sie haben das Recht, sich bei der zuständigen Aufsichtsbehörde zu beschweren.</Right>
+                        </div>
+                        <div className="mt-4 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
+                            <strong className="text-white block mb-1">Widerspruchsrecht (Art. 21)</strong>
+                            Soweit wir Daten auf Grundlage berechtigter Interessen verarbeiten (Art. 6 Abs. 1 lit. f DSGVO), können Sie
+                            dieser Verarbeitung aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen.
                         </div>
                         <p className="mt-6 text-sm">
                             Wenden Sie sich hierfür einfach an die im Impressum angegebene Adresse oder E-Mail.
                         </p>
-                    </section>
+                    </Section>
                 </div>
 
 
@@ -208,16 +282,12 @@ export default function PrivacyPage() {
                         </h2>
                         <p className="text-slate-400 text-sm">
                             Valid for Adeptstack website and software. <br/>
-                            Last updated: February 2026
+                            Last updated: October 2026
                         </p>
                     </div>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">1</span>
-                            Controller / Responsible Body
-                        </h3>
-                        <div className="bg-slate-900/30 p-6 rounded-xl border border-slate-800/50">
+                    <Section english number={1} title="Controller / Responsible Body">
+                        <Box>
                             <p className="mb-4">
                                 The party responsible for data processing on this website and in the apps is:
                             </p>
@@ -228,18 +298,13 @@ export default function PrivacyPage() {
                             <p className="mt-4">
                                 E-Mail: <a href="mailto:info@adeptstack.net" className="text-blue-400 hover:underline">info@adeptstack.net</a>
                             </p>
-                        </div>
-                    </section>
+                        </Box>
+                    </Section>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">2</span>
-                            Hosting & Infrastructure
-                        </h3>
-
+                    <Section english number={2} title="Hosting & Infrastructure">
                         <div className="space-y-8">
                             <div>
-                                <h4 className="text-lg font-bold text-white mb-2">Vercel (Frontend Hosting)</h4>
+                                <Sub english>Vercel (Frontend Hosting)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
                                     We host the frontend of our website with <strong>Vercel Inc.</strong> (USA).
                                     Vercel collects log files (IP addresses, browser data) to ensure the technical delivery, stability, and security of the site.
@@ -247,21 +312,22 @@ export default function PrivacyPage() {
                             </div>
 
                             <div>
-                                <h4 className="text-lg font-bold text-white mb-2">Cloudflare (Security & CDN)</h4>
+                                <Sub english>Cloudflare (Security & CDN for the website)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
-                                    Traffic is routed through the network of <strong>Cloudflare Inc.</strong> (USA).
+                                    Requests to our website (adeptstack.net) are routed through the network of <strong>Cloudflare Inc.</strong> (USA).
                                     Cloudflare acts as a security firewall (WAF) against attacks and optimizes loading times.
                                     Connection data is analyzed to block malicious bots and threats.
+                                    Our API server (api.adeptstack.net) is not routed through Cloudflare.
                                 </p>
                             </div>
 
                             <div>
-                                <h4 className="text-lg font-bold text-white mb-2">Proprietary Backend Server (APIs)</h4>
+                                <Sub english>Proprietary Backend Server (APIs)</Sub>
                                 <p className="mb-2 text-sm leading-relaxed">
                                     Our apps and dynamic web content communicate with our own API server.
                                     For security reasons (e.g., to prevent brute-force attacks), we store server log files.
                                 </p>
-                                <ul className="list-disc list-inside text-slate-400 text-sm ml-2 space-y-1">
+                                <ul className={list}>
                                     <li>IP Address (automatically deleted/anonymized after a short period)</li>
                                     <li>Time of access</li>
                                     <li>Requested path (URL)</li>
@@ -272,102 +338,141 @@ export default function PrivacyPage() {
 
                         <div className="mt-6 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
                             <strong className="text-white block mb-1">Data Transfer to Third Countries (USA)</strong>
-                            Both Vercel and Cloudflare process data partially on servers in the US.
-                            Both companies are certified under the EU-US Data Privacy Framework (DPF),
+                            Vercel, Cloudflare and the other US providers named in this policy process data partially on servers in the US.
+                            They are certified under the EU-US Data Privacy Framework (DPF),
                             ensuring a level of data protection compliant with the GDPR.
                         </div>
 
-                        <p className="mt-6 text-xs text-slate-500">
+                        <Basis>
                             Legal basis: Art. 6 (1) lit. f GDPR (Legitimate interest in security, stability, and performance).
-                        </p>
-                    </section>
+                        </Basis>
+                    </Section>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">3</span>
-                            Data Collection in our Apps
-                        </h3>
+                    <Section english number={3} title="Cookieless Audience Measurement">
+                        <Box>
+                            <p className="text-sm leading-relaxed mb-4">
+                                To understand which content is read and which programs are downloaded, we count page views,
+                                downloads and clicks on store links. We set <strong>no cookies</strong>, store nothing in your browser
+                                and create <strong>no user profiles</strong>.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-2 font-medium text-slate-200">
+                                For a page view we briefly process:
+                            </p>
+                            <ul className={list + " mb-4"}>
+                                <li>the page visited and the date</li>
+                                <li>the referring page (referrer); only its name or domain is kept, e.g. &#34;Google&#34;</li>
+                                <li>operating system, browser and device type, derived from the user agent</li>
+                                <li>the preferred language of your browser</li>
+                            </ul>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Only aggregated daily counts are stored, for example &#34;Windows: 412 visitors on October 3&#34;.
+                                Each trait is counted on its own and never combined with another, so the numbers cannot be linked to a person.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-4">
+                                To detect double counting and manipulation, we compute an irreversible check value (hash) from your IP address,
+                                user agent and a random value that changes every day. The IP address itself is not stored for this.
+                                The random value only exists in memory and is discarded every day at midnight; after that, no link is possible anymore.
+                            </p>
+                            <p className="text-sm leading-relaxed mb-4">
+                                For this, download and store buttons briefly pass through our server, which counts the click and immediately
+                                forwards you to the file or the store.
+                            </p>
+                            <p className="text-sm leading-relaxed">
+                                If your browser sends &#34;Do Not Track&#34; or &#34;Global Privacy Control&#34;, your page views are not counted.
+                            </p>
+                            <Basis>
+                                Legal basis: Art. 6 (1) lit. f GDPR (legitimate interest in an offer that meets demand).
+                                You can object to this processing at any time (Art. 21 GDPR).
+                            </Basis>
+                        </Box>
+                    </Section>
 
+                    <Section english number={4} title="Data Collection in our Apps">
                         <div className="space-y-6">
-                            <div className="bg-slate-900/30 p-6 rounded-xl border border-slate-800/50">
-                                <h4 className="text-lg font-bold text-white mb-3">Usage Statistics (Active Users)</h4>
+                            <Box>
+                                <Sub english>Push Notifications (Adeptstack App)</Sub>
                                 <p className="text-sm leading-relaxed mb-4">
-                                    To understand how much our software is being used, we collect minimal statistics.
-                                    When you use one of our apps, it sends a short signal to our server.
+                                    The Adeptstack app for Android and iOS can notify you about new versions and posts.
+                                    For this we use <strong>OneSignal</strong> (OneSignal, Inc., USA). The app asks for your permission to show
+                                    notifications when it starts; without that permission no pushes are sent.
                                 </p>
                                 <p className="text-sm leading-relaxed mb-2 font-medium text-slate-200">
-                                    What we store:
+                                    The following is processed:
                                 </p>
-                                <ul className="list-disc list-inside text-slate-400 text-sm mb-4">
-                                    <li>That the app was opened in the current month (Yes/No).</li>
-                                    <li>The name of the app used (e.g., &#34;Notivity&#34;).</li>
+                                <ul className={list + " mb-4"}>
+                                    <li>a push token and a subscription ID of your device</li>
+                                    <li>technical details such as device model, operating system and app version, language and time zone</li>
+                                    <li>the IP address (to roughly determine the country)</li>
+                                    <li>whether notifications were delivered and opened</li>
+                                    <li>your setting whether you want notifications about new versions</li>
                                 </ul>
                                 <p className="text-sm leading-relaxed">
-                                    <strong>We do not create user profiles.</strong> These data are strictly for statistical purposes
-                                    to prioritize the development of our most popular tools.
+                                    We use no user account, no e-mail address or phone number and no location.
+                                    OneSignal is certified under the EU-US Data Privacy Framework.
                                 </p>
-                            </div>
+                                <Basis>
+                                    Legal basis: Art. 6 (1) lit. a GDPR (consent via your device&#39;s permission dialog).
+                                    You can revoke your consent at any time in the settings of your device or the app.
+                                </Basis>
+                            </Box>
+
+                            <Box>
+                                <Sub english>Internet Connection Check</Sub>
+                                <p className="text-sm leading-relaxed">
+                                    The Adeptstack app checks whether an internet connection is available by requesting an empty address from Google
+                                    (clients3.google.com). For technical reasons <strong>Google LLC</strong> (USA) receives your IP address and user agent.
+                                    No other data is transferred. Google is certified under the EU-US Data Privacy Framework.
+                                </p>
+                                <Basis>
+                                    Legal basis: Art. 6 (1) lit. f GDPR (legitimate interest in a working app).
+                                </Basis>
+                            </Box>
 
                             <div>
-                                <h4 className="text-lg font-bold text-white mb-2">Local Data Processing</h4>
+                                <Sub english>Local Data Processing</Sub>
                                 <p className="text-sm leading-relaxed">
                                     Unless stated otherwise, our desktop apps (like PC-Info) operate primarily locally on your device.
                                     Personal data does not leave your computer unless you explicitly use online features (e.g., cloud sync).
                                 </p>
                             </div>
                         </div>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">4</span>
-                            Contact & Communication
-                        </h3>
+                    <Section english number={5} title="Contact & Communication">
                         <p className="text-sm leading-relaxed mb-4">
                             If you contact us via email, your inquiry, including all personal data provided
                             (name, request, email), will be stored by us for the purpose of processing your request.
                             We do not pass on this data without your consent.
                         </p>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">6</span>
-                            Cookies & Tracking
-                        </h3>
+                    <Section english number={6} title="Cookies & Tracking">
                         <p className="text-sm leading-relaxed mb-4">
                             <strong>We dislike annoying cookie banners just as much as you do.</strong> Therefore, we completely refrain from using analytics or tracking cookies (such as Google Analytics) and advertising trackers on this website.
+                            Our own audience measurement works without cookies, see section 3.
                             If temporary cookies or local storage are used, they serve strictly technical purposes to keep the site functioning securely (e.g., Cloudflare bot protection or saving UI preferences like dark mode).
                         </p>
-                    </section>
+                    </Section>
 
-                    <section>
-                        <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                            <span className="bg-blue-500/10 text-blue-400 w-8 h-8 flex items-center justify-center rounded-lg text-sm">5</span>
-                            Your Rights (GDPR)
-                        </h3>
+                    <Section english number={7} title="Your Rights (GDPR)">
                         <div className="grid md:grid-cols-2 gap-4 text-sm">
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Access</strong>
-                                You can request information about your stored data at any time.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Deletion</strong>
-                                You can request the deletion of your data, provided there is no legal retention obligation.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Revocation</strong>
-                                You can revoke any consent given at any time for the future.
-                            </div>
-                            <div className="bg-slate-900/20 p-4 rounded-lg border border-slate-800/30">
-                                <strong className="text-white block mb-1">Complaint</strong>
-                                You have the right to lodge a complaint with the competent supervisory authority.
-                            </div>
+                            <Right title="Access (Art. 15)">You can request information about your stored data at any time.</Right>
+                            <Right title="Rectification (Art. 16)">You can request that we correct inaccurate data.</Right>
+                            <Right title="Deletion (Art. 17)">You can request the deletion of your data, provided there is no legal retention obligation.</Right>
+                            <Right title="Restriction (Art. 18)">You can request that we restrict the processing of your data.</Right>
+                            <Right title="Data Portability (Art. 20)">You can receive your data in a common, machine-readable format.</Right>
+                            <Right title="Revocation (Art. 7 (3))">You can revoke any consent given at any time for the future.</Right>
+                            <Right title="Complaint (Art. 77)">You have the right to lodge a complaint with the competent supervisory authority.</Right>
+                        </div>
+                        <div className="mt-4 bg-blue-500/5 p-4 rounded-lg border border-blue-500/10 text-sm">
+                            <strong className="text-white block mb-1">Right to Object (Art. 21)</strong>
+                            Where we process data based on legitimate interests (Art. 6 (1) lit. f GDPR), you can object to this processing
+                            at any time on grounds relating to your particular situation.
                         </div>
                         <p className="mt-6 text-sm">
                             For any such requests, simply contact us via the address or email provided in the Imprint.
                         </p>
-                    </section>
+                    </Section>
                 </div>
             </main>
             <Footer />
