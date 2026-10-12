@@ -11,6 +11,8 @@ import {getAppBySlug} from "@/libs/getApps";
 import {Metadata} from "next";
 import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
+import ProductGallery from "@/components/ProductGallery";
+import {appFeatures, appImages} from "@/libs/appMedia";
 import { hasDownloadLink, buildOgImage } from "@/libs/utils";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
@@ -41,7 +43,7 @@ export async function generateMetadata(
     }
 
     // the app icon as the small thumbnail card; the screenshot only when there is no icon
-    const og = app.iconUrl ? buildOgImage(app.iconUrl, "square") : buildOgImage(app.image1Url);
+    const og = app.iconUrl ? buildOgImage(app.iconUrl, "square") : buildOgImage(appImages(app)[0]?.url);
 
     return {
         title: `${app.name} | Adeptstack`,
@@ -71,6 +73,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     }
 
     const latestVersion = app.latestMainVersion;
+
+    const images = appImages(app);
+    const features = appFeatures(app);
 
     const parsedPlatforms = app.platforms
         ? app.platforms.split(/[,;]/).map(p => p.trim().toLowerCase()).filter(Boolean)
@@ -282,61 +287,28 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     </section>
                 )}
 
-                {/* max-w-6xl für breitere Layouts und space-y-32 für mehr Abstand */}
-                <section className="px-6 md:px-12 max-w-6xl mx-auto space-y-32">
+                {/* video first, then every screenshot */}
+                <ProductGallery appName={app.name ?? ""} images={images} videoUrl={app.videoUrl}/>
 
-                    {(app.image1Url || app.feature1Desc) && (
-                        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-                            {app.image1Url && (
+                {/* screenshots with a text, image and text alternating sides */}
+                {features.length > 0 && (
+                    <section className="px-6 md:px-12 max-w-6xl mx-auto space-y-32">
+                        {features.map((feature, index) => (
+                            <div key={feature.url + index}
+                                 className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center gap-8 md:gap-16`}>
                                 <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <ZoomableImage src={app.image1Url} alt={`Screenshot 1 von ${app.name}`} />
+                                    <ZoomableImage src={feature.url} alt={`Feature ${index + 1} of ${app.name}`}/>
                                 </div>
-                            )}
-                            {app.feature1Desc && (
                                 <div className="w-full md:w-1/2 space-y-4">
                                     {/* prose-lg und prose-headings:text-3xl für größeren Text */}
                                     <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
-                                        <MarkdownRenderer content={app.feature1Desc}/>
+                                        <MarkdownRenderer content={feature.text ?? ""}/>
                                     </div>
                                 </div>
-                            )}
-                        </div>
-                    )}
-
-                    {(app.image2Url || app.feature2Desc) && (
-                        <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-16">
-                            {app.image2Url && (
-                                <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <ZoomableImage src={app.image2Url} alt={`Screenshot 2 von ${app.name}`} />
-                                </div>
-                            )}
-                            {app.feature2Desc && (
-                                <div className="w-full md:w-1/2 space-y-4">
-                                    <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
-                                        <MarkdownRenderer content={app.feature2Desc}/>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    {(app.image3Url || app.feature3Desc) && (
-                        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
-                            {app.image3Url && (
-                                <div className="w-full md:w-1/2 aspect-video rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50">
-                                    <ZoomableImage src={app.image3Url} alt={`Screenshot 3 von ${app.name}`} />
-                                </div>
-                            )}
-                            {app.feature3Desc && (
-                                <div className="w-full md:w-1/2 space-y-4">
-                                    <div className="prose prose-invert prose-lg prose-slate max-w-none text-slate-400 prose-headings:text-white prose-headings:font-bold prose-headings:text-3xl prose-h2:mt-0">
-                                        <MarkdownRenderer content={app.feature3Desc}/>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </section>
+                            </div>
+                        ))}
+                    </section>
+                )}
 
                 {/* --- PRE-FOOTER CTA SECTION --- */}
                 <section className="px-6 md:px-12 max-w-3xl mx-auto mt-24 mb-6 text-center">
