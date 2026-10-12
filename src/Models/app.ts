@@ -33,5 +33,8 @@ export interface App {
     downloads?: number;
     downloadsFormatted?: string;
     publishedAt?: string;
+    /** The newest release that is already out */
     latestMainVersion?: Changelog;
+    /** The next release dated in the future, for "coming soon" */
+    upcomingVersion?: Changelog | null;
 }

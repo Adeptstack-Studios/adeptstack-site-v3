@@ -17,4 +17,6 @@ export interface Changelog {
     version: string;
     publishedAt: string;
     visibility?: 'PUBLIC' | 'UNLISTED' | 'PRIVATE';
+    /** Dated in the future: announced, the backend leaves out the download links until then. */
+    upcoming?: boolean;
 }

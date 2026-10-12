@@ -48,6 +48,11 @@ export default function ChangelogCard({ log }: { log: any }) {
                         <span className="text-[10px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded flex items-center">
                             <Activity className="w-3 h-3 mr-1" /> {log.channel || "Release"}
                         </span>
+                        {log.upcoming && (
+                            <span className="text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded">
+                                Coming soon
+                            </span>
+                        )}
                     </div>
 
                     <div className="flex items-center gap-1.5 text-blue-500 text-sm font-semibold opacity-80 group-hover:opacity-100 transition-all shrink-0">

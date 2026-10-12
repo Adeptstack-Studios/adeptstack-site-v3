@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import {notFound} from "next/navigation";
-import {Download, History, Layers, Activity, AlertTriangle, Globe} from "lucide-react";
+import {Download, History, Layers, Activity, AlertTriangle, Globe, CalendarClock} from "lucide-react";
 import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe, FaMicrosoft, FaAppStoreIos, FaGooglePlay } from 'react-icons/fa';
 import { SiCurseforge, SiModrinth } from 'react-icons/si';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
@@ -13,7 +13,7 @@ import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
 import ProductGallery from "@/components/ProductGallery";
 import {appFeatures, appImages} from "@/libs/appMedia";
-import { hasDownloadLink, buildOgImage } from "@/libs/utils";
+import { hasDownloadLink, buildOgImage, formatReleaseDate } from "@/libs/utils";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -73,6 +73,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     }
 
     const latestVersion = app.latestMainVersion;
+    // announced but not out yet: shown as "coming soon", the backend sends no download links for it
+    const upcoming = app.upcomingVersion;
+    const upcomingDate = upcoming?.publishedAt ? formatReleaseDate(upcoming.publishedAt) : null;
+    const comingSoon = !hasDownloadLink(latestVersion) && !!upcoming;
 
     const images = appImages(app);
     const features = appFeatures(app);
@@ -152,6 +156,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     <span
                                         className="px-3 py-1 rounded-md border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                                         <Activity className="w-3 h-3"/> {latestVersion.channel}
+                                      </span>
+                                )}
+                                {upcoming && (
+                                    <span
+                                        className="px-3 py-1 rounded-md border border-amber-500/20 bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                        <CalendarClock className="w-3 h-3"/>
+                                        {comingSoon ? `Coming soon · ${upcomingDate}` : `v${upcoming.version} coming ${upcomingDate}`}
                                       </span>
                                 )}
                                 {app.downloadsFormatted && (
@@ -252,7 +263,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                 ) : (
                                     <button disabled
                                             className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-800 text-slate-500 font-bold rounded-xl cursor-not-allowed">
-                                        <Download className="w-5 h-5"/> Not available
+                                        {comingSoon
+                                            ? <><CalendarClock className="w-5 h-5"/> Coming soon</>
+                                            : <><Download className="w-5 h-5"/> Not available</>}
                                     </button>
                                 )}
 
@@ -325,7 +338,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                 Ready for {app.name}?
                             </h2>
                             <p className="text-slate-400 mb-8 max-w-lg mx-auto text-sm md:text-base">
-                                Download the latest version now and experience all features yourself.
+                                {comingSoon
+                                    ? `${app.name} comes out on ${upcomingDate}. Follow the changelogs so you do not miss it.`
+                                    : "Download the latest version now and experience all features yourself."}
                             </p>
 
                             <div className="flex flex-wrap items-center justify-center gap-4">

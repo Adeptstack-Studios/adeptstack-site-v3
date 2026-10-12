@@ -82,6 +82,11 @@ export function primaryDownloadUrl(changelog?: Changelog) {
 }
 
 /** True when the release has any download link at all. Narrows the type for the caller. */
+/** "Oct 20, 2026" */
+export function formatReleaseDate(date: string) {
+    return new Date(date).toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});
+}
+
 export function hasDownloadLink(changelog?: Changelog): changelog is Changelog {
     return Boolean(
         changelog?.appUrl || changelog?.microsoftStoreUrl || changelog?.playStoreUrl

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Calendar, Layers, Tag, Activity, Download, Globe } from "lucide-react";
+import { Calendar, Layers, Tag, Activity, Download, Globe, CalendarClock } from "lucide-react";
 import { SiCurseforge, SiModrinth } from "react-icons/si";
 import { FaMicrosoft, FaAppStoreIos, FaGooglePlay, FaSteam } from "react-icons/fa";
 import { notFound } from "next/navigation";
@@ -100,6 +100,15 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                     <div className="prose prose-invert prose-slate prose-a:text-blue-400 hover:prose-a:text-blue-300 max-w-none bg-slate-900/30 border border-slate-800/50 rounded-2xl p-8 md:p-10 backdrop-blur-sm">
                         <MarkdownRenderer content={changelog.content || "No content available."} />
                     </div>
+
+                    {changelog.upcoming && (
+                        <div className="mt-12 flex justify-center">
+                            <span className="inline-flex items-center gap-2 px-6 py-3 bg-slate-800 text-slate-400 font-bold rounded-lg cursor-not-allowed">
+                                <CalendarClock className="w-4 h-4"/>
+                                Coming soon · available on {formattedDate}
+                            </span>
+                        </div>
+                    )}
 
                     {hasDownloadLink(changelog) && (
                         <div className="mt-12 flex flex-wrap justify-center gap-4">
