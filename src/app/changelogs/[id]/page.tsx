@@ -10,7 +10,7 @@ import { getAppById } from "@/libs/getApps";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import type { Metadata } from "next";
 import BackButton from "@/components/BackButton"; // <-- Hier importieren wir den neuen Button
-import { hasDownloadLink, buildOgImage } from "@/libs/utils";
+import { hasDownloadLink, buildOgImage, countedLink } from "@/libs/utils";
 
 export async function generateMetadata(
     { params }: { params: Promise<{ id: string }> }
@@ -113,56 +113,56 @@ export default async function ChangelogDetailPage({ params }: { params: Promise<
                     {hasDownloadLink(changelog) && (
                         <div className="mt-12 flex flex-wrap justify-center gap-4">
                             {changelog.appUrl && (
-                                <a href={changelog.appUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "appUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg shadow-white/5">
                                     <Download className="w-4 h-4"/>
                                     Download
                                 </a>
                             )}
                             {changelog.microsoftStoreUrl && (
-                                <a href={changelog.microsoftStoreUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "microsoftStoreUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <FaMicrosoft className="w-4 h-4"/>
                                     Microsoft Store
                                 </a>
                             )}
                             {changelog.appStoreUrl && (
-                                <a href={changelog.appStoreUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "appStoreUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <FaAppStoreIos className="w-4 h-4"/>
                                     App Store
                                 </a>
                             )}
                             {changelog.playStoreUrl && (
-                                <a href={changelog.playStoreUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "playStoreUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <FaGooglePlay className="w-4 h-4"/>
                                     Play Store
                                 </a>
                             )}
                             {changelog.steamUrl && (
-                                <a href={changelog.steamUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "steamUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <FaSteam className="w-4 h-4"/>
                                     Steam
                                 </a>
                             )}
                             {changelog.modrinthUrl && (
-                                <a href={changelog.modrinthUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "modrinthUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <SiModrinth className="w-4 h-4"/>
                                     Modrinth
                                 </a>
                             )}
                             {changelog.curseforgeUrl && (
-                                <a href={changelog.curseforgeUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "curseforgeUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-slate-950 font-bold rounded-lg hover:bg-blue-50 transition-colors border border-slate-200 shadow-sm">
                                     <SiCurseforge className="w-4 h-4"/>
                                     CurseForge
                                 </a>
                             )}
                             {changelog.saasUrl && (
-                                <a href={changelog.saasUrl} target="_blank" rel="noopener noreferrer"
+                                <a href={countedLink(changelog, "saasUrl")} target="_blank" rel="noopener noreferrer"
                                    className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20">
                                     <Globe className="w-4 h-4"/>
                                     Visit

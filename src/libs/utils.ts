@@ -82,6 +82,31 @@ export function primaryDownloadUrl(changelog?: Changelog) {
 }
 
 /** True when the release has any download link at all. Narrows the type for the caller. */
+/** The link field of a release and the counting address our backend redirects from. */
+const COUNTED_LINKS = {
+    appUrl: "download",
+    saasUrl: "web",
+    microsoftStoreUrl: "microsoft-store",
+    playStoreUrl: "play-store",
+    appStoreUrl: "app-store",
+    steamUrl: "steam",
+    modrinthUrl: "modrinth",
+    curseforgeUrl: "curseforge",
+} as const;
+
+/**
+ * Download and store buttons go through our backend, which counts the click (daily sums only)
+ * and redirects to the real address right away. Without an id the link is used as it is.
+ */
+export function countedLink(release: Changelog, field: keyof typeof COUNTED_LINKS): string {
+    const direct = release[field] ?? "";
+    if (!release.id || !direct) return direct;
+    const target = COUNTED_LINKS[field];
+    return target === "download"
+        ? `${getBaseUrl()}/api/download/${release.id}`
+        : `${getBaseUrl()}/api/out/${release.id}/${target}`;
+}
+
 /** "Oct 20, 2026" */
 export function formatReleaseDate(date: string) {
     return new Date(date).toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"});

@@ -13,7 +13,7 @@ import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
 import ProductGallery from "@/components/ProductGallery";
 import {appFeatures, appImages} from "@/libs/appMedia";
-import { hasDownloadLink, buildOgImage, formatReleaseDate } from "@/libs/utils";
+import { hasDownloadLink, buildOgImage, formatReleaseDate, countedLink } from "@/libs/utils";
 
 const PlatformIcon = ({ platform }: { platform: string }) => {
     const size = 16;
@@ -205,7 +205,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     <>
                                         {latestVersion.appUrl && (
                                             <a
-                                                href={latestVersion.appUrl}
+                                                href={countedLink(latestVersion, "appUrl")}
                                                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95"
                                             >
                                                 <Download className="w-5 h-5"/> Download
@@ -213,7 +213,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.microsoftStoreUrl && (
                                             <a
-                                                href={latestVersion.microsoftStoreUrl}
+                                                href={countedLink(latestVersion, "microsoftStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaMicrosoft className="w-5 h-5"/> Microsoft Store
@@ -221,7 +221,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.appStoreUrl && (
                                             <a
-                                                href={latestVersion.appStoreUrl}
+                                                href={countedLink(latestVersion, "appStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaAppStoreIos className="w-5 h-5"/> App Store
@@ -229,7 +229,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.playStoreUrl && (
                                             <a
-                                                href={latestVersion.playStoreUrl}
+                                                href={countedLink(latestVersion, "playStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaGooglePlay className="w-5 h-5"/> Play Store
@@ -237,7 +237,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.steamUrl && (
                                             <a
-                                                href={latestVersion.steamUrl}
+                                                href={countedLink(latestVersion, "steamUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaSteam className="w-5 h-5"/> Steam
@@ -245,7 +245,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.modrinthUrl && (
                                             <a
-                                                href={latestVersion.modrinthUrl}
+                                                href={countedLink(latestVersion, "modrinthUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <SiModrinth className="w-5 h-5"/> Modrinth
@@ -253,7 +253,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.curseforgeUrl && (
                                             <a
-                                                href={latestVersion.curseforgeUrl}
+                                                href={countedLink(latestVersion, "curseforgeUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <SiCurseforge className="w-5 h-5"/> CurseForge
@@ -271,7 +271,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                                 {latestVersion?.saasUrl && (
                                     <a
-                                        href={latestVersion.saasUrl}
+                                        href={countedLink(latestVersion, "saasUrl")}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20 hover:scale-105 active:scale-95"
@@ -348,7 +348,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                     <>
                                         {latestVersion.appUrl && (
                                             <a
-                                                href={latestVersion.appUrl}
+                                                href={countedLink(latestVersion, "appUrl")}
                                                 className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95"
                                             >
                                                 <Download className="w-5 h-5"/> Download
@@ -356,7 +356,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.microsoftStoreUrl && (
                                             <a
-                                                href={latestVersion.microsoftStoreUrl}
+                                                href={countedLink(latestVersion, "microsoftStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaMicrosoft className="w-5 h-5"/> Microsoft Store
@@ -364,7 +364,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.appStoreUrl && (
                                             <a
-                                                href={latestVersion.appStoreUrl}
+                                                href={countedLink(latestVersion, "appStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaAppStoreIos className="w-5 h-5"/> App Store
@@ -372,7 +372,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.playStoreUrl && (
                                             <a
-                                                href={latestVersion.playStoreUrl}
+                                                href={countedLink(latestVersion, "playStoreUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaGooglePlay className="w-5 h-5"/> Play Store
@@ -380,7 +380,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.steamUrl && (
                                             <a
-                                                href={latestVersion.steamUrl}
+                                                href={countedLink(latestVersion, "steamUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <FaSteam className="w-5 h-5"/> Steam
@@ -388,7 +388,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.modrinthUrl && (
                                             <a
-                                                href={latestVersion.modrinthUrl}
+                                                href={countedLink(latestVersion, "modrinthUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <SiModrinth className="w-5 h-5"/> Modrinth
@@ -396,7 +396,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                         )}
                                         {latestVersion.curseforgeUrl && (
                                             <a
-                                                href={latestVersion.curseforgeUrl}
+                                                href={countedLink(latestVersion, "curseforgeUrl")}
                                                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-white text-slate-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-white/5 hover:scale-105 active:scale-95 border border-slate-200"
                                             >
                                                 <SiCurseforge className="w-5 h-5"/> CurseForge
@@ -414,7 +414,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                                 {latestVersion?.saasUrl && (
                                     <a
-                                        href={latestVersion.saasUrl}
+                                        href={countedLink(latestVersion, "saasUrl")}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-blue-600/20 hover:scale-105 active:scale-95"

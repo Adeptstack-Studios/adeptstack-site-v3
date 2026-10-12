@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/libs/utils";
 import AppPromo from "@/components/AppPromo";
+import PageViewBeacon from "@/components/PageViewBeacon";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +50,10 @@ export default function RootLayout({
         {children}
         {/* only renders for visitors arriving via a link shared from the app */}
         <AppPromo />
+        {/* cookieless page view counting, see the privacy page */}
+        <Suspense fallback={null}>
+          <PageViewBeacon />
+        </Suspense>
       </body>
     </html>
   );
