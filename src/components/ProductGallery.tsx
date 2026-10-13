@@ -10,6 +10,8 @@ interface Props {
     appName: string;
     images: AppImage[];
     videoUrl?: string | null;
+    /** inside a column of the page: no own width, a bit smaller shots */
+    embedded?: boolean;
 }
 
 /**
@@ -17,7 +19,7 @@ interface Props {
  * full size with arrows and keyboard navigation. The video comes from our own server
  * and only starts loading when it is played.
  */
-export default function ProductGallery({appName, images, videoUrl}: Props) {
+export default function ProductGallery({appName, images, videoUrl, embedded = false}: Props) {
     const strip = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useState<number | null>(null);
 
@@ -44,16 +46,17 @@ export default function ProductGallery({appName, images, videoUrl}: Props) {
 
     const itemCount = images.length + (videoUrl ? 1 : 0);
     if (itemCount === 0) return null;
+    const itemWidth = embedded ? "w-[85%] sm:w-[calc(50%-10px)]" : "w-[85%] md:w-[calc(50%-10px)]";
 
     return (
-        <section className="max-w-6xl mx-auto px-6 md:px-12 mb-24" aria-label={`Screenshots of ${appName}`}>
+        <section className={embedded ? "" : "max-w-6xl mx-auto px-6 md:px-12 mb-24"} aria-label={`Screenshots of ${appName}`}>
             <div className="relative group/gallery">
                 <div
                     ref={strip}
                     className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:thin] [scrollbar-color:#334155_transparent]"
                 >
                     {videoUrl && (
-                        <div className="snap-start shrink-0 w-[85%] md:w-[calc(50%-10px)] aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-black shadow-2xl">
+                        <div className={`snap-start shrink-0 ${itemWidth} aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-black shadow-2xl`}>
                             <video
                                 src={videoUrl}
                                 controls
@@ -70,7 +73,7 @@ export default function ProductGallery({appName, images, videoUrl}: Props) {
                             key={image.url + index}
                             type="button"
                             onClick={() => setOpen(index)}
-                            className="snap-start shrink-0 w-[85%] md:w-[calc(50%-10px)] aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 shadow-2xl cursor-zoom-in"
+                            className={`snap-start shrink-0 ${itemWidth} aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 shadow-2xl cursor-zoom-in`}
                             aria-label={`Open screenshot ${index + 1} of ${images.length}`}
                         >
                             <img
