@@ -17,6 +17,7 @@ import ZoomableImage from "@/components/ZoomableImage";
 import ProductGallery from "@/components/ProductGallery";
 import GetButtons, {availableOn} from "@/components/product/GetButtons";
 import ShowMore from "@/components/product/ShowMore";
+import BackgroundVideo from "@/components/product/BackgroundVideo";
 import {appFeatures, appImages} from "@/libs/appMedia";
 import { hasDownloadLink, buildOgImage, formatReleaseDate } from "@/libs/utils";
 
@@ -112,7 +113,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
     const images = appImages(app);
     const features = appFeatures(app);
-    const backdrop = images[0]?.url ?? app.iconUrl;
+    // chosen in the console; an icon blown up would look blurry, so without screenshots there is none
+    const backdrop = app.backgroundUrl || images[0]?.url;
+    const backdropVideo = app.backgroundVideo && app.videoUrl ? app.videoUrl : null;
     const changelogsHref = `/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`;
 
     const parsedPlatforms = app.platforms
@@ -136,11 +139,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <Header/>
 
             <main className="grow pt-24 pb-24 relative overflow-x-clip">
-                {/* the first screenshot, blurred, behind the top of the page */}
-                {backdrop && (
-                    <div className="absolute inset-x-0 top-0 h-[560px] overflow-hidden pointer-events-none" aria-hidden="true">
-                        <img src={backdrop} alt="" className="w-full h-full object-cover opacity-30 blur-3xl scale-125"
-                             style={{maskImage: "linear-gradient(to bottom, black 30%, transparent)"}}/>
+                {/* the background behind the top of the page, fading out; the video only for those who like motion */}
+                {(backdrop || backdropVideo) && (
+                    <div className="absolute inset-x-0 top-0 h-[620px] overflow-hidden pointer-events-none" aria-hidden="true"
+                         style={{maskImage: "linear-gradient(to bottom, black 40%, transparent)"}}>
+                        {backdropVideo ? (
+                            <>
+                                {/* the image only shows while the video loads, and for those who prefer less motion */}
+                                <BackgroundVideo src={backdropVideo} poster={backdrop}
+                                                 className="w-full h-full object-cover opacity-45 motion-reduce:hidden"/>
+                                {backdrop && <img src={backdrop} alt="" className="hidden motion-reduce:block w-full h-full object-cover opacity-45"/>}
+                            </>
+                        ) : backdrop && (
+                            <img src={backdrop} alt="" className="w-full h-full object-cover opacity-45"/>
+                        )}
+                        <div className="absolute inset-0 bg-linear-to-r from-slate-950/70 via-slate-950/20 to-slate-950/50"/>
                     </div>
                 )}
 

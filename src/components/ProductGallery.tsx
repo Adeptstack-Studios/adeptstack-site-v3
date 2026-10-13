@@ -68,11 +68,11 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
                 >
                     {videoUrl && (
                         <div className="snap-center shrink-0 w-full aspect-video bg-black">
+                            {/* a frame of the video itself as the picture before it plays, not a screenshot */}
                             <video
-                                src={videoUrl}
+                                src={`${videoUrl}#t=0.1`}
                                 controls
-                                preload="none"
-                                poster={images[0]?.url}
+                                preload="metadata"
                                 className="w-full h-full object-contain"
                             >
                                 Your browser can not play this video.
@@ -133,7 +133,8 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
                             aria-current={current === 0}
                             className={`relative shrink-0 w-24 sm:w-28 aspect-video rounded-lg overflow-hidden border-2 bg-black transition-all cursor-pointer ${current === 0 ? "border-blue-500" : "border-transparent opacity-60 hover:opacity-100"}`}
                         >
-                            {images[0] && <img src={images[0].url} alt="" className="w-full h-full object-cover opacity-60"/>}
+                            <video src={`${videoUrl}#t=0.1`} preload="metadata" muted playsInline tabIndex={-1}
+                                   className="w-full h-full object-cover opacity-70 pointer-events-none"/>
                             <Play className="absolute inset-0 m-auto w-5 h-5 text-white" fill="currentColor"/>
                         </button>
                     )}

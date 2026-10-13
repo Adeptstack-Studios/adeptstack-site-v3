@@ -21,6 +21,10 @@ export interface App {
     images?: AppImage[];
     /** Optional uploaded video, shown first in the gallery */
     videoUrl?: string | null;
+    /** behind the top of the product page; without one the first screenshot is used */
+    backgroundUrl?: string | null;
+    /** the video plays behind the top instead, muted and looping */
+    backgroundVideo?: boolean;
     image1Url?: string;
     image2Url?: string;
     image3Url?: string;
