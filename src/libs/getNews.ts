@@ -27,6 +27,14 @@ export async function getBlogPosts(limit?: number): Promise<News[]> {
     return await fetchWithRetry(`${baseUrl}/api/news/get${query}`);
 }
 
+/** The newest posts about one app (its slug), for its product page. */
+export async function getPostsForApp(slug: string, limit = 3): Promise<News[]> {
+    const baseUrl = getBaseUrl();
+    const query = buildQuery({ app: slug, sort: "publishedAt,desc", page: 0, size: limit });
+    const data = await fetchWithRetry(`${baseUrl}/api/news/get${query}`);
+    return Array.isArray(data) ? data : [];
+}
+
 /** One page of the blog, filtered and sorted by the backend. */
 export async function getBlogPage({ category, q, sort, page, size }: BlogQuery): Promise<Page<News>> {
     const baseUrl = getBaseUrl();

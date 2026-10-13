@@ -8,6 +8,8 @@ import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe, FaMicrosoft, 
 import { SiCurseforge, SiModrinth } from 'react-icons/si';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getAppBySlug} from "@/libs/getApps";
+import {getPostsForApp} from "@/libs/getNews";
+import NewsCard from "@/components/NewsCard";
 import {Metadata} from "next";
 import BackButton from "@/components/BackButton";
 import ZoomableImage from "@/components/ZoomableImage";
@@ -66,7 +68,10 @@ export async function generateMetadata(
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
     const resolvedParams = await params;
 
-    const app = await getAppBySlug(resolvedParams.slug);
+    const [app, posts] = await Promise.all([
+        getAppBySlug(resolvedParams.slug),
+        getPostsForApp(resolvedParams.slug, 3),
+    ]);
 
     if (!app) {
         notFound();
@@ -320,6 +325,31 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                                 </div>
                             </div>
                         ))}
+                    </section>
+                )}
+
+                {/* posts linked to this app in the console, the newest first */}
+                {posts.length > 0 && (
+                    <section className="px-6 md:px-12 max-w-5xl mx-auto mt-32">
+                        <div className="flex items-end justify-between mb-8 px-2">
+                            <h2 className="text-3xl font-bold text-white">News about {app.name}</h2>
+                            <Link href="/blog" className="text-sm text-slate-400 hover:text-white transition">All posts →</Link>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {posts.map(post => (
+                                <NewsCard
+                                    key={post.id}
+                                    id={post.id}
+                                    slug={post.slug}
+                                    title={post.title}
+                                    description={post.description}
+                                    category={post.category}
+                                    imageUrl={post.imageUrl}
+                                    readingTimeMinutes={post.readingTimeMinutes}
+                                    date={post.publishedAt ? formatReleaseDate(String(post.publishedAt)) : undefined}
+                                />
+                            ))}
+                        </div>
                     </section>
                 )}
 
