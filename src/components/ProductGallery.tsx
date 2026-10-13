@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import {useCallback, useEffect, useRef, useState} from "react";
-import {ChevronLeft, ChevronRight, X} from "lucide-react";
+import {ChevronLeft, ChevronRight, Play, X} from "lucide-react";
 import {AnimatePresence, motion} from "framer-motion";
 import {AppImage} from "@/Models/app";
 
@@ -10,22 +10,23 @@ interface Props {
     appName: string;
     images: AppImage[];
     videoUrl?: string | null;
-    /** inside a column of the page: no own width, a bit smaller shots */
+    /** inside a column of the page: no own width */
     embedded?: boolean;
 }
 
 /**
- * The video (if any) and every screenshot in one horizontal strip. Screenshots open
- * full size with arrows and keyboard navigation. The video comes from our own server
- * and only starts loading when it is played.
+ * The video (if any) and every screenshot, one large at a time like a store page, with arrows and
+ * thumbnails below. Swiping works on phones. A screenshot opens full size with arrows and keyboard
+ * navigation. The video comes from our own server and only starts loading when it is played.
  */
 export default function ProductGallery({appName, images, videoUrl, embedded = false}: Props) {
     const strip = useRef<HTMLDivElement>(null);
+    const [current, setCurrent] = useState(0);
     const [open, setOpen] = useState<number | null>(null);
 
     const close = useCallback(() => setOpen(null), []);
     const step = useCallback((delta: number) => {
-        setOpen(current => current === null ? null : (current + delta + images.length) % images.length);
+        setOpen(shown => shown === null ? null : (shown + delta + images.length) % images.length);
     }, [images.length]);
 
     useEffect(() => {
@@ -39,24 +40,34 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
         return () => window.removeEventListener("keydown", onKey);
     }, [open, close, step]);
 
-    const scrollBy = (direction: number) => {
+    const itemCount = images.length + (videoUrl ? 1 : 0);
+    const offset = videoUrl ? 1 : 0;
+
+    /** the slide that fills the frame, after swiping or scrolling */
+    const onScroll = () => {
         const element = strip.current;
-        if (element) element.scrollBy({left: direction * element.clientWidth * 0.8, behavior: "smooth"});
+        if (element) setCurrent(Math.round(element.scrollLeft / element.clientWidth));
     };
 
-    const itemCount = images.length + (videoUrl ? 1 : 0);
+    const show = (index: number) => {
+        const element = strip.current;
+        const target = (index + itemCount) % itemCount;
+        if (element) element.scrollTo({left: target * element.clientWidth, behavior: "smooth"});
+        setCurrent(target);
+    };
+
     if (itemCount === 0) return null;
-    const itemWidth = embedded ? "w-[85%] sm:w-[calc(50%-10px)]" : "w-[85%] md:w-[calc(50%-10px)]";
 
     return (
-        <section className={embedded ? "" : "max-w-6xl mx-auto px-6 md:px-12 mb-24"} aria-label={`Screenshots of ${appName}`}>
-            <div className="relative group/gallery">
+        <section className={embedded ? "" : "max-w-5xl mx-auto px-6 md:px-12 mb-24"} aria-label={`Screenshots of ${appName}`}>
+            <div className="relative">
                 <div
                     ref={strip}
-                    className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:thin] [scrollbar-color:#334155_transparent]"
+                    onScroll={onScroll}
+                    className="flex overflow-x-auto snap-x snap-mandatory rounded-2xl border border-slate-800 bg-slate-900/50 shadow-2xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 >
                     {videoUrl && (
-                        <div className={`snap-start shrink-0 ${itemWidth} aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-black shadow-2xl`}>
+                        <div className="snap-center shrink-0 w-full aspect-video bg-black">
                             <video
                                 src={videoUrl}
                                 controls
@@ -73,40 +84,73 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
                             key={image.url + index}
                             type="button"
                             onClick={() => setOpen(index)}
-                            className={`snap-start shrink-0 ${itemWidth} aspect-video rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/50 shadow-2xl cursor-zoom-in`}
-                            aria-label={`Open screenshot ${index + 1} of ${images.length}`}
+                            className="snap-center shrink-0 w-full aspect-video cursor-zoom-in"
+                            aria-label={`Open screenshot ${index + 1} of ${images.length} full size`}
                         >
                             <img
                                 src={image.url}
                                 alt={`Screenshot ${index + 1} of ${appName}`}
-                                loading={index > 1 ? "lazy" : "eager"}
-                                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                                loading={index + offset > 1 ? "lazy" : "eager"}
+                                className="w-full h-full object-cover"
                             />
                         </button>
                     ))}
                 </div>
 
-                {itemCount > 2 && (
+                {itemCount > 1 && (
                     <>
                         <button
                             type="button"
-                            onClick={() => scrollBy(-1)}
-                            aria-label="Previous screenshots"
-                            className="hidden md:flex absolute -left-5 top-[calc(50%-8px)] -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-white opacity-0 group-hover/gallery:opacity-100 focus:opacity-100 transition-opacity"
+                            onClick={() => show(current - 1)}
+                            aria-label="Previous screenshot"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/70 backdrop-blur border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
                         >
                             <ChevronLeft size={20}/>
                         </button>
                         <button
                             type="button"
-                            onClick={() => scrollBy(1)}
-                            aria-label="Next screenshots"
-                            className="hidden md:flex absolute -right-5 top-[calc(50%-8px)] -translate-y-1/2 w-10 h-10 items-center justify-center rounded-full bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-white opacity-0 group-hover/gallery:opacity-100 focus:opacity-100 transition-opacity"
+                            onClick={() => show(current + 1)}
+                            aria-label="Next screenshot"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/70 backdrop-blur border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
                         >
                             <ChevronRight size={20}/>
                         </button>
+                        <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur text-xs font-medium text-slate-200 pointer-events-none">
+                            {current + 1} / {itemCount}
+                        </span>
                     </>
                 )}
             </div>
+
+            {itemCount > 1 && (
+                <div className="mt-3 flex gap-2.5 overflow-x-auto pb-1 [scrollbar-width:thin] [scrollbar-color:#334155_transparent]"
+                     role="group" aria-label="Choose a screenshot">
+                    {videoUrl && (
+                        <button
+                            type="button"
+                            onClick={() => show(0)}
+                            aria-label="Show the video"
+                            aria-current={current === 0}
+                            className={`relative shrink-0 w-24 sm:w-28 aspect-video rounded-lg overflow-hidden border-2 bg-black transition-all cursor-pointer ${current === 0 ? "border-blue-500" : "border-transparent opacity-60 hover:opacity-100"}`}
+                        >
+                            {images[0] && <img src={images[0].url} alt="" className="w-full h-full object-cover opacity-60"/>}
+                            <Play className="absolute inset-0 m-auto w-5 h-5 text-white" fill="currentColor"/>
+                        </button>
+                    )}
+                    {images.map((image, index) => (
+                        <button
+                            key={image.url + index}
+                            type="button"
+                            onClick={() => show(index + offset)}
+                            aria-label={`Show screenshot ${index + 1}`}
+                            aria-current={current === index + offset}
+                            className={`shrink-0 w-24 sm:w-28 aspect-video rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${current === index + offset ? "border-blue-500" : "border-transparent opacity-60 hover:opacity-100"}`}
+                        >
+                            <img src={image.url} alt="" loading="lazy" className="w-full h-full object-cover"/>
+                        </button>
+                    ))}
+                </div>
+            )}
 
             <AnimatePresence>
                 {open !== null && (
