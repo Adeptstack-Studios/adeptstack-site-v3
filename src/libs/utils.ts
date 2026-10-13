@@ -21,7 +21,9 @@ async function fetchResponseWithRetry(url: string, retries = 3): Promise<Respons
         try {
             const res = await fetch(url, {
                 next: { revalidate: 60 },
-                headers: headers
+                headers: headers,
+                // the API answers directly; a redirect (e.g. to a download) is never followed and read
+                redirect: "manual",
             });
 
             if (res.ok) {

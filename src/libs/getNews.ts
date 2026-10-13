@@ -43,7 +43,7 @@ export async function getBlogCategories(): Promise<Facet[]> {
 
 export async function getPostById(id: string): Promise<News | undefined> {
     const baseUrl = getBaseUrl();
-    const data = await fetchWithRetry(`${baseUrl}/api/news/get/${id}`);
+    const data = await fetchWithRetry(`${baseUrl}/api/news/get/${encodeURIComponent(id)}`);
 
     return Array.isArray(data) && data.length === 0 ? undefined : data;
 }

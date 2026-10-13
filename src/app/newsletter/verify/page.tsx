@@ -21,7 +21,7 @@ function VerifyContent() {
         // Dynamische Backend-URL aus den Umgebungsvariablen (z.B. in deiner .env.local definiert)
         const backendUrl = getBaseUrl();
 
-        fetch(`${backendUrl}/api/newsletter/verify?token=${token}`)
+        fetch(`${backendUrl}/api/newsletter/verify?token=${encodeURIComponent(token)}`)
             .then(async (res) => {
                 if (res.ok) {
                     const data = await res.json();

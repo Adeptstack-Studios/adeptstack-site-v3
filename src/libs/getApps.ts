@@ -13,7 +13,7 @@ export async function getApps(includeUnlisted = false): Promise<App[]> {
 
 export async function getAppById(id: string): Promise<App | undefined> {
     const baseUrl = getBaseUrl();
-    const data = await fetchWithRetry(`${baseUrl}/api/apps/get/${id}`);
+    const data = await fetchWithRetry(`${baseUrl}/api/apps/get/${encodeURIComponent(id)}`);
 
     return Array.isArray(data) && data.length === 0 ? undefined : data;
 }

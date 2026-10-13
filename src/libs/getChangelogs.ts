@@ -39,7 +39,7 @@ export async function getChangelogChannels(app?: number | string): Promise<Facet
 
 export async function getChangelogById(id: string): Promise<Changelog | undefined> {
     const baseUrl = getBaseUrl();
-    const data = await fetchWithRetry(`${baseUrl}/api/changelogs/get/${id}`);
+    const data = await fetchWithRetry(`${baseUrl}/api/changelogs/get/${encodeURIComponent(id)}`);
 
     return Array.isArray(data) && data.length === 0 ? undefined : data;
 }
