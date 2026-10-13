@@ -17,7 +17,6 @@ import ZoomableImage from "@/components/ZoomableImage";
 import ProductGallery from "@/components/ProductGallery";
 import GetButtons, {availableOn} from "@/components/product/GetButtons";
 import ShowMore from "@/components/product/ShowMore";
-import BackgroundVideo from "@/components/product/BackgroundVideo";
 import {appFeatures, appImages} from "@/libs/appMedia";
 import { hasDownloadLink, buildOgImage, formatReleaseDate } from "@/libs/utils";
 
@@ -115,7 +114,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     const features = appFeatures(app);
     // chosen in the console; an icon blown up would look blurry, so without screenshots there is none
     const backdrop = app.backgroundUrl || images[0]?.url;
-    const backdropVideo = app.backgroundVideo && app.videoUrl ? app.videoUrl : null;
     const changelogsHref = `/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`;
 
     const parsedPlatforms = app.platforms
@@ -139,21 +137,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <Header/>
 
             <main className="grow pt-24 pb-24 relative overflow-x-clip">
-                {/* the background behind the top of the page, fading out; the video only for those who like motion */}
-                {(backdrop || backdropVideo) && (
-                    <div className="absolute inset-x-0 top-0 h-[620px] overflow-hidden pointer-events-none" aria-hidden="true"
-                         style={{maskImage: "linear-gradient(to bottom, black 40%, transparent)"}}>
-                        {backdropVideo ? (
-                            <>
-                                {/* the image only shows while the video loads, and for those who prefer less motion */}
-                                <BackgroundVideo src={backdropVideo} poster={backdrop}
-                                                 className="w-full h-full object-cover opacity-45 motion-reduce:hidden"/>
-                                {backdrop && <img src={backdrop} alt="" className="hidden motion-reduce:block w-full h-full object-cover opacity-45"/>}
-                            </>
-                        ) : backdrop && (
-                            <img src={backdrop} alt="" className="w-full h-full object-cover opacity-45"/>
-                        )}
+                {/* the background behind the top of the page, fading out. Plain colour gradients on top:
+                    a mask, or a blur under the panel, costs a lot while scrolling */}
+                {backdrop && (
+                    <div className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden pointer-events-none" aria-hidden="true">
+                        <img src={backdrop} alt="" className="w-full h-full object-cover"/>
+                        {/* darker at the sides, where the panel and the text are; from 60 % of the window down into the page colour */}
                         <div className="absolute inset-0 bg-linear-to-r from-slate-950/70 via-slate-950/20 to-slate-950/50"/>
+                        <div className="absolute inset-0"
+                             style={{background: "linear-gradient(to bottom, rgb(2 6 23 / 0.55) 60vh, rgb(2 6 23) 80vh)"}}/>
                     </div>
                 )}
 
@@ -163,7 +155,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <div className="grid lg:grid-cols-[340px_minmax(0,1fr)] gap-10 lg:gap-12 items-start">
 
                         {/* --- STORE PANEL --- */}
-                        <aside className="lg:sticky lg:top-24 rounded-3xl border border-white/10 bg-slate-900/70 backdrop-blur-xl p-6 shadow-2xl">
+                        <aside className="lg:sticky lg:top-24 rounded-3xl border border-white/10 bg-slate-900/90 p-6 shadow-2xl">
                             <div className="flex lg:flex-col items-center lg:items-start gap-5">
                                 <div className="w-24 h-24 lg:w-28 lg:h-28 shrink-0 rounded-3xl bg-slate-950 border border-slate-800 p-3 shadow-xl flex items-center justify-center">
                                     {app.iconUrl ? (
