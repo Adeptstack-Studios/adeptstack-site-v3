@@ -3,6 +3,7 @@ import type {ReactNode} from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 import {notFound} from "next/navigation";
 import {AlertTriangle, ArrowRight, CalendarClock, Download, History, Layers} from "lucide-react";
 import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe } from 'react-icons/fa';
@@ -137,15 +138,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <Header/>
 
             <main className="grow pt-24 pb-24 relative overflow-x-clip">
-                {/* the background behind the top of the page, fading out. Plain colour gradients on top:
-                    a mask, or a blur under the panel, costs a lot while scrolling */}
+                {/* the background behind the top of the page, fading out. Light to scroll over: scaled to the screen
+                    by the image optimizer, on a layer of its own that is never painted again, plain colour gradients
+                    on top instead of a mask, and no blur under the panel */}
                 {backdrop && (
-                    <div className="absolute inset-x-0 top-0 h-[80vh] overflow-hidden pointer-events-none" aria-hidden="true">
-                        <img src={backdrop} alt="" className="w-full h-full object-cover"/>
-                        {/* darker at the sides, where the panel and the text are; from 60 % of the window down into the page colour */}
+                    <div className="absolute inset-x-0 top-0 h-[70vh] overflow-hidden pointer-events-none transform-gpu [contain:strict]"
+                         aria-hidden="true">
+                        <Image src={backdrop} alt="" fill sizes="100vw" quality={60} priority className="object-cover"/>
+                        {/* darker at the sides, where the panel and the text are; from half the window down into the page colour */}
                         <div className="absolute inset-0 bg-linear-to-r from-slate-950/70 via-slate-950/20 to-slate-950/50"/>
                         <div className="absolute inset-0"
-                             style={{background: "linear-gradient(to bottom, rgb(2 6 23 / 0.55) 60vh, rgb(2 6 23) 80vh)"}}/>
+                             style={{background: "linear-gradient(to bottom, rgb(2 6 23 / 0.55) 50vh, rgb(2 6 23) 70vh)"}}/>
                     </div>
                 )}
 

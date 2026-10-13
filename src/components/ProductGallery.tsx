@@ -103,7 +103,7 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
                             type="button"
                             onClick={() => show(current - 1)}
                             aria-label="Previous screenshot"
-                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/70 backdrop-blur border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/80 border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
                         >
                             <ChevronLeft size={20}/>
                         </button>
@@ -111,11 +111,11 @@ export default function ProductGallery({appName, images, videoUrl, embedded = fa
                             type="button"
                             onClick={() => show(current + 1)}
                             aria-label="Next screenshot"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/70 backdrop-blur border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-slate-950/80 border border-white/10 text-slate-200 hover:text-white hover:bg-slate-900 transition-colors cursor-pointer"
                         >
                             <ChevronRight size={20}/>
                         </button>
-                        <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/70 backdrop-blur text-xs font-medium text-slate-200 pointer-events-none">
+                        <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 text-xs font-medium text-slate-200 pointer-events-none">
                             {current + 1} / {itemCount}
                         </span>
                     </>
