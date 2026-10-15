@@ -6,8 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {notFound} from "next/navigation";
 import {AlertTriangle, ArrowRight, CalendarClock, Download, History, Layers} from "lucide-react";
-import { FaWindows, FaApple, FaAndroid, FaLinux, FaSteam, FaGlobe } from 'react-icons/fa';
-import { SiCurseforge, SiModrinth } from 'react-icons/si';
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import {getAppBySlug} from "@/libs/getApps";
 import {getPostsForApp} from "@/libs/getNews";
@@ -18,25 +16,9 @@ import ZoomableImage from "@/components/ZoomableImage";
 import ProductGallery from "@/components/ProductGallery";
 import GetButtons, {availableOn} from "@/components/product/GetButtons";
 import ShowMore from "@/components/product/ShowMore";
+import {PlatformIcon, parsePlatforms, platformName} from "@/components/product/platforms";
 import {appFeatures, appImages} from "@/libs/appMedia";
 import { hasDownloadLink, buildOgImage, formatReleaseDate } from "@/libs/utils";
-
-const PlatformIcon = ({ platform }: { platform: string }) => {
-    const size = 16;
-
-    switch (platform) {
-        case 'windows': return <FaWindows size={size} />;
-        case 'android': return <FaAndroid size={size} />;
-        case 'mac':
-        case 'ios': return <FaApple size={size} />;
-        case 'linux': return <FaLinux size={size} />;
-        case 'steam': return <FaSteam size={size} />;
-        case 'web': return <FaGlobe size={size} />;
-        case 'curseforge': return <SiCurseforge size={size} />;
-        case 'modrinth': return <SiModrinth size={size} />;
-        default: return <FaGlobe size={size} />;
-    }
-};
 
 export async function generateMetadata(
     { params }: { params: Promise<{ slug: string }> }
@@ -67,15 +49,6 @@ export async function generateMetadata(
             images: og.images.map(image => image.url),
         },
     };
-}
-
-const PLATFORM_NAMES: Record<string, string> = {
-    windows: "Windows", android: "Android", mac: "macOS", ios: "iOS", linux: "Linux", steam: "Steam", web: "Web",
-    curseforge: "CurseForge", modrinth: "Modrinth",
-};
-
-function platformName(platform: string) {
-    return PLATFORM_NAMES[platform] ?? platform.charAt(0).toUpperCase() + platform.slice(1);
 }
 
 /** Release notes often start with their own "What's new" heading; the section has one already. */
@@ -117,9 +90,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     const backdrop = app.backgroundUrl || images[0]?.url;
     const changelogsHref = `/changelogs?app=${encodeURIComponent(app.slug || app.name || "")}`;
 
-    const parsedPlatforms = app.platforms
-        ? app.platforms.split(/[,;]/).map(p => p.trim().toLowerCase()).filter(Boolean)
-        : [];
+    const parsedPlatforms = parsePlatforms(app.platforms);
 
     // "Additional information", only what is known
     const facts: { label: string; value: ReactNode }[] = [
