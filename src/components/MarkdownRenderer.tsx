@@ -42,7 +42,7 @@ export default function MarkdownRenderer({ content }: Props) {
                     ),
                     code: ({node, ...props}) => <code className="bg-slate-800 border border-white/10 text-blue-200 px-1.5 py-0.5 rounded text-sm font-mono" {...props} />,
                     blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-blue-500 pl-4 italic text-slate-400 my-6 bg-slate-900/50 py-2 pr-4 rounded-r" {...props} />,
-                    img: ({node, ...props}) => <img className="rounded-xl border border-white/10 shadow-lg my-8 w-full h-auto object-cover" {...props}  alt={"cover"}/>,
+                    img: ({node, alt, ...props}) => <img className="rounded-xl border border-white/10 shadow-lg my-8 w-full h-auto object-cover" loading="lazy" alt={alt ?? ""} {...props}/>,
 
                     table: ({node, ...props}) => (
                         <div className="my-6 overflow-x-auto rounded-xl border border-white/10">
